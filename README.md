@@ -1,27 +1,35 @@
-# Prosjekt4
+#  Group 13 - Project 4
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.4.9.
 
-## Development server
+### 1. Getting Started
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+To run this project on your local computer, you will need to have [Node.js][] installed.
 
-## Code scaffolding
+### 2. Installation
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Clone this repository, then using a terminal, navigate to the [website](Website/) directory and run the following:
 
-## Build
+```bash
+$ npm install
+```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+### 3. Usage
 
-## Running unit tests
+To start the server, run this command in the folder:
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```bash
+$ ng serve -o
+```
 
-## Running end-to-end tests
+If the server is able to start with your configuration, you will see this in
+your terminal:
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+```bash
+webpack: Compiled successfully.
+```
 
-## Further help
+The browser will now open a new window and the application will be running on [http://localhost:4200](http://localhost:4200).
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+
+[Node.js]: https://nodejs.org
