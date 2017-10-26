@@ -18,7 +18,7 @@ $ npm install
 To start the server, run this command in the folder:
 
 ```bash
-$ ng serve -o
+$ npm start
 ```
 
 If the server is able to start with your configuration, you will see this in
