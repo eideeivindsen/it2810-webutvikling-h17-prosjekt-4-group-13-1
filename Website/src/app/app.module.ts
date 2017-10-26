@@ -9,13 +9,15 @@ import { AppComponent } from './app.component';
 import { SearchViewComponent } from './search-view/search-view.component';
 import { ProfileViewComponent } from './profile-view/profile-view.component';
 import { NavigationComponent } from './navigation/navigation.component';
+import { LoginFormComponent } from './login-form/login-form.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SearchViewComponent,
     ProfileViewComponent,
-    NavigationComponent
+    NavigationComponent,
+    LoginFormComponent
   ],
   imports: [
     BrowserModule,
