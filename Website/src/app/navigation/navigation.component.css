@@ -1,0 +1,15 @@
+.navbar {
+    height: 60px;
+    background-color: #463F65;
+}
+nav {
+    display: flex;
+}
+
+a {
+    padding: 15px;
+    color: #D9D4DE;
+    text-transform: uppercase;
+    text-decoration: none;
+    flex: 1;
+}

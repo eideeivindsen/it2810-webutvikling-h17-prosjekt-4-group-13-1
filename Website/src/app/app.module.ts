@@ -1,16 +1,36 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { RouterModule }   from '@angular/router';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
+import { MatButtonModule } from '@angular/material';
+
 import { AppComponent } from './app.component';
+import { SearchViewComponent } from './search-view/search-view.component';
+import { ProfileViewComponent } from './profile-view/profile-view.component';
+import { NavigationComponent } from './navigation/navigation.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    SearchViewComponent,
+    ProfileViewComponent,
+    NavigationComponent
   ],
   imports: [
     BrowserModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    RouterModule.forRoot([
+      {
+        path: 'search',
+        component: SearchViewComponent
+      },
+      {
+        path: 'profile',
+        component: ProfileViewComponent
+      }
+    ]),
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
