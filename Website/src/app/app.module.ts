@@ -3,13 +3,13 @@ import { NgModule } from '@angular/core';
 import { RouterModule }   from '@angular/router';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
-import { MatButtonModule } from '@angular/material';
+import { MatButtonModule, MatInputModule, MatCardModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { SearchViewComponent } from './search-view/search-view.component';
 import { ProfileViewComponent } from './profile-view/profile-view.component';
 import { NavigationComponent } from './navigation/navigation.component';
-import { LoginFormComponent } from './login-form/login-form.component';
+import { LoginFormComponent } from './/profile-view/login-form/login-form.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +32,9 @@ import { LoginFormComponent } from './login-form/login-form.component';
         component: ProfileViewComponent
       }
     ]),
-    MatButtonModule
+    MatButtonModule,
+    MatInputModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]
