@@ -10,6 +10,8 @@ import { SearchViewComponent } from './search-view/search-view.component';
 import { ProfileViewComponent } from './profile-view/profile-view.component';
 import { NavigationComponent } from './navigation/navigation.component';
 
+import { AuthenticationService } from './_services/authentication.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,7 +34,7 @@ import { NavigationComponent } from './navigation/navigation.component';
     ]),
     MatButtonModule
   ],
-  providers: [],
+  providers: [AuthenticationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
