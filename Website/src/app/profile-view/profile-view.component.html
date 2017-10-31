@@ -1,1 +1,6 @@
-<app-login-form></app-login-form>
+<div *ngIf="user">
+    <h1 class="mat-display-1">My Profile:</h1>
+    <h3 class="mat-subheading-2">Name: {{user.name}}</h3>
+    <h3 class="mat-subheading-2">Password: {{user.password}}</h3>
+    <h3 class="mat-subheading-2">User Type: {{user.userType}}</h3>
+</div>
