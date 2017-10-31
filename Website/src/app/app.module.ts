@@ -23,6 +23,10 @@ import { routes } from './app.routes';
 
 
 
+// Import the Http Module and our Data Service
+import { HttpModule } from '@angular/http';
+import { DatabaseService } from './database.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,7 +46,7 @@ import { routes } from './app.routes';
     MatInputModule,
     MatCardModule
   ],
-  providers: [UserService, LoggedInGuard],
+  providers: [UserService, LoggedInGuard, DatabaseService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
