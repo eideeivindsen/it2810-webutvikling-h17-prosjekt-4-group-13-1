@@ -3,11 +3,13 @@ const router = express.Router();
 const MongoClient = require('mongodb').MongoClient;
 const ObjectID = require('mongodb').ObjectID;
 
+
+
 // Connect
 const connection = (closure) => {
     return MongoClient.connect('mongodb://webdev-4:turtleneck2017@ds241055.mlab.com:41055/webdev-4', (err, db) => {
         if (err) return console.log(err);
-
+        console.log("Connected to database");
         closure(db);
     });
 };
