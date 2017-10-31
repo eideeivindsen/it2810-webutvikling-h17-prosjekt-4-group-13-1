@@ -24,7 +24,6 @@ import { routes } from './app.routes';
 
 
 // Import the Http Module and our Data Service
-import { HttpModule } from '@angular/http';
 import { DatabaseService } from './database.service';
 
 @NgModule({
