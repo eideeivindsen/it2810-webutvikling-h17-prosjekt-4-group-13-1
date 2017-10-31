@@ -10,6 +10,10 @@ import { SearchViewComponent } from './search-view/search-view.component';
 import { ProfileViewComponent } from './profile-view/profile-view.component';
 import { NavigationComponent } from './navigation/navigation.component';
 
+// Import the Http Module and our Data Service
+import { HttpModule } from '@angular/http';
+import { DatabaseService } from './database.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,9 +34,10 @@ import { NavigationComponent } from './navigation/navigation.component';
         component: ProfileViewComponent
       }
     ]),
-    MatButtonModule
+    MatButtonModule,
+    HttpModule,
   ],
-  providers: [],
+  providers: [DatabaseService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
