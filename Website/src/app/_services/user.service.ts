@@ -24,7 +24,7 @@ export class UserService {
     //
     //     return res.success;
     //   });
-    
+
   }
 
   logout() {
