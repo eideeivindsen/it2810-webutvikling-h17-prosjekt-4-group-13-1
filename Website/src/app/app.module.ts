@@ -6,7 +6,15 @@ import { RouterModule }   from '@angular/router';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 
-import { MatButtonModule, MatCardModule, MatIconModule, MatInputModule } from '@angular/material';
+import { MatButtonModule,
+         MatCardModule,
+         MatCheckboxModule,
+         MatExpansionModule,
+         MatIconModule,
+         MatInputModule,
+         MatPaginatorModule,
+         MatSelectModule,
+         MatSliderModule } from '@angular/material';
 
 // Components
 import { AppComponent } from './app.component';
@@ -20,8 +28,13 @@ import { UserService } from './_services/user.service';
 import { LoggedInGuard } from './_services/logged-in.guard';
 
 import { routes } from './app.routes';
+import { SearchComponent } from './search-view/search/search.component';
+import { ResultsComponent } from './search-view/results/results.component';
 
 
+
+// Import the Http Module and our Data Service
+import { DatabaseService } from './database.service';
 
 @NgModule({
   declarations: [
@@ -29,7 +42,9 @@ import { routes } from './app.routes';
     SearchViewComponent,
     ProfileViewComponent,
     NavigationComponent,
-    LoginComponent
+    LoginComponent,
+    SearchComponent,
+    ResultsComponent
   ],
   imports: [
     BrowserModule,
@@ -38,12 +53,17 @@ import { routes } from './app.routes';
     HttpClientModule,
     FormsModule,
     RouterModule.forRoot(routes),
+    MatCardModule,
+    MatCheckboxModule,
     MatButtonModule,
+    MatExpansionModule,
     MatIconModule,
     MatInputModule,
-    MatCardModule
+    MatPaginatorModule,
+    MatSelectModule,
+    MatSliderModule,
   ],
-  providers: [UserService, LoggedInGuard],
+  providers: [UserService, LoggedInGuard, DatabaseService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

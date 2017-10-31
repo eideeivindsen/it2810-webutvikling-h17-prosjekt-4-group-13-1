@@ -1,0 +1,45 @@
+<div class="search-container">
+    <mat-card>
+        <div class="main-search">
+            <div class="searchBar" [class.expanded]="showExpantion">
+                <form class="example-form">
+                  <mat-form-field class="full-width">
+                    <input matInput placeholder="Search" value="">
+                  </mat-form-field>
+                </form>
+                <p class="mat-body-1 expandButton" *ngIf="!showExpantion" (click)="expandSearch()">+ Show advanced settings</p>
+            </div>
+            <div class="expansionTable" *ngIf="showExpantion">
+                <form class="example-form">
+                    <table class="full-width" cellspacing="0">
+                      <tr>
+                         <td><mat-form-field class="almost-full-width">
+                            <mat-select placeholder="Category" [(ngModel)]="selcetedCategory" name="Category">
+                              <mat-option *ngFor="let category of categories" [value]="category">
+                                {{category}}
+                              </mat-option>
+                            </mat-select>
+                          </mat-form-field></td>
+                          <td><mat-form-field class="almost-full-width">
+                            <mat-select placeholder="Producer" [(ngModel)]="selcetedProducer" name="Producer">
+                              <mat-option *ngFor="let producer of producers" [value]="producer">
+                                {{producer}}
+                              </mat-option>
+                            </mat-select>
+                        </mat-form-field></td>
+                      </tr>
+                      <tr class="last-row">
+                        <td><p class="mat-subheading-1">Maximum price:</p>
+                            <mat-slider class="full-width" [max]="2000" [min]="0" [step]="1" [thumb-label]="true"></mat-slider></td>
+                        <td><mat-checkbox class="full-width">Only display product in stock</mat-checkbox></td>
+                      </tr>
+                    </table>
+                </form>
+                <p class="mat-body-1 expandButton" *ngIf="showExpantion" (click)="expandSearch()">- Hide advanced settings</p>
+            </div>
+        </div>
+        <div class="searchButton">
+            <mat-icon>search</mat-icon>
+        </div>
+    </mat-card>
+</div>
