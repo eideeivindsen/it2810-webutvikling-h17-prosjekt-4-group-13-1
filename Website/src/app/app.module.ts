@@ -6,7 +6,15 @@ import { RouterModule }   from '@angular/router';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 
-import { MatButtonModule, MatInputModule, MatCardModule } from '@angular/material';
+import { MatButtonModule,
+         MatCardModule,
+         MatCheckboxModule,
+         MatExpansionModule,
+         MatIconModule,
+         MatInputModule,
+         MatPaginatorModule,
+         MatSelectModule,
+         MatSliderModule } from '@angular/material';
 
 // Components
 import { AppComponent } from './app.component';
@@ -20,6 +28,8 @@ import { UserService } from './_services/user.service';
 import { LoggedInGuard } from './_services/logged-in.guard';
 
 import { routes } from './app.routes';
+import { SearchComponent } from './search-view/search/search.component';
+import { ResultsComponent } from './search-view/results/results.component';
 
 
 
@@ -32,7 +42,9 @@ import { DatabaseService } from './database.service';
     SearchViewComponent,
     ProfileViewComponent,
     NavigationComponent,
-    LoginComponent
+    LoginComponent,
+    SearchComponent,
+    ResultsComponent
   ],
   imports: [
     BrowserModule,
@@ -41,9 +53,15 @@ import { DatabaseService } from './database.service';
     HttpClientModule,
     FormsModule,
     RouterModule.forRoot(routes),
+    MatCardModule,
+    MatCheckboxModule,
     MatButtonModule,
+    MatExpansionModule,
+    MatIconModule,
     MatInputModule,
-    MatCardModule
+    MatPaginatorModule,
+    MatSelectModule,
+    MatSliderModule,
   ],
   providers: [UserService, LoggedInGuard, DatabaseService],
   bootstrap: [AppComponent]
