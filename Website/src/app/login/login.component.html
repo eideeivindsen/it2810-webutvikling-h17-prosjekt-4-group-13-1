@@ -1,0 +1,12 @@
+<mat-card class="container">
+<h1 class="mat-display-1">Login:</h1>
+  <form #heroForm="ngForm" (ngSubmit)="onSubmit()" >
+    <mat-form-field>
+      <input matInput  placeholder="Username" name="Username" required>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput  type="password" placeholder="Password" name="Password" required>
+    </mat-form-field>
+    <button mat-raised-button>Login</button>
+  </form>
+</mat-card>
