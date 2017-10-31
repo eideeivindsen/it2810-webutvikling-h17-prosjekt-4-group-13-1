@@ -1,15 +1,102 @@
-.navbar {
+/*
+  VARIABLES
+
+  Background: #f9fafb
+  Navbar: #463F65
+  Green: #38a6a6
+
+
+*/
+nav {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 8vw;
     height: 60px;
     background-color: #463F65;
 }
-nav {
-    display: flex;
-}
 
-a {
-    padding: 15px;
-    color: #D9D4DE;
+nav > a {
+    margin: 15px 0 15px;
+    padding: 5px 10px;
+    box-sizing: border-box;
+    color: #FCFCFF;
     text-transform: uppercase;
     text-decoration: none;
-    flex: 1;
+    vertical-align: middle;
+    transition: all .3s ease;
+}
+
+nav > a.navlink-separator {
+  font-size: 2em;
+  margin-top: 5px;
+  margin-right: 24px;
+  cursor: default;
+}
+
+nav > a.navlink-search .mat-icon {
+  position: absolute;
+  margin-left: -26px;
+  margin-top: -3px;
+}
+
+nav > a.navlink-profile {
+  display: flex;
+  height: 60px;
+  width: auto;
+  margin: 0px 0 0px auto;
+  padding: 0 30px;
+  font-size: .8em;
+  line-height: 1em;
+  text-align: left;
+  background-color: #38a6a6;
+}
+
+nav > a.navlink-profile.not-logged-in a {
+  font-size: 1.3em;
+  padding: 23px 15px;
+}
+
+nav > a.navlink-profile:hover {
+  background-color: #2B9999;
+}
+
+nav > a.navlink-profile.logged-in div {
+  flex-grow: 1;
+}
+
+nav > a.navlink-profile.logged-in div:nth-child(2) {
+  flex-grow: 4;
+}
+
+nav > a.navlink-logout {
+  height: 60px;
+  width: auto;
+  margin: 0;
+  padding: 1em;
+  background-color: #e74c3c;
+  /*display: none;*/
+}
+
+nav > a.navlink-logout:hover {
+  background-color: #DA3F2F;
+}
+
+nav > a:not(.navlink-logo):hover {
+  color: #38a6a6;
+}
+
+nav > a:nth-child(2):hover,
+nav > a.navlink-profile:hover,
+nav > a.navlink-logout:hover {
+  color: #FCFCFF;
+}
+
+.navlink-profile-avatar img {
+  margin: 1.1em 1.1em 1.1em -10px;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  -webkit-box-shadow: 0 0 0 2px #fff, 0 0 0 3px #999, 0 2px 5px 4px rgba(0,0,0,.2);
+  -moz-box-shadow: 0 0 0 2px #fff, 0 0 0 3px #999, 0 2px 5px 4px rgba(0,0,0,.2);
+  box-shadow: 0 0 0 2px #fff, 0 0 0 3px #999, 0 2px 5px 4px rgba(0,0,0,.2);
 }

@@ -6,7 +6,7 @@ import { RouterModule }   from '@angular/router';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 
-import { MatButtonModule, MatInputModule, MatCardModule } from '@angular/material';
+import { MatButtonModule, MatCardModule, MatIconModule, MatInputModule } from '@angular/material';
 
 // Components
 import { AppComponent } from './app.component';
@@ -39,6 +39,7 @@ import { routes } from './app.routes';
     FormsModule,
     RouterModule.forRoot(routes),
     MatButtonModule,
+    MatIconModule,
     MatInputModule,
     MatCardModule
   ],
