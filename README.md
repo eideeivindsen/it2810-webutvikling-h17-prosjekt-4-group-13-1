@@ -31,5 +31,15 @@ webpack: Compiled successfully.
 The browser will now open a new window and the application will be running on [http://localhost:4200](http://localhost:4200).
 
 
+### 4. Running from server
+
+```bash
+$ ng build
+$ node server.js
+```
+
+The page can now be found on [http://localhost:8083](http://localhost:8083)
+
+
 
 [Node.js]: https://nodejs.org

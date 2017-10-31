@@ -40,6 +40,7 @@ router.get('/users', (req, res) => {
                 sendError(err, res);
             });
     });
+
 });
 
 module.exports = router;
