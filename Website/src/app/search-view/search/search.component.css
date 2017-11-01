@@ -55,11 +55,13 @@ mat-form-field {
 
 .searchButton {
     background-color: #38a6a6;
+    transition: all .3s ease;
     flex: 2;
     display: flex;
 }
 .searchButton:hover {
     cursor: pointer;
+    background-color: #2B9999;
 }
 
 .expansionTable {
