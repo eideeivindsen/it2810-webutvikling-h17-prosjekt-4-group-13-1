@@ -2,7 +2,7 @@
   VARIABLES
 
   Background: #f9fafb
-  Navbar: #463F65
+  Navbar: #673ab7
   Green: #38a6a6
 
 
@@ -12,7 +12,7 @@ nav {
     justify-content: space-between;
     padding: 0 8vw;
     height: 60px;
-    background-color: #463F65;
+    background-color: #673ab7;
 }
 
 nav > a {

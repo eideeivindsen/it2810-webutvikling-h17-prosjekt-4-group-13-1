@@ -13,4 +13,17 @@ export class ProfileService {
     return this.http
       .get('/profile', { headers });
   }
+
+  getRecentSearches() {
+    return this.http
+      .get(
+        '/recent-searches'
+      )
+      .map((res: any) => {
+        if (res.success) {
+          return res.success;
+        }
+      });
+
+  }
 }
