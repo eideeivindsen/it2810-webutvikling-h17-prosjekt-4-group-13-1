@@ -4,8 +4,8 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve -o",
-    "build": "ng build",
+    "start": "ng build -w & node server.js --watch dist --watch server",
+    "build": "ng build -w",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
