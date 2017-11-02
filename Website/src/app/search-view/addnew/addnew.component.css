@@ -1,0 +1,55 @@
+.addnew-container {
+    margin: 0vh 8vw;
+}
+
+.addButton {
+    text-align: right;
+}
+
+.form {
+    background-color: #FCFDFD;
+    margin-top: 20px;
+}
+
+.btn-color {
+    color: #38a6a6;
+}
+.btn-color-inverse {
+    background-color: #38a6a6;
+    color: #fff;
+}
+
+.form-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+.display-container {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.display-image,
+.display-content {
+    flex: 1;
+}
+
+
+mat-icon {
+    vertical-align: middle;
+    margin-right: 10px;
+}
+
+mat-form-field {
+    flex: 1;
+    padding: 25px;
+    width: 80%;
+}
+mat-form-field button{
+    float: right;
+}
+
+li {
+    list-style: none;
+    text-align: left;
+}
