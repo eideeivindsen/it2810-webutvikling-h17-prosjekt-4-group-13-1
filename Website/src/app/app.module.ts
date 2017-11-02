@@ -26,6 +26,7 @@ import { LoginComponent } from './login/login.component';
 // Services
 import { UserService } from './_services/user.service';
 import { LoggedInGuard } from './_services/logged-in.guard';
+import { ProfileService } from './_services/profile.service';
 
 import { routes } from './app.routes';
 import { SearchComponent } from './search-view/search/search.component';
@@ -63,7 +64,7 @@ import { DatabaseService } from './database.service';
     MatSelectModule,
     MatSliderModule,
   ],
-  providers: [UserService, LoggedInGuard, DatabaseService],
+  providers: [UserService, LoggedInGuard, DatabaseService, ProfileService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

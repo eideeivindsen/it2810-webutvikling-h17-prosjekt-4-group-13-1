@@ -22,6 +22,7 @@ ngOnInit() {
   onSubmit() {
     this.userService.login(this.username, this.password).subscribe((result) => {
       if (result) {
+        console.log(localStorage.getItem('auth_token'));
         this.router.navigate(['']);
       }
     });

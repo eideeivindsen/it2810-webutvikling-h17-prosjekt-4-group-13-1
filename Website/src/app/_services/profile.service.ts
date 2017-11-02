@@ -7,10 +7,8 @@ export class ProfileService {
 
   getProfile() {
     const headers = new HttpHeaders();
-    const authToken = localStorage.getItem('auth_token');
-    headers.append('Authorization', `Bearer ${authToken}`);
-
+    const auth_token = localStorage.getItem('auth_token');
     return this.http
-      .get('/profile', { headers });
+      .post('/api/profile', {auth_token});
   }
 }
