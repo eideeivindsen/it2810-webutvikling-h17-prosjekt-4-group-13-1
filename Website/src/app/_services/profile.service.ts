@@ -11,4 +11,17 @@ export class ProfileService {
     return this.http
       .post('/api/profile', {auth_token});
   }
+
+  getRecentSearches() {
+    return this.http
+      .get(
+        '/recent-searches'
+      )
+      .map((res: any) => {
+        if (res.success) {
+          return res.success;
+        }
+      });
+
+  }
 }

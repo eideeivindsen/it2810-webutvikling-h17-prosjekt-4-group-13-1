@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule }   from '@angular/router';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 
 import { MatButtonModule,
@@ -14,7 +14,10 @@ import { MatButtonModule,
          MatInputModule,
          MatPaginatorModule,
          MatSelectModule,
-         MatSliderModule } from '@angular/material';
+         MatSliderModule,
+         MatTableModule } from '@angular/material';
+
+import { ChartsModule } from 'ng2-charts';
 
 // Components
 import { AppComponent } from './app.component';
@@ -24,7 +27,9 @@ import { NavigationComponent } from './navigation/navigation.component';
 import { LoginComponent } from './login/login.component';
 
 // Services
+import { DatabaseService } from './database.service';
 import { UserService } from './_services/user.service';
+import { ProfileService } from './_services/profile.service';
 import { LoggedInGuard } from './_services/logged-in.guard';
 import { ProfileService } from './_services/profile.service';
 
@@ -34,8 +39,6 @@ import { ResultsComponent } from './search-view/results/results.component';
 
 
 
-// Import the Http Module and our Data Service
-import { DatabaseService } from './database.service';
 
 @NgModule({
   declarations: [
@@ -50,6 +53,7 @@ import { DatabaseService } from './database.service';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    ChartsModule,
     HttpModule,
     HttpClientModule,
     FormsModule,
@@ -63,8 +67,11 @@ import { DatabaseService } from './database.service';
     MatPaginatorModule,
     MatSelectModule,
     MatSliderModule,
+    MatTableModule
   ],
+
   providers: [UserService, LoggedInGuard, DatabaseService, ProfileService],
+
   bootstrap: [AppComponent]
 })
 export class AppModule { }
