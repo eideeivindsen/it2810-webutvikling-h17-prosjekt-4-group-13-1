@@ -10,18 +10,21 @@ import { UserService } from '../_services/user.service';
 })
 export class LoginComponent implements OnInit {
 
+username: String = "";
+password: String = "";
+
 constructor(private userService: UserService, private router: Router) {}
 
 ngOnInit() {
 
      }
 
-  onSubmit(email, password) {
-    // this.userService.login(email, password).subscribe((result) => {
-    //   if (result) {
-    //     this.router.navigate(['']);
-    //   }
-    // });
+  onSubmit() {
+    this.userService.login(this.username, this.password).subscribe((result) => {
+      if (result) {
+        this.router.navigate(['']);
+      }
+    });
 }
 
 }
