@@ -2,7 +2,7 @@
   VARIABLES
 
   Background: #f9fafb
-  Navbar: #673ab7
+  Navbar: #463F65
   Green: #38a6a6
 
 
@@ -12,7 +12,7 @@ nav {
     justify-content: space-between;
     padding: 0 8vw;
     height: 60px;
-    background-color: #673ab7;
+    background-color: #463F65;
 }
 
 nav > a {
@@ -102,4 +102,3 @@ nav > a.navlink-logout:hover {
   -moz-box-shadow: 0 0 0 2px #fff, 0 0 0 3px #999, 0 2px 5px 4px rgba(0,0,0,.2);
   box-shadow: 0 0 0 2px #fff, 0 0 0 3px #999, 0 2px 5px 4px rgba(0,0,0,.2);
 }
-

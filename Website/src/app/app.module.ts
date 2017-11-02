@@ -21,7 +21,6 @@ import { AddnewComponent } from './search-view/addnew/addnew.component';
 // Services
 import { DatabaseService } from './database.service';
 import { UserService } from './_services/user.service';
-import { ProfileService } from './_services/profile.service';
 import { LoggedInGuard } from './_services/logged-in.guard';
 import { ProfileService } from './_services/profile.service';
 
