@@ -12,6 +12,7 @@ export class UserService {
   }
 
   login(email, password) {
+    
     return this.http
       .post(
         '/api/authenticate',
@@ -22,14 +23,14 @@ export class UserService {
           localStorage.setItem('auth_token', res.auth_token);
           this.loggedIn = true;
         }
-    
         return res.success;
       });
 
   }
 
   logout() {
-   
+    localStorage.removeItem('auth_token');
+    this.loggedIn = false;
   }
 
   isLoggedIn() {

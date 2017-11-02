@@ -31,6 +31,7 @@ import { DatabaseService } from './database.service';
 import { UserService } from './_services/user.service';
 import { ProfileService } from './_services/profile.service';
 import { LoggedInGuard } from './_services/logged-in.guard';
+import { ProfileService } from './_services/profile.service';
 
 import { routes } from './app.routes';
 import { SearchComponent } from './search-view/search/search.component';
@@ -68,7 +69,9 @@ import { ResultsComponent } from './search-view/results/results.component';
     MatSliderModule,
     MatTableModule
   ],
-  providers: [UserService, ProfileService, LoggedInGuard, DatabaseService],
+
+  providers: [UserService, LoggedInGuard, DatabaseService, ProfileService],
+
   bootstrap: [AppComponent]
 })
 export class AppModule { }

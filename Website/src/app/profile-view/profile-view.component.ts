@@ -1,8 +1,8 @@
+
 import { Component, OnInit, ViewChild } from '@angular/core';
 import {DataSource} from '@angular/cdk/collections';
 import {MatPaginator} from '@angular/material';
 import {Observable} from 'rxjs/Observable';
-
 import 'rxjs/add/observable/of';
 
 import { User } from '../user';
