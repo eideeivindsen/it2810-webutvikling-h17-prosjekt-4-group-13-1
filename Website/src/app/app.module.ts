@@ -6,6 +6,26 @@ import { RouterModule }   from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {CdkTableModule} from '@angular/cdk/table';
+import { ChartsModule } from 'ng2-charts';
+
+// Components
+import { AppComponent } from './app.component';
+import { SearchViewComponent } from './search-view/search-view.component';
+import { ProfileViewComponent } from './profile-view/profile-view.component';
+import { NavigationComponent } from './navigation/navigation.component';
+import { LoginComponent } from './login/login.component';
+import { SearchComponent } from './search-view/search/search.component';
+import { ResultsComponent } from './search-view/results/results.component';
+import { AddnewComponent } from './search-view/addnew/addnew.component';
+
+// Services
+import { DatabaseService } from './database.service';
+import { UserService } from './_services/user.service';
+import { ProfileService } from './_services/profile.service';
+import { LoggedInGuard } from './_services/logged-in.guard';
+import { ProfileService } from './_services/profile.service';
+
+import { routes } from './app.routes';
 
 import { MatAutocompleteModule,
   MatButtonModule,
@@ -39,25 +59,6 @@ import { MatAutocompleteModule,
   MatTooltipModule,
   MatStepperModule,
       } from '@angular/material';
-
-// Components
-import { AppComponent } from './app.component';
-import { SearchViewComponent } from './search-view/search-view.component';
-import { ProfileViewComponent } from './profile-view/profile-view.component';
-import { NavigationComponent } from './navigation/navigation.component';
-import { LoginComponent } from './login/login.component';
-import { SearchComponent } from './search-view/search/search.component';
-import { ResultsComponent } from './search-view/results/results.component';
-import { AddnewComponent } from './search-view/addnew/addnew.component';
-
-// Services
-import { UserService } from './_services/user.service';
-import { LoggedInGuard } from './_services/logged-in.guard';
-
-import { routes } from './app.routes';
-
-// Import the Http Module and our Data Service
-import { DatabaseService } from './database.service';
 
 @NgModule({
   exports: [
@@ -111,6 +112,7 @@ export class PlunkerMaterialModule {}
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    ChartsModule,
     HttpModule,
     HttpClientModule,
     FormsModule,
@@ -118,7 +120,9 @@ export class PlunkerMaterialModule {}
     RouterModule.forRoot(routes),
     PlunkerMaterialModule,
   ],
-  providers: [UserService, LoggedInGuard, DatabaseService],
+
+  providers: [UserService, LoggedInGuard, DatabaseService, ProfileService],
+
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -7,10 +7,21 @@ export class ProfileService {
 
   getProfile() {
     const headers = new HttpHeaders();
-    const authToken = localStorage.getItem('auth_token');
-    headers.append('Authorization', `Bearer ${authToken}`);
-
+    const auth_token = localStorage.getItem('auth_token');
     return this.http
-      .get('/profile', { headers });
+      .post('/api/profile', {auth_token});
+  }
+
+  getRecentSearches() {
+    return this.http
+      .get(
+        '/recent-searches'
+      )
+      .map((res: any) => {
+        if (res.success) {
+          return res.success;
+        }
+      });
+
   }
 }

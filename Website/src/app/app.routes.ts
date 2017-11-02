@@ -6,6 +6,6 @@ import { LoggedInGuard } from './_services/logged-in.guard';
 
 export const routes = [
     { path: '', component: SearchViewComponent, pathMatch: 'full' },
-    { path: 'profile', component: ProfileViewComponent, canActivate: [LoggedInGuard] },
+    { path: 'profile', component: ProfileViewComponent /*, canActivate: [LoggedInGuard] */ },
     { path: 'login', component: LoginComponent }
 ];

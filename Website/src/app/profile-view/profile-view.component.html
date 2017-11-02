@@ -1,6 +1,86 @@
 <div *ngIf="user">
     <h1 class="mat-display-1">My Profile:</h1>
     <h3 class="mat-subheading-2">Name: {{user.name}}</h3>
-    <h3 class="mat-subheading-2">Password: {{user.password}}</h3>
+    <h3 class="mat-subheading-2">Admin: {{user.admin}}</h3>
     <h3 class="mat-subheading-2">User Type: {{user.userType}}</h3>
+</div>
+
+<div class="container">
+  <mat-card class="userinfo">
+    <div class="userinfo-img">
+      <img src="../assets/img/avatar-large-male.png" alt="">
+    </div>
+    <div class="userinfo-about">
+      <h1>Ola Nordmann</h1>
+      <h2><mat-icon>work</mat-icon> CEO</h2>
+      <h3>Member since 18.02.2015</h3>
+    </div>
+  </mat-card>
+  <div class="search-history">
+
+    <mat-card class="recent-searches">
+      <mat-card-header>
+        <h3>Recent searches</h3>
+      </mat-card-header>
+
+
+
+      <mat-table #table [dataSource]="dataSource">
+
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+
+        <!-- Search Column -->
+        <ng-container matColumnDef="search">
+          <mat-header-cell *matHeaderCellDef> Search </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.search}} </mat-cell>
+        </ng-container>
+
+        <!-- Date Column -->
+        <ng-container matColumnDef="date">
+          <mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{formatDate(element.date)}} </mat-cell>
+        </ng-container>
+
+        <!-- Name Column -->
+        <!-- <ng-container matColumnDef="name">
+          <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+        </ng-container> -->
+
+        <!-- Weight Column -->
+        <!-- <ng-container matColumnDef="weight">
+          <mat-header-cell *matHeaderCellDef> Weight </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.weight}} </mat-cell>
+        </ng-container> -->
+
+        <!-- Color Column -->
+        <!-- <ng-container matColumnDef="symbol">
+          <mat-header-cell *matHeaderCellDef> Symbol </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.symbol}} </mat-cell>
+        </ng-container> -->
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+
+    </mat-card>
+
+    <mat-card class="search-visualization">
+      <mat-card-header>
+        <h3>Searches visualized</h3>
+      </mat-card-header>
+
+      <canvas class="search-piechart"
+              baseChart
+              [data]="chartData"
+              [labels]="chartLabels"
+              [chartType]="chartType"
+              [options]="chartOptions"
+              (chartHover)="chartHovered($event)"
+              (chartClick)="chartClicked($event)"></canvas>
+
+    </mat-card>
+
+  </div>
 </div>
