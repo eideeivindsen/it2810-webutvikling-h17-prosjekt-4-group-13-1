@@ -3,20 +3,9 @@ import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule }   from '@angular/router';
-import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import { FormsModule } from '@angular/forms';
-
-import { MatButtonModule,
-         MatCardModule,
-         MatCheckboxModule,
-         MatExpansionModule,
-         MatIconModule,
-         MatInputModule,
-         MatPaginatorModule,
-         MatSelectModule,
-         MatSliderModule,
-         MatTableModule } from '@angular/material';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {CdkTableModule} from '@angular/cdk/table';
 import { ChartsModule } from 'ng2-charts';
 
 // Components
@@ -25,6 +14,9 @@ import { SearchViewComponent } from './search-view/search-view.component';
 import { ProfileViewComponent } from './profile-view/profile-view.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { LoginComponent } from './login/login.component';
+import { SearchComponent } from './search-view/search/search.component';
+import { ResultsComponent } from './search-view/results/results.component';
+import { AddnewComponent } from './search-view/addnew/addnew.component';
 
 // Services
 import { DatabaseService } from './database.service';
@@ -34,11 +26,77 @@ import { LoggedInGuard } from './_services/logged-in.guard';
 import { ProfileService } from './_services/profile.service';
 
 import { routes } from './app.routes';
-import { SearchComponent } from './search-view/search/search.component';
-import { ResultsComponent } from './search-view/results/results.component';
 
+import { MatAutocompleteModule,
+  MatButtonModule,
+  MatButtonToggleModule,
+  MatCardModule,
+  MatCheckboxModule,
+  MatChipsModule,
+  MatDatepickerModule,
+  MatDialogModule,
+  MatExpansionModule,
+  MatGridListModule,
+  MatIconModule,
+  MatInputModule,
+  MatListModule,
+  MatMenuModule,
+  MatNativeDateModule,
+  MatPaginatorModule,
+  MatProgressBarModule,
+  MatProgressSpinnerModule,
+  MatRadioModule,
+  MatRippleModule,
+  MatSelectModule,
+  MatSidenavModule,
+  MatSliderModule,
+  MatSlideToggleModule,
+  MatSnackBarModule,
+  MatSortModule,
+  MatTableModule,
+  MatTabsModule,
+  MatToolbarModule,
+  MatTooltipModule,
+  MatStepperModule,
+      } from '@angular/material';
 
-
+@NgModule({
+  exports: [
+    CdkTableModule,
+    MatAutocompleteModule,
+    MatButtonModule,
+    MatButtonToggleModule,
+    MatCardModule,
+    MatCheckboxModule,
+    MatChipsModule,
+    MatStepperModule,
+    MatDatepickerModule,
+    MatDialogModule,
+    MatExpansionModule,
+    MatGridListModule,
+    MatIconModule,
+    MatInputModule,
+    MatListModule,
+    MatMenuModule,
+    MatNativeDateModule,
+    MatPaginatorModule,
+    MatProgressBarModule,
+    MatProgressSpinnerModule,
+    MatRadioModule,
+    MatRippleModule,
+    MatSelectModule,
+    MatSidenavModule,
+    MatSliderModule,
+    MatSlideToggleModule,
+    MatSnackBarModule,
+    MatSortModule,
+    MatTableModule,
+    MatTabsModule,
+    MatToolbarModule,
+    MatTooltipModule,
+  ]
+})
+export class PlunkerMaterialModule {}
 
 @NgModule({
   declarations: [
@@ -48,7 +106,8 @@ import { ResultsComponent } from './search-view/results/results.component';
     NavigationComponent,
     LoginComponent,
     SearchComponent,
-    ResultsComponent
+    ResultsComponent,
+    AddnewComponent
   ],
   imports: [
     BrowserModule,
@@ -57,17 +116,9 @@ import { ResultsComponent } from './search-view/results/results.component';
     HttpModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     RouterModule.forRoot(routes),
-    MatCardModule,
-    MatCheckboxModule,
-    MatButtonModule,
-    MatExpansionModule,
-    MatIconModule,
-    MatInputModule,
-    MatPaginatorModule,
-    MatSelectModule,
-    MatSliderModule,
-    MatTableModule
+    PlunkerMaterialModule,
   ],
 
   providers: [UserService, LoggedInGuard, DatabaseService, ProfileService],

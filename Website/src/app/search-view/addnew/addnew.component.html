@@ -1,0 +1,117 @@
+<div class="addnew-container">
+    <div class="addButton">
+        <button *ngIf="!showForm" (click)="showForm = !showForm" mat-raised-button class="btn-color">+ ADD NEW</button>
+        <button *ngIf="showForm" (click)="showForm = !showForm" mat-raised-button class="btn-color">HIDE SECTION</button>
+    </div>
+    <div *ngIf="showForm" class="form">
+        <mat-card>
+            <mat-horizontal-stepper [linear]="isLinear">
+              <mat-step [stepControl]="firstFormGroup">
+                <form [formGroup]="firstFormGroup">
+                  <ng-template matStepLabel>Name</ng-template>
+                  <mat-form-field>
+                    <input matInput placeholder="Product Name" formControlName="nameCtrl" required>
+                  </mat-form-field>
+                  <div>
+                    <button mat-raised-button matStepperNext class="btn-color">Next</button>
+                  </div>
+                </form>
+              </mat-step>
+
+              <mat-step [stepControl]="secondFormGroup">
+                <form [formGroup]="secondFormGroup">
+                  <ng-template matStepLabel>General Information</ng-template>
+                  <div class="form-container">
+                      <mat-form-field>
+                          <mat-select placeholder="Category" formControlName="categoryCtrl" name="Category">
+                            <mat-option *ngFor="let category of categories" [value]="category">
+                              {{category}}
+                            </mat-option>
+                          </mat-select>
+                      </mat-form-field>
+                      <mat-form-field>
+                          <mat-select placeholder="Producer" formControlName="producerCtrl" name="Producer">
+                            <mat-option *ngFor="let producer of producers" [value]="producer">
+                              {{producer}}
+                            </mat-option>
+                          </mat-select>
+                      </mat-form-field>
+                      <mat-form-field>
+                          <input matInput placeholder="Origin" aria-label="State" [matAutocomplete]="auto" [formControl]="stateCtrl">
+                          <mat-autocomplete #auto="matAutocomplete">
+                            <mat-option *ngFor="let state of filteredStates | async" [value]="state.name">
+                              <img style="vertical-align:middle;" aria-hidden src="{{state.flag}}" height="25" />
+                              <span>{{ state.name }}</span> |
+                              <small>Population: {{state.population}}</small>
+                            </mat-option>
+                          </mat-autocomplete>
+                      </mat-form-field>
+                  </div>
+                  <div>
+                    <button mat-raised-button matStepperPrevious class="btn-color">Back</button>
+                    <button mat-raised-button matStepperNext class="btn-color">Next</button>
+                  </div>
+                </form>
+              </mat-step>
+
+              <mat-step [stepControl]="thirdFormGroup">
+                <form [formGroup]="thirdFormGroup">
+                  <ng-template matStepLabel>Weight/Price</ng-template>
+                  <div class="form-container">
+                      <mat-form-field>
+                        <input matInput placeholder="Product Price" formControlName="priceCtrl" required>
+                        <mat-hint align="end">Price in NOK</mat-hint>
+                      </mat-form-field>
+                      <mat-form-field>
+                        <input matInput placeholder="Product Weight" formControlName="weightCtrl" required>
+                        <mat-hint align="end">Weight in KG</mat-hint>
+                      </mat-form-field>
+                  </div>
+
+                  <div>
+                    <button mat-raised-button matStepperPrevious class="btn-color">Back</button>
+                    <button mat-raised-button matStepperNext class="btn-color">Next</button>
+                  </div>
+                </form>
+              </mat-step>
+
+              <mat-step [stepControl]="fourthFormGroup">
+                <form [formGroup]="fourthFormGroup">
+                  <ng-template matStepLabel>Description</ng-template>
+                  <mat-form-field>
+                    <textarea matInput placeholder="Product Description" formControlName="descriptionCtrl" required></textarea>
+                  </mat-form-field>
+                  <div>
+                    <button mat-raised-button matStepperPrevious class="btn-color">Back</button>
+                    <button mat-raised-button matStepperNext class="btn-color">Next</button>
+                  </div>
+                </form>
+              </mat-step>
+
+              <mat-step>
+                <ng-template matStepLabel>Complete</ng-template>
+                <h1 class="mat-display-1">{{firstFormGroup.value.nameCtrl}}</h1>
+                <div class="display-container">
+                    <div class="display-image">
+                        <img *ngIf="secondFormGroup.value.categoryCtrl" src="data:image/jpeg;base64,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" alt="bilde">
+                    </div>
+                    <div class="display-content">
+                        <ul>
+                            <li *ngIf="secondFormGroup.value.categoryCtrl"><mat-icon>list</mat-icon><span>{{secondFormGroup.value.categoryCtrl}}</span></li>
+                            <li *ngIf="secondFormGroup.value.producerCtrl"><mat-icon>domain</mat-icon><span>{{secondFormGroup.value.producerCtrl}}</span></li>
+                            <li *ngIf="secondFormGroup.value.originCtrl"><mat-icon>public</mat-icon><span>{{secondFormGroup.value.originCtrl}}</span></li>
+                            <li *ngIf="thirdFormGroup.value.priceCtrl"><mat-icon>attach_money</mat-icon><span>{{thirdFormGroup.value.priceCtrl}},- NOK</span></li>
+                            <li *ngIf="thirdFormGroup.value.weightCtrl"><mat-icon>fitness_center</mat-icon><span>{{thirdFormGroup.value.weightCtrl}} KG</span></li>
+                            <li *ngIf="fourthFormGroup.value.descriptionCtrl"><mat-icon>edit</mat-icon><span>{{fourthFormGroup.value.descriptionCtrl}}</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                  <button mat-raised-button matStepperPrevious class="btn-color">Back</button>
+                  <button mat-raised-button class="btn-color-inverse" (click)="print()">ADD NEW PRODUCT</button>
+                </div>
+              </mat-step>
+            </mat-horizontal-stepper>
+        </mat-card>
+    </div>
+</div>
