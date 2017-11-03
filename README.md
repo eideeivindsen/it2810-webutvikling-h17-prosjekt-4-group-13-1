@@ -38,7 +38,13 @@ $ ng build
 $ node server.js
 ```
 
-The page can now be found on [http://localhost:8083](http://localhost:8083)
+OR
+
+```bash
+$ npm start
+```
+
+The page is built and can now be found on [http://localhost:8083](http://localhost:8083)
 
 
 
