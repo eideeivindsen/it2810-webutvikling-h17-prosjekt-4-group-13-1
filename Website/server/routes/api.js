@@ -1,12 +1,18 @@
 const express = require('express');
-const router = express.Router();
 const MongoClient = require('mongodb').MongoClient;
 const ObjectID = require('mongodb').ObjectID;
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
+const expressJWT = require('express-jwt');
+
+const router = express.Router();
+
 const token_secret = 'turtleneck';
 const cryptKey = 'turtleneck';
 const dbLocation = 'mongodb://webdev-4:turtleneck2017@ds241055.mlab.com:41055/webdev-4';
+
+router.use(expressJWT({ secret: 'turtleneck' }).unless({ path: ['/login', '/api/authenticate']}));
+
 
 
 // Connect
@@ -79,7 +85,6 @@ router.get('/users', (req, res) => {
 
 // Method to authenticate login and assign token
 router.post('/authenticate', (req, res) => {
-    let auth_token = '';
     let query = {username: req.body.email};
     // console.log(req.body.email + "<<<>>>" + query.username);
     // , 'password': req.body.password
@@ -108,7 +113,6 @@ router.post('/authenticate', (req, res) => {
                         })
                     } 
                     if (checkRes === true) {
-                        console.log('VALID LOGIN')
                         let timestamp_now = new Date().getTime();
                         let payload = {
                             'iss': 'warewolf.io',
@@ -119,7 +123,7 @@ router.post('/authenticate', (req, res) => {
                         res.json({
                             success: true,
                             auth_token: auth_token
-                        })
+                        });
                     }
                 });
             }

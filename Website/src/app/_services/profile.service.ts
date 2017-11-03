@@ -8,8 +8,9 @@ export class ProfileService {
   getProfile() {
     const headers = new HttpHeaders();
     const auth_token = localStorage.getItem('auth_token');
+    headers.append('Authorization', `Bearer ${auth_token}`);
     return this.http
-      .post('/api/profile', {auth_token});
+      .get('/api/profile', {headers});
   }
 
   getRecentSearches() {
