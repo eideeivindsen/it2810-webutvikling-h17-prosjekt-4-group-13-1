@@ -2,10 +2,10 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const http = require('http');
+const api = require('./server/routes/api');  // API file for interacting with MongoDB
+
 const app = express();
 
-// API file for interacting with MongoDB
-const api = require('./server/routes/api');
 
 // Parsers
 app.use(bodyParser.json());
