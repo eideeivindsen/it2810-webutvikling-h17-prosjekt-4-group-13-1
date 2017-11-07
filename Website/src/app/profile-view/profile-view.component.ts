@@ -5,7 +5,6 @@ import {MatPaginator} from '@angular/material';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 
-import { User } from '../user';
 import { ProfileService } from '../_services/profile.service';
 
 @Component({

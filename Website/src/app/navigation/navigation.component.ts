@@ -17,12 +17,6 @@ export class NavigationComponent implements OnInit {
     constructor(private userService: UserService, private router: Router, private profileService: ProfileService) { }
 
     ngOnInit() {
-      this.profileService.getProfile().subscribe((result) => {
-        if(result){
-          this.name = Object.values(result)[1];
-          this.role = Object.values(result)[2];
-        }
-      });
    }
 
    logout() {

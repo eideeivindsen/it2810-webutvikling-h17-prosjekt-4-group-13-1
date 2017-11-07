@@ -19,10 +19,10 @@ import { ResultsComponent } from './search-view/results/results.component';
 import { AddnewComponent } from './search-view/addnew/addnew.component';
 
 // Services
-import { DatabaseService } from './database.service';
 import { UserService } from './_services/user.service';
 import { LoggedInGuard } from './_services/logged-in.guard';
 import { ProfileService } from './_services/profile.service';
+import { SearchService } from './_services/search.service';
 
 import { routes } from './app.routes';
 
@@ -120,7 +120,7 @@ export class PlunkerMaterialModule {}
     PlunkerMaterialModule,
   ],
 
-  providers: [UserService, LoggedInGuard, DatabaseService, ProfileService],
+  providers: [UserService, LoggedInGuard, ProfileService, SearchService],
 
   bootstrap: [AppComponent]
 })
