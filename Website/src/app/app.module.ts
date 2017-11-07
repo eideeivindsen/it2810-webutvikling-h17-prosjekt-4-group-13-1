@@ -20,6 +20,7 @@ import { ResultsComponent } from './search-view/results/results.component';
 import { AddnewComponent } from './search-view/addnew/addnew.component';
 import { ResultComponent } from './search-view/results/result/result.component';
 import { WordcloudComponent } from './search-view/results/wordcloud/wordcloud.component';
+import { RegisterComponent } from './register/register.component';
 
 // Services
 import { UserService } from './_services/user.service';
@@ -61,8 +62,6 @@ import { MatAutocompleteModule,
   MatTooltipModule,
   MatStepperModule,
       } from '@angular/material';
-
-
 
 @NgModule({
   exports: [
@@ -113,7 +112,8 @@ export class PlunkerMaterialModule {}
     ResultsComponent,
     AddnewComponent,
     ResultComponent,
-    WordcloudComponent
+    WordcloudComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,

@@ -3,7 +3,9 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import {DataSource} from '@angular/cdk/collections';
 import {MatPaginator} from '@angular/material';
 import {Observable} from 'rxjs/Observable';
+import { Router } from '@angular/router';
 import 'rxjs/add/observable/of';
+
 
 import { ProfileService } from '../_services/profile.service';
 
@@ -14,9 +16,20 @@ import { ProfileService } from '../_services/profile.service';
 })
 
 export class ProfileViewComponent {
+  name:string = "";
+  role:string = "";
+  memberSince:Date;
+
+  ngOnInit(){
+    this.profileService.getProfile().subscribe((result) => {
+        console.log(result);
+    });
+  }
+
   // displayedColumns = ['position', 'name', 'weight', 'symbol'];
   displayedColumns = ['search', 'date'];
   dataSource = new ExampleDataSource();
+
 
   // Doughnut
   public chartLabels:string[] = ['Tine melk 0,75L', 'Kesam Tine', 'Margarin Meieri', 'Coop Appelsinjuice', 'Tuborg 0,5L'];
@@ -27,7 +40,7 @@ export class ProfileViewComponent {
     'animation.animateScale' : true
   }
 
-  constructor(private profileService: ProfileService) {}
+  constructor(private profileService: ProfileService, private router: Router) {}
   // events
   public chartClicked(e:any):void {
     console.log(e);

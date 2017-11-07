@@ -1,0 +1,29 @@
+<mat-card class="container">
+  <h1 class="mat-display-1">Register:</h1>
+    <form #heroForm="ngForm" (ngSubmit)="printAll()" >
+      <div *ngIf="wrongSecret">
+        <p>You have entered the wrong secret password.</p>
+        <p>If you do not know the password - choose Customer or contact administration.</p>
+      </div>
+      <mat-form-field>
+        <input matInput placeholder="Name" name="Full name" [(ngModel)]="fullName" required>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="E-mail" name="Username" [(ngModel)]="username" required>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-select placeholder="Role" name="Role" [(value)]="chosenRole" required>
+          <mat-option *ngFor="let role of roles" [value]="role">
+            {{role}}         
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field *ngIf="chosenRole!='Customer'">
+        <input matInput  type="password" placeholder="Secret" name="Secret" [(ngModel)]="typedSecret" required>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput  type="password" placeholder="Password" name="Password" [(ngModel)]="password" required>
+      </mat-form-field>
+      <button mat-raised-button>Register</button>
+    </form>
+  </mat-card>

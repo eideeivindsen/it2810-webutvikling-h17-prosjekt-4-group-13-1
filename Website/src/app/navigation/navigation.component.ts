@@ -17,11 +17,11 @@ export class NavigationComponent implements OnInit {
     constructor(private userService: UserService, private router: Router, private profileService: ProfileService) { }
 
     ngOnInit() {
-   }
+    }
 
-   logout() {
+    logout() {
       this.userService.logout();
       this.router.navigate(['/login']);
-   }
+    }
 
 }

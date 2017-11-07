@@ -1,8 +1,8 @@
 <div *ngIf="user">
     <h1 class="mat-display-1">My Profile:</h1>
-    <h3 class="mat-subheading-2">Name: {{user.name}}</h3>
-    <h3 class="mat-subheading-2">Admin: {{user.admin}}</h3>
-    <h3 class="mat-subheading-2">User Type: {{user.userType}}</h3>
+    <h3 class="mat-subheading-2">Name: {{name}}</h3>
+    <h3 class="mat-subheading-2">Role: {{role}}</h3>
+    <h3 class="mat-subheading-2">Member Since: {{memberSince}}</h3>
 </div>
 
 <div class="container">
@@ -11,9 +11,9 @@
       <img src="../assets/img/avatar-large-male.png" alt="">
     </div>
     <div class="userinfo-about">
-      <h1>Ola Nordmann</h1>
-      <h2><mat-icon>work</mat-icon> CEO</h2>
-      <h3>Member since 18.02.2015</h3>
+      <h1>{{name}}</h1>
+      <h2><mat-icon>work</mat-icon> {{role}}</h2>
+      <h3>{{memberSince}}</h3>
     </div>
   </mat-card>
   <div class="search-history">
