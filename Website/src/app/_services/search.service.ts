@@ -14,4 +14,17 @@ export class SearchService {
         })
       .subscribe();
   }
+
+  getAll() {
+      const auth_token = localStorage.getItem('auth_token');
+      return this.http
+      .get('/api/products/getAll', {
+            headers: new HttpHeaders().set('Authorization', `Bearer ${auth_token}`)
+      })
+      .map((res: any) => {
+        if (res.status) {
+          return res.data;
+        }
+      });
+  }
 }
