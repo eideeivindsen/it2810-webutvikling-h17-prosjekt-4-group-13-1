@@ -10,7 +10,13 @@ export class ProfileService {
     return this.http
     .get('/api/profile', {
           headers: new HttpHeaders().set('Authorization', `Bearer ${auth_token}`)
-      })
+    })
+    .map((res: any) => {
+      if (res.status) {
+        console.log('res.data: ' + res.data);
+        return res.data;
+      }
+    });
   }
 
   getRecentSearches() {

@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const expressJWT = require('express-jwt');
 const jwtPayloadDecoder = require('jwt-payload-decoder')
+const jwtSimple = require('jwt-simple')
 const atob = require('atob')
 
 const router = express.Router();
@@ -101,12 +102,38 @@ router.get('/categories', (req, res) => {
 });
 
 // Get all producers
+router.get('/producers', (req, res) => {
+    connection((db) => {
+        db.collection('descriptive_data')
+            .find({producers: { $exists: true }})  //Finds the record where the key 'producers' is present. Should only be one.
+            .toArray()
+            .then((producers) => {
+                response.data = producers;
+                res.json(response);
+            })
+            .catch((err) => {
+                sendError(err, res);
+            });
+    });
+});
+
+//Get all products 
+router.get('/products/getAll', (req, res) => {
+    connection((db) => {
+        db.collection('products')
+            .find()  
+            .toArray()
+            .then((products) => {
+                response.data = products;
+                res.json(response);
+            })
+            .catch((err) => {
+                sendError(err, res);
+            });
+    });
+});
 
 /* POST Requests */
-
-
-
-
 
 
 router.post('/products/add', (req, res) => {
@@ -167,12 +194,28 @@ router.post('/authenticate', (req, res) => {
 router.get('/profile', (req, res) => {
     let auth_token = req.headers['authorization'].slice(7);
     // let payload = jwtPayloadDecoder.getPayload(auth_token);
-    
+    let decoded = jwt.decode(auth_token);
+    let username = (decoded.username);
+    console.log('Username' + username);
     connection((db) => {
-
-        
-    });
+        db.collection('users')
+        .find({"username" : username})
+        .toArray()
+        .then((user) => {
+            console.log(user);
+            response.data = user;
+            res.json(response);
+        }).catch((err)=> {
+            sendError(err,res);
+        })
+        db.close();
+        });
 
 });
 
 module.exports = router;
+
+
+//sende inn brukernavn
+//få tilbake 1 bruker
+// hente name, role og bruker since
