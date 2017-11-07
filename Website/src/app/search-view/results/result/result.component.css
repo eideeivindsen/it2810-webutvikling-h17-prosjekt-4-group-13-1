@@ -1,0 +1,32 @@
+mat-panel-title {
+    margin-left: 20px;
+}
+
+
+.mat-expansion-panel-header-title {
+    flex-basis: 1
+}
+ .mat-expansion-panel-header-description {
+  flex-basis: 2;
+}
+
+.mat-expansion-panel-header-description,
+.mat-expansion-panel-header-title {
+  justify-content: space-around;
+  align-items: center;
+}
+
+.inStock {
+    color: green;
+    margin-left: 10px;
+}
+
+mat-icon {
+    padding-right: 5px;
+    vertical-align: middle;
+}
+
+.content-container {
+    display: flex;
+    justify-content: space-around;
+}

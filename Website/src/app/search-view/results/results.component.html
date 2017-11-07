@@ -1,5 +1,16 @@
 <div class="results-container">
     <mat-card>
-        <mat-paginator [length]="100" [pageSize]="10"> </mat-paginator>
+        <mat-toolbar>
+            <button mat-button type="button">Name</button>
+            <button mat-button type="button">Prodcer</button>
+            <button mat-button type="button">Stock Status</button>
+        </mat-toolbar>
+        <app-result></app-result>
+        <app-result></app-result>
+        <app-result></app-result>
+        <app-result></app-result>
+        <app-result></app-result>
+        <mat-paginator [length]=listLength [pageSize]="5" (page)="pageEvent = $event"> </mat-paginator>
     </mat-card>
+    <button mat-button class="modalButton" (click)="openDialog()" type="button">DISPLAY WORD CLOUD OF RESULTS</button>
 </div>

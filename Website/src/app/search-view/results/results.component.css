@@ -1,4 +1,32 @@
 .results-container {
-    margin: 2vh 8vw;
-    background-color: #FCFDFD;
+    margin: 2vh 8vw 8vh;
+}
+
+mat-card {
+    padding: 0px;
+}
+
+mat-paginator {
+    border-top: 1px solid rgba(0,0,0,0.1);
+}
+
+mat-toolbar {
+    padding-left: 4%;
+    padding-right: 50px;
+}
+
+
+mat-toolbar * {
+  flex: 1;
+}
+
+.mat-toolbar-row:last-child {
+  justify-content: space-around;
+  align-items: center;
+}
+
+.modalButton {
+    width: 100%;
+    margin-top: 10px;
+    color: #38a6a6;
 }

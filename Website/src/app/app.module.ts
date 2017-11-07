@@ -5,8 +5,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule }   from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {CdkTableModule} from '@angular/cdk/table';
+import { CdkTableModule } from '@angular/cdk/table';
 import { ChartsModule } from 'ng2-charts';
+import { AgWordCloudModule } from 'angular4-word-cloud';
 
 // Components
 import { AppComponent } from './app.component';
@@ -17,6 +18,8 @@ import { LoginComponent } from './login/login.component';
 import { SearchComponent } from './search-view/search/search.component';
 import { ResultsComponent } from './search-view/results/results.component';
 import { AddnewComponent } from './search-view/addnew/addnew.component';
+import { ResultComponent } from './search-view/results/result/result.component';
+import { WordcloudComponent } from './search-view/results/wordcloud/wordcloud.component';
 
 // Services
 import { UserService } from './_services/user.service';
@@ -58,6 +61,8 @@ import { MatAutocompleteModule,
   MatTooltipModule,
   MatStepperModule,
       } from '@angular/material';
+
+
 
 @NgModule({
   exports: [
@@ -106,7 +111,9 @@ export class PlunkerMaterialModule {}
     LoginComponent,
     SearchComponent,
     ResultsComponent,
-    AddnewComponent
+    AddnewComponent,
+    ResultComponent,
+    WordcloudComponent
   ],
   imports: [
     BrowserModule,
@@ -117,8 +124,11 @@ export class PlunkerMaterialModule {}
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot(routes),
+    AgWordCloudModule.forRoot(),
     PlunkerMaterialModule,
   ],
+
+  entryComponents: [WordcloudComponent],
 
   providers: [UserService, LoggedInGuard, ProfileService, SearchService],
 
