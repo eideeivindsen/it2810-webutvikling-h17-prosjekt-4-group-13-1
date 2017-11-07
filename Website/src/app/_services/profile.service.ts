@@ -7,12 +7,10 @@ export class ProfileService {
 
   getProfile() {
     const auth_token = localStorage.getItem('auth_token');
-    console.log("Auth_" + auth_token);
-    
     return this.http
     .get('/api/profile', {
-          headers: new HttpHeaders().append('Authorization', `Bearer ${auth_token}`),
-      }) 
+          headers: new HttpHeaders().set('Authorization', `Bearer ${auth_token}`)
+      })
   }
 
   getRecentSearches() {
