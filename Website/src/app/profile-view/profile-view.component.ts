@@ -18,6 +18,12 @@ export class ProfileViewComponent {
   displayedColumns = ['search', 'date'];
   dataSource = new ExampleDataSource();
 
+  ngOnInit(){
+    this.profileService.getProfile().subscribe((result) =>{
+    console.log("In Profile-view: " + result);
+  })
+  }
+
   // Doughnut
   public chartLabels:string[] = ['Tine melk 0,75L', 'Kesam Tine', 'Margarin Meieri', 'Coop Appelsinjuice', 'Tuborg 0,5L'];
   public chartData:number[] = [350, 450, 100, 35, 31];
