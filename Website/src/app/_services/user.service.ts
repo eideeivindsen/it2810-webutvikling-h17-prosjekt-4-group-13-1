@@ -10,6 +10,22 @@ export class UserService {
     this.loggedIn = !!localStorage.getItem('auth_token');
   }
 
+  // register new user
+  register(name, username, password, role, createdAt) {
+    return this.http
+      .post(
+        '/api/register',
+        { name, username, password, role, createdAt}
+      )
+      .map((res:any) => {
+        if (res.success) {
+          this.login(username, password)
+        }
+        return res.success;
+      });
+  }
+
+  // login user
   login(email, password) {
 
     return this.http
@@ -27,6 +43,7 @@ export class UserService {
 
   }
 
+  // logout user
   logout() {
     localStorage.removeItem('auth_token');
     this.loggedIn = false;
