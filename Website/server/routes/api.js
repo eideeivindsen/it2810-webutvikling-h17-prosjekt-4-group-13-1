@@ -4,6 +4,7 @@ const ObjectID = require('mongodb').ObjectID;
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const expressJWT = require('express-jwt');
+const jwtPayloadDecoder = require('jwt-payload-decoder')
 
 const router = express.Router();
 
@@ -11,9 +12,7 @@ const token_secret = 'turtleneck';
 const cryptKey = 'turtleneck';
 const dbLocation = 'mongodb://webdev-4:turtleneck2017@ds241055.mlab.com:41055/webdev-4';
 
-router.use(expressJWT({ secret: 'turtleneck' }).unless({ path: ['/login', '/api/authenticate']}));
-
-
+router.use(expressJWT({secret: 'turtleneck'}).unless({ path: ['/login', '/api/authenticate']}));
 
 // Connect
 const connection = (closure) => {
@@ -65,7 +64,7 @@ let response = {
     });
  });
 
-
+/* GET Requests */
 // Get all users
 router.get('/users', (req, res) => {
     connection((db) => {
@@ -80,8 +79,32 @@ router.get('/users', (req, res) => {
                 sendError(err, res);
             });
     });
-
 });
+
+// Get all categories
+router.get('/categories', (req, res) => {
+    connection((db) => {
+        db.collection('descriptive_data')
+            .find({categories: { $exists: true }})  //Finds the record where the key 'categories' is present. Should only be one.
+            .toArray()
+            .then((categories) => {
+                response.data = categories;
+                res.json(response);
+            })
+            .catch((err) => {
+                sendError(err, res);
+            });
+    });
+});
+
+// Get all producers
+
+/* POST Requests */
+
+
+
+
+
 
 router.post('/products/add', (req, res) => {
     console.log(req.body)
@@ -138,48 +161,15 @@ router.post('/authenticate', (req, res) => {
 });
 
 // Get user profile
-router.post('/profile', (req, res) => {
-    console.log(req.body);
-    let username = "";  //TODO: set username
-    //TODO: Decode auth_token to username/email
-    let auth_token = req.body.auth_token || req.query.auth_token || req.headers['auth_token'];
-    if(auth_token){
-        jwt.verify(auth_token, token_secret, function(err, decoded){
-            if(err){
-                return res.json({success: false, message: 'Failed to authenticate token!'})
-            }
-            else{
-                username = decoded.username;
-            }
-        })
-        if(username != ""){
-            connection((db) => {
-                db.collection('users')
-                    .findOne({'username': username})
-                    .then((users) => {
-                        res.json({
-                            success: true,
-                            name: users.name,
-                            role: users.role,
-                            admin: users.admin
-                        });
-                    })
-                    .catch((err) => {
-                        sendError(err, res);
-                    });
-                    db.close();
-            });
-        }
-        else {
-            console.log("Cannot access username in payload, or something");
-        }
-    }
-    else{
-        return res.status(403).send({
-            success: false,
-            message: 'No token provided'
-        })
-    }
+router.get('/profile', (req, res) => {
+    let auth_token = req.headers['authorization'].slice(7);
+    let payload = jwtPayloadDecoder.getPayload(auth_token);
+    
+    connection((db) => {
+
+        
+    });
+
 });
 
 module.exports = router;
