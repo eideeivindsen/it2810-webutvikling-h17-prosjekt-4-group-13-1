@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const expressJWT = require('express-jwt');
 const jwtPayloadDecoder = require('jwt-payload-decoder')
+const atob = require('atob')
 
 const router = express.Router();
 
@@ -189,7 +190,7 @@ router.post('/authenticate', (req, res) => {
 // Get user profile
 router.get('/profile', (req, res) => {
     let auth_token = req.headers['authorization'].slice(7);
-    let payload = jwtPayloadDecoder.getPayload(auth_token);
+    // let payload = jwtPayloadDecoder.getPayload(auth_token);
     
     connection((db) => {
 
