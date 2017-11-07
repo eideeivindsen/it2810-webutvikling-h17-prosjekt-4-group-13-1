@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const expressJWT = require('express-jwt');
 const jwtPayloadDecoder = require('jwt-payload-decoder')
+const jwtSimple = require('jwt-simple')
 const atob = require('atob')
 
 const router = express.Router();
@@ -165,12 +166,28 @@ router.post('/authenticate', (req, res) => {
 router.get('/profile', (req, res) => {
     let auth_token = req.headers['authorization'].slice(7);
     // let payload = jwtPayloadDecoder.getPayload(auth_token);
-    
+    let decoded = jwt.decode(auth_token);
+    let username = (decoded.username);
+    console.log('Username' + username);
     connection((db) => {
-
-        
-    });
+        db.collection('users')
+        .find({"username" : username})
+        .toArray()
+        .then((user) => {
+            console.log(user);
+            response.data = user;
+            res.json(response);
+        }).catch((err)=> {
+            sendError(err,res);
+        })
+        db.close();
+        });
 
 });
 
 module.exports = router;
+
+
+//sende inn brukernavn
+//få tilbake 1 bruker
+// hente name, role og bruker since

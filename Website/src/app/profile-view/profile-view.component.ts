@@ -22,7 +22,10 @@ export class ProfileViewComponent {
 
   ngOnInit(){
     this.profileService.getProfile().subscribe((result) => {
-        console.log(result);
+        this.name = result[0].name;
+        this.role = result[0].role;
+        //TODO: Membersince
+        console.log('Result: ' + JSON.stringify(result));
     });
   }
 
