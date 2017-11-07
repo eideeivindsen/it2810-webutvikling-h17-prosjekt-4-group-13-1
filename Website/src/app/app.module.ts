@@ -17,6 +17,7 @@ import { LoginComponent } from './login/login.component';
 import { SearchComponent } from './search-view/search/search.component';
 import { ResultsComponent } from './search-view/results/results.component';
 import { AddnewComponent } from './search-view/addnew/addnew.component';
+import { RegisterComponent } from './register/register.component';
 
 // Services
 import { UserService } from './_services/user.service';
@@ -58,6 +59,7 @@ import { MatAutocompleteModule,
   MatTooltipModule,
   MatStepperModule,
       } from '@angular/material';
+
 
 @NgModule({
   exports: [
@@ -106,7 +108,8 @@ export class PlunkerMaterialModule {}
     LoginComponent,
     SearchComponent,
     ResultsComponent,
-    AddnewComponent
+    AddnewComponent, 
+    RegisterComponent
   ],
   imports: [
     BrowserModule,

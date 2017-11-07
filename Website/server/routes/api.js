@@ -11,7 +11,7 @@ const token_secret = 'turtleneck';
 const cryptKey = 'turtleneck';
 const dbLocation = 'mongodb://webdev-4:turtleneck2017@ds241055.mlab.com:41055/webdev-4';
 
-router.use(expressJWT({ secret: 'turtleneck' }).unless({ path: ['/login', '/api/authenticate']}));
+router.use(expressJWT({ secret: 'turtleneck' }).unless({ path: ['/login', '/api/authenticate', '/api/register']}));
 
 
 
@@ -41,11 +41,12 @@ let response = {
  // Register user
  router.post('/register', (req, res, next) => {
     let newUser = {
+        // name, username, password, role, createdAt
         name: req.body.name,
-        email: req.body.email,
         username: req.body.username,
         password: req.body.password,
-        role: req.body.role
+        role: req.body.role,
+        createdAt: req.body.createdAt
     };
 
     bcrypt.genSalt(10, function(err, salt) {
