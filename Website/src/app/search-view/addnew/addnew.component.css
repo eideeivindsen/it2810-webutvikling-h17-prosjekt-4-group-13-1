@@ -52,4 +52,9 @@ mat-form-field button{
 li {
     list-style: none;
     text-align: left;
+    padding: 5px;
+}
+
+h1 {
+    margin-bottom: 20px;
 }
