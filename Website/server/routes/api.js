@@ -98,12 +98,38 @@ router.get('/categories', (req, res) => {
 });
 
 // Get all producers
+router.get('/producers', (req, res) => {
+    connection((db) => {
+        db.collection('descriptive_data')
+            .find({producers: { $exists: true }})  //Finds the record where the key 'producers' is present. Should only be one.
+            .toArray()
+            .then((producers) => {
+                response.data = producers;
+                res.json(response);
+            })
+            .catch((err) => {
+                sendError(err, res);
+            });
+    });
+});
+
+//Get all products 
+router.get('/products/getAll', (req, res) => {
+    connection((db) => {
+        db.collection('products')
+            .find()  
+            .toArray()
+            .then((products) => {
+                response.data = products;
+                res.json(response);
+            })
+            .catch((err) => {
+                sendError(err, res);
+            });
+    });
+});
 
 /* POST Requests */
-
-
-
-
 
 
 router.post('/products/add', (req, res) => {
