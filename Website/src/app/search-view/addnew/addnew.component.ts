@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {FormControl} from '@angular/forms';
+import { AbstractControl } from '@angular/forms';
 
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/map';
 
+import { SearchService } from '../../_services/search.service';
 
 
 @Component({
@@ -15,73 +17,60 @@ import 'rxjs/add/operator/map';
 })
 export class AddnewComponent implements OnInit {
   showForm: Boolean = false;
-  firstFormGroup: FormGroup;
-  secondFormGroup: FormGroup;
-  thirdFormGroup: FormGroup;
-  fourthFormGroup: FormGroup;
+  successful: Boolean = false;
+  formGroup: FormGroup;
+  formArray: FormArray;
   categories: String[] = ['Show all', 'Ferskvarer', 'Kjølevarer', 'Godteri', 'Glutenfritt'];
-  producers: String[] = ['Show all', 'Tine', 'Freia', 'Bakeren', 'Toro']
-  stateCtrl: FormControl;
-  filteredStates: Observable<any[]>;
+  producers: String[] = ['Show all', 'Tine', 'Freia', 'Bakeren', 'Toro'];
+  origins: String[] = ['Norway', 'Sweden', 'Denmark', 'USA', 'Great Britain']
 
-  states: any[] = [
-      {
-        name: 'Arkansas',
-        population: '2.978M',
-        // https://commons.wikimedia.org/wiki/File:Flag_of_Arkansas.svg
-        flag: 'https://upload.wikimedia.org/wikipedia/commons/9/9d/Flag_of_Arkansas.svg'
-      },
-      {
-        name: 'California',
-        population: '39.14M',
-        // https://commons.wikimedia.org/wiki/File:Flag_of_California.svg
-        flag: 'https://upload.wikimedia.org/wikipedia/commons/0/01/Flag_of_California.svg'
-      },
-      {
-        name: 'Florida',
-        population: '20.27M',
-        // https://commons.wikimedia.org/wiki/File:Flag_of_Florida.svg
-        flag: 'https://upload.wikimedia.org/wikipedia/commons/f/f7/Flag_of_Florida.svg'
-      },
-      {
-        name: 'Texas',
-        population: '27.47M',
-        // https://commons.wikimedia.org/wiki/File:Flag_of_Texas.svg
-        flag: 'https://upload.wikimedia.org/wikipedia/commons/f/f7/Flag_of_Texas.svg'
-      }
-    ];
 
-  constructor(private _formBuilder: FormBuilder) {
-      this.stateCtrl = new FormControl();
-      this.filteredStates = this.stateCtrl.valueChanges
-        .startWith(null)
-        .map(state => state ? this.filterStates(state) : this.states.slice());
+
+  constructor(private _formBuilder: FormBuilder, private searchService: SearchService) {
+
   }
 
   ngOnInit() {
-      this.firstFormGroup = this._formBuilder.group({
-          nameCtrl: ['', Validators.required]
+      this.formArray = this._formBuilder.array([
+          this._formBuilder.group({
+              name: ['', [Validators.required, Validators.minLength(3)]],
+          }),
+          this._formBuilder.group({
+              category: ['', Validators.required],
+              producer: ['', Validators.required],
+              origin: ['', Validators.required]
+          }),
+          this._formBuilder.group({
+              price: ['', [Validators.required, Validators.pattern("^[0-9]+$")]],
+              weight: ['', [Validators.required, Validators.pattern("^[0-9]+$")]]
+          }),
+          this._formBuilder.group({
+              description: ['', [Validators.required, Validators.minLength(10)]]
+          }),
+      ])
+      this.formGroup = this._formBuilder.group({
+          formArray: this.formArray,
         });
-        this.secondFormGroup = this._formBuilder.group({
-          categoryCtrl: ['', Validators.required],
-          producerCtrl: ['', Validators.required],
-          originCtrl: ['', Validators.required]
-        });
-        this.thirdFormGroup = this._formBuilder.group({
-          priceCtrl: ['', Validators.required],
-          weightCtrl: ['', Validators.required]
-        });
-        this.fourthFormGroup = this._formBuilder.group({
-          descriptionCtrl: ['', Validators.required]
-        });
-      }
+    }
 
-      filterStates(name: string) {
-        return this.states.filter(state =>
-          state.name.toLowerCase().indexOf(name.toLowerCase()) === 0);
-      }
+  onSubmit() {
+      this.successful = true;
+      var product = {
+          'name': this.formGroup.value.formArray[0].name,
+          'category': this.formGroup.value.formArray[1].category,
+          'producer': this.formGroup.value.formArray[1].producer,
+          'origin': this.formGroup.value.formArray[1].origin,
+          'price': this.formGroup.value.formArray[2].price,
+          'weight': this.formGroup.value.formArray[2].weight,
+          'description': this.formGroup.value.formArray[3].description,
+          'quantity': 0,
+      };
+      this.searchService.addProduct(product);
+  }
 
-      print() {
-          console.log(this.secondFormGroup);
-      }
+
+  resetForm() {
+      this.formGroup.reset()
+      this.successful = false;
+    }
  }

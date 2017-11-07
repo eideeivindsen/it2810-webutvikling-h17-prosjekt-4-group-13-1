@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { User } from '../user';
 
 
 @Injectable()
@@ -12,7 +11,7 @@ export class UserService {
   }
 
   login(email, password) {
-    
+
     return this.http
       .post(
         '/api/authenticate',
