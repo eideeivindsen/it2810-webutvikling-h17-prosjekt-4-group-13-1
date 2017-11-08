@@ -1,9 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
+import 'rxjs/add/observable/of';
+import 'rxjs/add/operator/share';
 
 @Injectable()
 export class SearchService {
-  constructor(private http: HttpClient) {}
+  private results = new Subject<any>();
+
+  constructor(private http: HttpClient) {  }
 
   addProduct(product) {
       const auth_token = localStorage.getItem('auth_token');
@@ -23,8 +29,13 @@ export class SearchService {
       })
       .map((res: any) => {
         if (res.status) {
-          return res.data;
+          this.results.next(res.data)
         }
-      });
+      })
   }
+
+  getResults(): Observable<any> {
+        return this.results.asObservable();
+    }
+
 }

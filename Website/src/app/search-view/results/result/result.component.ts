@@ -7,11 +7,13 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./result.component.css']
 })
 export class ResultComponent implements OnInit {
-  
+  @Input() data: Object;
+
   constructor() { }
 
   ngOnInit() {
 
   }
+
 
 }

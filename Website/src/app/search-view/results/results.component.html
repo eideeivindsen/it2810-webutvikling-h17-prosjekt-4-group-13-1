@@ -5,12 +5,10 @@
             <button mat-button type="button">Producer</button>
             <button mat-button type="button">Stock Status</button>
         </mat-toolbar>
-        <app-result></app-result>
-        <app-result></app-result>
-        <app-result></app-result>
-        <app-result></app-result>
-        <app-result></app-result>
-        <mat-paginator [length]=listLength [pageSize]="5" (page)="pageEvent = $event"> </mat-paginator>
+        <div *ngFor="let result of displayedResults">
+            <app-result [data]="result"></app-result>
+        </div>
+        <mat-paginator [length]="results.length" [pageSize]="5" (page)="onPaginateChange($event)"> </mat-paginator>
     </mat-card>
-    <button mat-button class="modalButton" (click)="openDialog()" type="button">DISPLAY WORD CLOUD OF RESULTS</button>
+    <button *ngIf="results.length > 0" mat-button class="modalButton" (click)="openDialog()" type="button">DISPLAY WORD CLOUD OF RESULTS</button>
 </div>
