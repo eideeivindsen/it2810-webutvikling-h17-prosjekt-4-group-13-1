@@ -8,6 +8,7 @@ import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/map';
 
 import { SearchService } from '../../_services/search.service';
+import { countries, producers, categories } from '../../../assets/variables';
 
 
 @Component({
@@ -20,9 +21,9 @@ export class AddnewComponent implements OnInit {
   successful: Boolean = false;
   formGroup: FormGroup;
   formArray: FormArray;
-  categories: String[] = ['Show all', 'Ferskvarer', 'Kjølevarer', 'Godteri', 'Glutenfritt'];
-  producers: String[] = ['Show all', 'Tine', 'Freia', 'Bakeren', 'Toro'];
-  origins: String[] = ['Norway', 'Sweden', 'Denmark', 'USA', 'Great Britain']
+  categories: String[] = categories;
+  producers: String[] = producers;
+  origins: String[] = countries;
 
 
 
@@ -64,6 +65,8 @@ export class AddnewComponent implements OnInit {
           'weight': this.formGroup.value.formArray[2].weight,
           'description': this.formGroup.value.formArray[3].description,
           'quantity': 0,
+          'in_stock': false,
+          'kilo_price': this.formGroup.value.formArray[2].price/(this.formGroup.value.formArray[2].weight/1000)
       };
       this.searchService.addProduct(product);
   }

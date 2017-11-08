@@ -20,6 +20,10 @@ mat-panel-title {
     color: green;
     margin-left: 10px;
 }
+.outOfStock {
+    color: red;
+    margin-left: 10px;
+}
 
 mat-icon {
     padding-right: 5px;

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {MatDialog, PageEvent} from '@angular/material';
+import { MatDialog } from '@angular/material';
+import { Subscription } from 'rxjs/Subscription';
 
 import { WordcloudComponent } from './wordcloud/wordcloud.component';
 import { SearchService } from '../../_services/search.service';
@@ -10,17 +11,18 @@ import { SearchService } from '../../_services/search.service';
   styleUrls: ['./results.component.css']
 })
 export class ResultsComponent implements OnInit {
-  pageEvent: PageEvent;
-  results: Object;
-  listLength: Number = 2;
+  results: Object[] = [];
+  displayedResults: Object[];
+  subscription: Subscription;
 
-  constructor(public dialog: MatDialog, private searchService: SearchService) { }
+  constructor(public dialog: MatDialog, private searchService: SearchService) {
+      this.subscription = this.searchService.getResults().subscribe(results => {
+          this.results = results;
+          this.displayedResults = results.slice(0,5)
+      });
+  }
 
   ngOnInit() {
-     this.searchService.getAll()
-    .subscribe(data => {
-        this.results = data
-    })
   }
 
   openDialog(): void {
@@ -29,6 +31,11 @@ export class ResultsComponent implements OnInit {
         height: '75%',
         data: { results: this.results }
       });
+    }
+
+    onPaginateChange(event) {
+        var start = event.pageIndex * event.pageSize;
+        this.displayedResults = this.results.slice(start, start + event.pageSize);
     }
 
 }

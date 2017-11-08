@@ -1,11 +1,12 @@
 <mat-expansion-panel>
     <mat-expansion-panel-header>
         <mat-panel-title>
-         <span>Tine Melk</span>
+         <span>{{data.name}}</span>
         </mat-panel-title>
         <mat-panel-description>
-          <span>Tine</span>
-          <span class="inStock">IN STOCK</span>
+          <span>{{data.producer}}</span>
+          <span *ngIf="data.in_stock" class="inStock">IN STOCK</span>
+          <span *ngIf="!data.in_stock" class="outOfStock">OUT OF STOCK</span>
         </mat-panel-description>
       </mat-expansion-panel-header>
 
