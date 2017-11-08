@@ -19,7 +19,7 @@ export class UserService {
       )
       .map((res:any) => {
         if (res.success) {
-          this.login(username, password)
+          //this.login(username, password)
         }
         return res.success;
       });

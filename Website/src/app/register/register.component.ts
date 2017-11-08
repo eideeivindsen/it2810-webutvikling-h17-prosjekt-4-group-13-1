@@ -35,6 +35,7 @@ export class RegisterComponent implements OnInit {
      
   }
 
+  // debugging \o/
   printAll() {
     this.createdAt = new Date;
     // if not customer, check secret
@@ -64,7 +65,6 @@ export class RegisterComponent implements OnInit {
       this.router.navigate(['/login']);
     }
 
-    
   }
 
   onSubmit() {
@@ -74,7 +74,7 @@ export class RegisterComponent implements OnInit {
       if (this.typedSecret === this.secret) {
         this.userService.register(this.fullName, this.username, this.password, this.chosenRole, this.createdAt).subscribe((result) => {
           if (result) {
-            this.router.navigate(['']);
+            this.router.navigate(['/login']);
           }
         });
       }
@@ -82,7 +82,7 @@ export class RegisterComponent implements OnInit {
     } else {
       this.userService.register(this.fullName, this.username, this.password, this.chosenRole, this.createdAt).subscribe((result) => {
         if (result) {
-          this.router.navigate(['']);
+          this.router.navigate(['/login']);
         }
       });
     }

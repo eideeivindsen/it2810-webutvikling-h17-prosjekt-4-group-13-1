@@ -1,6 +1,6 @@
 <mat-card class="container">
   <h1 class="mat-display-1">Register:</h1>
-    <form #heroForm="ngForm" (ngSubmit)="printAll()" >
+    <form #heroForm="ngForm" (ngSubmit)="onSubmit()" >
       <div *ngIf="wrongSecret">
         <p>You have entered the wrong secret password.</p>
         <p>If you do not know the password - choose Customer or contact administration.</p>
