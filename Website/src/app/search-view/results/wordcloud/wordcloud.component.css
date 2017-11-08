@@ -13,6 +13,19 @@ mat-icon:hover {
 
 h1 {
     text-align: center;
+    padding-top: 50px;
+    text-transform: uppercase;
+    color: rgba(0,0,0,0.8);
+    font-weight: 500;
+    font-size: 3.5em;
+    line-height: 110%;
+}
+
+svg {
+    position: relative;
+    top: 100%;
+    left: 5%;
+    transform: scale(1.5) !important;
 }
 
 .wordcloud {
