@@ -137,7 +137,29 @@ router.get('/products/getAll', (req, res) => {
 
 
 router.post('/products/add', (req, res) => {
-    console.log(req.body)
+    connection((db) => {
+        try {
+            db.collection('products')
+            .insertOne({
+                'name': req.body.name,
+                'category': req.body.category,
+                'producer': req.body.producer,
+                'origin': req.body.origin,
+                'price': req.body.price,
+                'weight': req.body.weight,
+                'description': req.body.description,
+                'quantity': req.body.quantity,
+                'in_stock': req.body.in_stock,
+                'kilo_price': req.body.kilo_price
+            }) 
+            response.data = []
+            res.json(response);
+        } catch (error) {
+            console.log("Error: " + error);
+            res.json(sendError);
+        }
+         
+    });
 });
 
 // Method to authenticate login and assign token

@@ -64,6 +64,9 @@ export class AddnewComponent implements OnInit {
           'weight': this.formGroup.value.formArray[2].weight,
           'description': this.formGroup.value.formArray[3].description,
           'quantity': 0,
+          'in_stock': false,
+          'kilo_price': this.formGroup.value.formArray[2].price / (this.formGroup.value.formArray[2].weight / 1000)  //Weight is in gram
+
       };
       this.searchService.addProduct(product);
   }
