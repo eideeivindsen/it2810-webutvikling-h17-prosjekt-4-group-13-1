@@ -18,15 +18,30 @@ import { ProfileService } from '../_services/profile.service';
 export class ProfileViewComponent {
   name:string = "";
   role:string = "";
-  memberSince:Date;
+  createdAt:string;
 
   ngOnInit(){
-    this.profileService.getProfile().subscribe((result) => {
+    if (!localStorage.getItem("username")){
+      this.profileService.getProfile().subscribe((result) => {
         this.name = result[0].name;
         this.role = result[0].role;
-        //TODO: Membersince
-        console.log('Result: ' + JSON.stringify(result));
-    });
+        let createdAtDay = new Date(result[0].createdAt).getDay().toString();
+        if (createdAtDay.length <= 1){
+          createdAtDay = '0' + createdAtDay;
+        }
+        let createdAtMonth = new Date(result[0].createdAt).getMonth();
+        let createdAtYear = new Date(result[0].createdAt).getFullYear();
+        this.createdAt = createdAtYear + '-' +  createdAtMonth + '-' + createdAtDay ; // Jank med strings og nummer. uaaaah
+
+        localStorage.setItem("username", result[0].name);
+        localStorage.setItem("role", result[0].role);
+        localStorage.setItem("createdAt", this.createdAt);
+      });
+    } else {
+      this.name = localStorage.getItem("username");
+      this.role = localStorage.getItem("role");
+      this.createdAt = localStorage.getItem("createdAt"); 
+    }
   }
 
   // displayedColumns = ['position', 'name', 'weight', 'symbol'];

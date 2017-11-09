@@ -13,7 +13,6 @@ export class ProfileService {
     })
     .map((res: any) => {
       if (res.status) {
-        console.log('res.data: ' + res.data);
         return res.data;
       }
     });
