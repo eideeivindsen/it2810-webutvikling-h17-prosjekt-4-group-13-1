@@ -9,6 +9,8 @@ import 'rxjs/add/operator/map';
 
 import { SearchService } from '../../_services/search.service';
 import { countries, producers, categories } from '../../../assets/variables';
+import { Product } from '../../product';
+
 
 
 @Component({
@@ -56,13 +58,13 @@ export class AddnewComponent implements OnInit {
 
   onSubmit() {
       this.successful = true;
-      var product = {
+      var product: Product = {
           'name': this.formGroup.value.formArray[0].name,
           'category': this.formGroup.value.formArray[1].category,
           'producer': this.formGroup.value.formArray[1].producer,
           'origin': this.formGroup.value.formArray[1].origin,
-          'price': this.formGroup.value.formArray[2].price,
-          'weight': this.formGroup.value.formArray[2].weight,
+          'price': parseInt(this.formGroup.value.formArray[2].price),
+          'weight': parseInt(this.formGroup.value.formArray[2].weight),
           'description': this.formGroup.value.formArray[3].description,
           'quantity': 0,
           'in_stock': false,
