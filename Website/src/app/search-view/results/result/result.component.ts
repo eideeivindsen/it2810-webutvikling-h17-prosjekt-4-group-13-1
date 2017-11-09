@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
+import { Product } from '../../../product';
+
 
 @Component({
   selector: 'app-result',
@@ -7,12 +9,13 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./result.component.css']
 })
 export class ResultComponent implements OnInit {
-  @Input() data: Object;
+  @Input() data: Product;
+  pictureUrl: string;
 
-  constructor() { }
+  constructor() {  }
 
   ngOnInit() {
-
+      this.pictureUrl = '../../../assets/img/categories/' + this.data.category.toLowerCase() +'.png';
   }
 
 
