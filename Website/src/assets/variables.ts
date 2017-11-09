@@ -3,4 +3,6 @@ export var countries: String[] = ["Afghanistan","Albania","Algeria","Andorra","A
 
 export var producers: string[] = ["Bama", "Coca Cola", "Define", "Diplom-is", "Dr. Oetker", "E.C. Dahls", "Evergood", "First Price", "Freia", "Gilde", "Jacobs", "Nidar", "Pink Lady", "Prior", "Q-meieriene", "Ringnes", "Tine", "Toro"];
 
+
 export var categories: string[] = ["Alcoholic beverages", "Beverages", "Bread", "Candy", "Chicken", "Chips", "Chocolate", "Coffee", "Dairy", "Dry foods", "Fish", "Frozen foods", "Fruit and vegetables", "Hermetics", "Household items", "Hygiene", "Ice cream", "Meat", "Paistry", "Pet food", "Spices", "Uncategorized"];
+

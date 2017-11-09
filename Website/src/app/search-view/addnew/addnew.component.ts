@@ -9,8 +9,8 @@ import 'rxjs/add/operator/map';
 
 import { SearchService } from '../../_services/search.service';
 import { countries, producers, categories } from '../../../assets/variables';
-
 import { Product } from '../../product';
+
 
 
 @Component({

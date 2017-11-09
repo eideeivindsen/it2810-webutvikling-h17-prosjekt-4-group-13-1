@@ -14,8 +14,10 @@ const token_secret = 'turtleneck';
 const cryptKey = 'turtleneck';
 const dbLocation = 'mongodb://webdev-4:turtleneck2017@ds241055.mlab.com:41055/webdev-4';
 
+// Our middleware to validate JWT
 router.use(expressJWT({ secret: 'turtleneck' }).unless({ path: ['/login', '/api/authenticate', '/api/register']}));
 
+/* Connection method and response/error handling */
 
 // Connect
 const connection = (closure) => {
@@ -39,6 +41,53 @@ let response = {
     data: [],
     message: null
 };
+
+let error = {
+    status: 404,
+    message: null
+};
+
+/* GET Requests */
+
+// Get all products 
+router.get('/products/getAll', (req, res) => {
+    connection((db) => {
+        db.collection('products')
+            .find()  
+            .toArray()
+            .then((products) => {
+                response.data = products;
+                res.json(response);
+            })
+            .catch((err) => {
+                sendError(err, res);
+            });
+    });
+});
+
+// Get user profile
+router.get('/profile', (req, res) => {
+    let auth_token = req.headers['authorization'].slice(7);  // Remove 'Bearer ' from the header to get token
+    let decoded = jwt.decode(auth_token);
+    let username = (decoded.username);
+    connection((db) => {
+        db.collection('users')
+        .find({"username" : username})
+        .toArray()
+        .then((user) => {
+            console.log(user);
+            response.data = user;
+            response.message = "Successfully got profile information";
+            res.json(response);
+        }).catch((err)=> {
+            sendError(err,res);
+        })
+        db.close();
+        });
+
+});
+
+/* POST Requests */
 
  // Register user
  router.post('/register', (req, res, next) => {
@@ -68,74 +117,7 @@ let response = {
     });
  });
 
-/* GET Requests */
-// Get all users
-router.get('/users', (req, res) => {
-    connection((db) => {
-        db.collection('users')
-            .find()
-            .toArray()
-            .then((users) => {
-                response.data = users;
-                res.json(response);
-            })
-            .catch((err) => {
-                sendError(err, res);
-            });
-    });
-});
-
-// Get all categories
-router.get('/categories', (req, res) => {
-    connection((db) => {
-        db.collection('descriptive_data')
-            .find({categories: { $exists: true }})  //Finds the record where the key 'categories' is present. Should only be one.
-            .toArray()
-            .then((categories) => {
-                response.data = categories;
-                res.json(response);
-            })
-            .catch((err) => {
-                sendError(err, res);
-            });
-    });
-});
-
-// Get all producers
-router.get('/producers', (req, res) => {
-    connection((db) => {
-        db.collection('descriptive_data')
-            .find({producers: { $exists: true }})  //Finds the record where the key 'producers' is present. Should only be one.
-            .toArray()
-            .then((producers) => {
-                response.data = producers;
-                res.json(response);
-            })
-            .catch((err) => {
-                sendError(err, res);
-            });
-    });
-});
-
-//Get all products 
-router.get('/products/getAll', (req, res) => {
-    connection((db) => {
-        db.collection('products')
-            .find()  
-            .toArray()
-            .then((products) => {
-                response.data = products;
-                res.json(response);
-            })
-            .catch((err) => {
-                sendError(err, res);
-            });
-    });
-});
-
-/* POST Requests */
-
-
+// Add a new product to the database
 router.post('/products/add', (req, res) => {
     connection((db) => {
         try {
@@ -152,7 +134,8 @@ router.post('/products/add', (req, res) => {
                 'in_stock': req.body.in_stock,
                 'kilo_price': req.body.kilo_price
             }) 
-            response.data = []
+            response.data = []  // Should not return data in the response
+            response.message = 'A new product was added!'
             res.json(response);
         } catch (error) {
             console.log("Error: " + error);
@@ -164,34 +147,32 @@ router.post('/products/add', (req, res) => {
 
 // Method to authenticate login and assign token
 router.post('/authenticate', (req, res) => {
+    console.log('Running authentication...')
     let query = {username: req.body.email};
-    // console.log(req.body.email + "<<<>>>" + query.username);
-    // , 'password': req.body.password
     connection((db) => {
-        // find users with username
-        db.collection('users').find(query).toArray(function(err, result) {
-            //console.log(">>>>>>>>" + query.username + result);
-            if (err) throw err;
-            if (result.length == 0){
+        // Find user with username, they are unique
+        db.collection('users').find(query).toArray().then((user) => {
+            if (user.length == 0){
                 //TODO: Invalid login
-                //console.log(">>>>>Failed at user check")
-                res.json({
-                    success: false,
-                    message: 'Authentication failed! User does not exist!'
-                })
+                console.log('Invalid username')
+                error.message = 'Authentication failed! Invalid username (email)! The user does not exist';
+                error.status = 403;
+                res.json(error);
             } else {
-                // check if password is true
-                let hash = result[0].password;
+                // Check if password is true
+                let hash = user[0].password;
                 bcrypt.compare(req.body.password, hash, function(err, checkRes) {
-                    console.log("<><>><><><><" + hash + "<>><<><>>>" + req.body.password);
+                    if (err) throw err;
+                    // If password is wrong
                     if (checkRes === false) {
-                        console.log(">>>>>Failed at hash check");
-                        res.json({
-                            success: false,
-                            message: 'Authentication failed! Wrong password!'
-                        })
+                        console.log('Invalid password')
+                        error.message = 'Authentication failed! Wrong password!';
+                        error.status = 403;
+                        res.json(error);
                     }
-                    if (checkRes === true) {
+                    // If password is right
+                    else {
+                        console.log('Valid! Logging in...')
                         let timestamp_now = new Date().getTime();
                         let payload = {
                             'iss': 'warewolf.io',
@@ -199,41 +180,22 @@ router.post('/authenticate', (req, res) => {
                             'username': req.body.email
                         }
                         auth_token = jwt.sign(payload, token_secret);
-                        res.json({
-                            success: true,
-                            auth_token: auth_token
-                        });
+                        response.data.push(auth_token);
+                        response.message = 'Authentication successful! Userdata and token provided'
+                        console.log('Response object: ' + response);
+                        res.json(response);
                     }
                 });
             }
-            db.close();
-            });
-    })
-
-});
-
-// Get user profile
-router.get('/profile', (req, res) => {
-    let auth_token = req.headers['authorization'].slice(7);
-    // let payload = jwtPayloadDecoder.getPayload(auth_token);
-    let decoded = jwt.decode(auth_token);
-    let username = (decoded.username);
-    console.log('Username' + username);
-    connection((db) => {
-        db.collection('users')
-        .find({"username" : username})
-        .toArray()
-        .then((user) => {
-            console.log(user);
-            response.data = user;
-            res.json(response);
         }).catch((err)=> {
             sendError(err,res);
         })
+        console.log('Closing connection...');
         db.close();
-        });
-
+    })
 });
+
+
 
 module.exports = router;
 

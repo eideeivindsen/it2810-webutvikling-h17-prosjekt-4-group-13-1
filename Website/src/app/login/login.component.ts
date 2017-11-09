@@ -21,9 +21,16 @@ ngOnInit() {
 
   onSubmit() {
     this.userService.login(this.username, this.password).subscribe((result) => {
-      if (result) {
+      console.log('Component result: ' + result);
+      if (result == 200) {
+        console.log('Component: Valid statuscode 200...');
         this.router.navigate(['']);
       }
+      /* TODO: Handle other status codes like:
+      403 for incorrect credentials
+      401 for invalid token
+      *ADD MORE*
+      */
     });
 }
 
