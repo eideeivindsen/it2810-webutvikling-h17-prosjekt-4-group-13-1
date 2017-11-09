@@ -35,6 +35,11 @@
     flex: 1;
 }
 
+.display-image img {
+    height: 250px;
+    width: 250px
+}
+
 
 mat-icon {
     vertical-align: middle;
