@@ -25,7 +25,7 @@ export class UserService {
       });
   }
 
-  // login user
+  // Login user
   login(email, password) {
 
     return this.http
@@ -34,16 +34,17 @@ export class UserService {
         { email, password }
       )
       .map((res: any) => {
-        if (res.success) {
-          localStorage.setItem('auth_token', res.auth_token);
+        if (res.status == 200) {
+          console.log('Service: Valid statuscode 200...');
+          localStorage.setItem('auth_token', res.data[0]);
           this.loggedIn = true;
         }
-        return res.success;
+        return res.status;
       });
 
   }
 
-  // logout user
+  // Logout user
   logout() {
     localStorage.removeItem('auth_token');
     this.loggedIn = false;

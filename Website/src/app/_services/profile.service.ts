@@ -12,7 +12,7 @@ export class ProfileService {
           headers: new HttpHeaders().set('Authorization', `Bearer ${auth_token}`)
     })
     .map((res: any) => {
-      if (res.status) {
+      if (res.status == 200) {
         console.log('res.data: ' + res.data);
         return res.data;
       }
