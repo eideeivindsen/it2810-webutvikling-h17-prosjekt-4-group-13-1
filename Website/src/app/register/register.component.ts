@@ -68,30 +68,31 @@ export class RegisterComponent implements OnInit {
 
   }
 
+  validateRegisterFeedback(res) {
+    if (res.status == 200) {
+      this.router.navigate(['/login']);
+    }
+    else if (res.status == 409){
+      this.errorMessage = "Username is already in use."
+    }
+    else if (res.status == 501) {
+      this.errorMessage = "Problems with the servers. Try again later."
+    }
+  }
+
   onSubmit() {
     this.createdAt = new Date;
     // if not customer, check secret
     if (this.chosenRole != "Customer") {
       if (this.typedSecret === this.secret) {
-        this.userService.register(this.fullName, this.username, this.password, this.chosenRole, this.createdAt).subscribe((result) => {
-          if (result.status == 200) {
-            this.router.navigate(['/login']);
-          }
-          else if (result.status == 409){
-            console.log("Register component: " + result.message);
-            
-          }
+        this.userService.register(this.fullName, this.username, this.password, this.chosenRole, this.createdAt).subscribe((res) => {
+          this.validateRegisterFeedback(res);
         });
       }
     // otherwise create user
     } else {
-      this.userService.register(this.fullName, this.username, this.password, this.chosenRole, this.createdAt).subscribe((result) => {
-        if (result.status == 200) {
-          this.router.navigate(['/login']);
-        }
-        else if (result.status == 409){
-          console.log("Register component: " + result.message);
-        }
+      this.userService.register(this.fullName, this.username, this.password, this.chosenRole, this.createdAt).subscribe((res) => {
+        this.validateRegisterFeedback(res);
       });
     }
 
