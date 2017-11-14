@@ -65,6 +65,39 @@ router.get('/products/getAll', (req, res) => {
     });
 });
 
+// Get products
+router.get('/products/get', (req, res) => {
+    let pageLimit = 5;
+    let startindex = req.index * 5;
+    let query = ".*" + req.filter.query + ".*";
+    let sortingKeypair = {};
+    sortingKeypair[req.sort.sortyBy] = req.sort.order;
+
+    connection((db) => {
+        db.collection('products')
+        .find(
+            {"name": {'$regex': query}, 
+             "category": {'$cond': [req.filter.advanced && req.filter.category != 'Show all', req.filter.category, {'$regex': '.*'}]},
+             "producers": {'$cond': [req.filter.advanced && req.filter.producer != 'Show all', req.filter.producer, {'$regex': '.*'}]},
+             "inStock":{'$cond': [req.filter.advanced && req.filter.inStock, true, true || false]},
+             "price":{'$cond': [req.filter.advanced && req.filter.price > 0, {$lt: req.filter.price}, {$gt: 0}]},
+            })
+        .aggregate(
+            {'$cond': [req.sort.order != 0, {'$sort': sort(sortingKeypair)}]}
+        )
+        .skip(startindex)
+        .limit(pageLimit)
+        .toArray()
+        .then((products) => {
+            response.data = products.slice(startindex, startindex + 6);  // +6 for inclusive fifth element. This will return 5 elements.
+            res.json(response)
+        })
+        .catch((err) => {
+            sendError(err, res);
+        })
+    })
+})
+
 // Get user profile
 router.get('/profile', (req, res) => {
     let auth_token = req.headers['authorization'].slice(7);  // Remove 'Bearer ' from the header to get token
@@ -106,12 +139,18 @@ router.get('/profile', (req, res) => {
             // Add user to database
             connection((db) => {
                 try{
-                    db.collection('users').insertOne(newUser);
-                    response.data = []
-                    response.message = "Added user: " + newUser.name
-                    res.send(response)
-                }catch (error){
-                    console.log("Error: " + error);
+                    db.collection('users').insertOne(newUser)
+                    .then(function() {
+                        response.data = [];
+                        response.message = "Added user: " + newUser.name;
+                        res.json(response);
+                    }).catch (function(){
+                        error.status = 409;
+                        error.message = "That username (email) is taken!";
+                        res.json(error);
+                    })
+                }catch (err){
+                    console.log("Error: " + err);
                     res.json(sendError);
                 }
                 db.close();
@@ -136,12 +175,19 @@ router.post('/products/add', (req, res) => {
                 'quantity': req.body.quantity,
                 'in_stock': req.body.in_stock,
                 'kilo_price': req.body.kilo_price
-            }) 
-            response.data = []  // Should not return data in the response
-            response.message = 'A new product was added!'
-            res.json(response);
-        } catch (error) {
-            console.log("Error: " + error);
+            })
+            .then(function(){
+                response.data = []  // Should not return data in the response
+                response.message = 'A new product was added!'
+                res.json(response);
+            })
+            .catch(function(){
+                error.status = 409;
+                error.message = "This product already excists in the database!";
+                res.json(error);
+            })
+        } catch (err) {
+            console.log("Error: " + err);
             res.json(sendError);
         }
         db.close();
