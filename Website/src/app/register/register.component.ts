@@ -69,8 +69,19 @@ export class RegisterComponent implements OnInit {
   }
 
   validateRegisterFeedback(res) {
+    console.log(res);
     if (res.status == 200) {
-      this.router.navigate(['/login']);
+      this.userService.login(res.credentials.username, res.credentials.password).subscribe((result) => {
+        if (result == 200) {
+          console.log("Logged in!");
+          this.router.navigate(['']);
+        }
+        else {
+          console.log("Not logged in!");
+          this.errorMessage = "Ops! Somthing went wrong. Please try again laster."
+        }
+      });
+      this.router.navigate(['/']);
     }
     else if (res.status == 409){
       this.errorMessage = "Username is already in use."
