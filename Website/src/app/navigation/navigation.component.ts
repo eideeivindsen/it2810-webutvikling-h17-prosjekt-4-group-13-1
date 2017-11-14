@@ -26,7 +26,6 @@ export class NavigationComponent implements OnInit {
     }
 
     updateProfileCard(){
-      console.log("Kjører mange ganger");
       if (this.userService.isLoggedIn()){
         if (!localStorage.getItem("username")){
           this.profileService.getProfile().subscribe((result) => {

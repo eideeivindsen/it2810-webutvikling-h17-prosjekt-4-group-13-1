@@ -24,7 +24,6 @@ ngOnInit() {
       console.log('Component result: ' + result);
       if (result == 200) {
         console.log('Component: Valid statuscode 200...');
-        // Update profile card
         this.router.navigate(['']);
       }
       /* TODO: Handle other status codes like:
