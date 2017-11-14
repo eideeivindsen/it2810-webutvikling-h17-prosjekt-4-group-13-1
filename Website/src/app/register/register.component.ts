@@ -1,7 +1,47 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import {
+  FormControl,
+  FormGroupDirective,
+  Validators,
+  NgModel,
+  NgForm,
+  AbstractControl,
+  ValidatorFn
+} from '@angular/forms';
+import {ErrorStateMatcher} from '@angular/material/core';
 
 import { UserService } from '../_services/user.service';
+
+
+/* Error when invalid control is dirty, touched, or submitted. */
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
+}
+
+export function secretValidator(control: AbstractControl) {
+  const secret = "turtleneck";
+  let typedSecret = control.value;
+  if (secret == typedSecret) {
+    return null;
+  } else {
+    return control.value;
+  }
+}
+
+export function nameTakenValidator(takenNames: any[]): ValidatorFn {
+  return (control: AbstractControl) => {
+    let typedName = control.value;
+    if (takenNames.indexOf(typedName) >= 0) {
+      return typedName;
+    } else {
+      return null;
+    }
+  }
+}
 
 
 @Component({
@@ -24,17 +64,63 @@ export class RegisterComponent implements OnInit {
   createdAt: Date;
   secret: String = "turtleneck";
   typedSecret: String = "";
-  // errors
-  wrongPassword: Boolean = false;
   wrongSecret: Boolean = false;
+
+  allUsers = [];
+
+  // Form validators
+  emailFormControl = new FormControl('', [
+    Validators.required,
+    Validators.email,
+    nameTakenValidator(this.allUsers)
+  ]);
+
+
+  nameFormControl = new FormControl('', [
+    Validators.required,
+  ]);
+
   errorMessage: String = "";
 
+
+  secretFormControl = new FormControl(this.typedSecret,[
+    Validators.required,
+    secretValidator
+  ])
+
+  matcher = new MyErrorStateMatcher();
 
   constructor(private userService: UserService, private router: Router) {}
 
   ngOnInit() {
-
+      this.userService.getUserNames().subscribe((result) => {
+        for (var i = 0; i < result.length; i++) {
+          this.allUsers.push(result[i].username)
+        }
+      });
   }
+
+  onSubmit() {
+    this.createdAt = new Date;
+    // if not customer, check secret
+    if (this.chosenRole != "Customer") {
+      if (this.typedSecret === this.secret) {
+        this.userService.register(this.fullName, this.username, this.password, this.chosenRole, this.createdAt).subscribe((result) => {
+          if (result) {
+            this.router.navigate(['/login']);
+          }
+        });
+      }
+    // otherwise create user
+    } else {
+      this.userService.register(this.fullName, this.username, this.password, this.chosenRole, this.createdAt).subscribe((result) => {
+        if (result) {
+          this.router.navigate(['/login']);
+        }
+      });
+    }
+  }
+
 
   // debugging \o/
   printAll() {
@@ -67,6 +153,7 @@ export class RegisterComponent implements OnInit {
     }
 
   }
+}
 
   validateRegisterFeedback(res) {
     console.log(res);
@@ -109,3 +196,4 @@ export class RegisterComponent implements OnInit {
 
   }
 }
+

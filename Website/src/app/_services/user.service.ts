@@ -32,6 +32,17 @@ export class UserService {
       });
   }
 
+  // get user names
+  getUserNames() {
+    return this.http
+    .get(
+      '/api/users/getAll'
+    )
+    .map((res: any) => {
+      return res.data;
+    });
+  }
+
   // Login user
   login(email, password) {
 
