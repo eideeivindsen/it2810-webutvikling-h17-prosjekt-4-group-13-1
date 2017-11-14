@@ -51,6 +51,9 @@ export class UserService {
   // Logout user
   logout() {
     localStorage.removeItem('auth_token');
+    localStorage.removeItem('createdAt');
+    localStorage.removeItem('username');
+    localStorage.removeItem('role');
     this.loggedIn = false;
   }
 
