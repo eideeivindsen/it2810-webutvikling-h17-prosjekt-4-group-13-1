@@ -159,19 +159,24 @@ export class RegisterComponent implements OnInit {
   onSubmit() {
     this.createdAt = new Date;
     // if not customer, check secret
-    if (this.chosenRole != "Customer") {
-      if (this.typedSecret === this.secret) {
+    console.log(this.matcher);
+    if (this.matcher) {
+      if (this.chosenRole != "Customer") {
+        if (this.typedSecret === this.secret) {
+          this.userService.register(this.fullName, this.username, this.password, this.chosenRole, this.createdAt).subscribe((res) => {
+            this.validateRegisterFeedback(res);
+          });
+        }
+        // otherwise create user
+      } else {
         this.userService.register(this.fullName, this.username, this.password, this.chosenRole, this.createdAt).subscribe((res) => {
           this.validateRegisterFeedback(res);
         });
       }
-    // otherwise create user
     } else {
-      this.userService.register(this.fullName, this.username, this.password, this.chosenRole, this.createdAt).subscribe((res) => {
-        this.validateRegisterFeedback(res);
-      });
+      console.log("Something went wrong!")
     }
   }
-
+    
 }
 
