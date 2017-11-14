@@ -17,6 +17,8 @@ export class ResultsComponent implements OnInit {
   subscription: Subscription;
   pageEvent: PageEvent = new PageEvent;
   searched: boolean = false;
+  sortBy: String = '';
+  sortAsc: Boolean = true;
 
   constructor(public dialog: MatDialog, private searchService: SearchService) {
       this.subscription = this.searchService.getResults().subscribe(results => {
@@ -39,24 +41,21 @@ export class ResultsComponent implements OnInit {
 
     onPaginateChange(event: PageEvent) {
         this.pageEvent = event;
-        this.searchService.update(event.pageIndex, 0).subscribe();
+        const sort = {
+            "sortBy": this.sortBy,
+            "order": this.sortAsc ? 1 : -1,
+        }
+        this.searchService.update(event.pageIndex, this.sortBy.length > 0 ? sort : 0).subscribe();
     }
 
-    sort(sortBy: String) {
-        switch(sortBy) {
-            case 'name':
-                this.results.sort(function(a: Product, b: Product) {return (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0);} );
-                this.onPaginateChange(this.pageEvent);
-                break;
-            case 'producer':
-                this.results.sort(function(a: Product, b: Product) {return (a.producer > b.producer) ? 1 : ((b.producer > a.producer) ? -1 : 0);} );
-                this.onPaginateChange(this.pageEvent);
-                break;
-            case 'stockstatus':
-                this.results.sort(function(a: Product, b: Product) {return (a.in_stock === b.in_stock)? 0 : a.in_stock? -1 : 1;} );
-                this.onPaginateChange(this.pageEvent);
-                break;
+    sort(sortParam) {
+        this.sortBy === sortParam ? this.sortAsc = !this.sortAsc : this.sortAsc = true;
+        this.sortBy = sortParam;
+        const sort = {
+            "sortBy": sortParam,
+            "order": this.sortAsc ? 1 : -1,
         }
+        this.searchService.update(this.pageEvent.pageIndex, sort).subscribe();
     }
 
 }
