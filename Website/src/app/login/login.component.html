@@ -8,6 +8,7 @@
       <input matInput  type="password" placeholder="Password" name="Password" [(ngModel)]="password" required>
     </mat-form-field>
     <button mat-raised-button>Login</button>
+    <p class="error">{{errorMessage}}</p>
   </form>
   <div>
     <button mat-button routerLink="/register">Register</button>

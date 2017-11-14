@@ -65,6 +65,7 @@ export class RegisterComponent implements OnInit {
   secret: String = "turtleneck";
   typedSecret: String = "";
   wrongSecret: Boolean = false;
+
   allUsers = [];
 
   // Form validators
@@ -79,6 +80,9 @@ export class RegisterComponent implements OnInit {
     Validators.required,
   ]);
 
+  errorMessage: String = "";
+
+
   secretFormControl = new FormControl(this.typedSecret,[
     Validators.required,
     secretValidator
@@ -87,14 +91,13 @@ export class RegisterComponent implements OnInit {
   matcher = new MyErrorStateMatcher();
 
   constructor(private userService: UserService, private router: Router) {}
-  
+
   ngOnInit() {
       this.userService.getUserNames().subscribe((result) => {
         for (var i = 0; i < result.length; i++) {
           this.allUsers.push(result[i].username)
         }
       });
-    
   }
 
   onSubmit() {
@@ -119,12 +122,6 @@ export class RegisterComponent implements OnInit {
   }
 
 
-
-
-
-
-
-  
   // debugging \o/
   printAll() {
     this.createdAt = new Date;
@@ -156,6 +153,47 @@ export class RegisterComponent implements OnInit {
     }
 
   }
-
-
 }
+
+  validateRegisterFeedback(res) {
+    console.log(res);
+    if (res.status == 200) {
+      this.userService.login(res.credentials.username, res.credentials.password).subscribe((result) => {
+        if (result == 200) {
+          console.log("Logged in!");
+          this.router.navigate(['']);
+        }
+        else {
+          console.log("Not logged in!");
+          this.errorMessage = "Ops! Somthing went wrong. Please try again laster."
+        }
+      });
+      this.router.navigate(['/']);
+    }
+    else if (res.status == 409){
+      this.errorMessage = "Username is already in use."
+    }
+    else if (res.status == 501) {
+      this.errorMessage = "Problems with the servers. Try again later."
+    }
+  }
+
+  onSubmit() {
+    this.createdAt = new Date;
+    // if not customer, check secret
+    if (this.chosenRole != "Customer") {
+      if (this.typedSecret === this.secret) {
+        this.userService.register(this.fullName, this.username, this.password, this.chosenRole, this.createdAt).subscribe((res) => {
+          this.validateRegisterFeedback(res);
+        });
+      }
+    // otherwise create user
+    } else {
+      this.userService.register(this.fullName, this.username, this.password, this.chosenRole, this.createdAt).subscribe((res) => {
+        this.validateRegisterFeedback(res);
+      });
+    }
+
+  }
+}
+

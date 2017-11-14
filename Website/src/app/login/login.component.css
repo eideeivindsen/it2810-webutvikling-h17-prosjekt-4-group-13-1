@@ -18,3 +18,8 @@ form > * {
 button {
     margin-top: 30px !important;
 }
+
+.error {
+  color: red;
+  margin-top: 1em !important;
+}

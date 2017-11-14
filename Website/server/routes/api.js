@@ -54,21 +54,51 @@ let error = {
 
 /* GET Requests */
 
-// Get all products 
+// Get all products
 router.get('/products/getAll', (req, res) => {
+    let filter = JSON.parse(req.query.filter);
+    let query = new RegExp('.*' + filter.query + '.*');
+    let categoryDefault = new RegExp('.*');
+    let producerDefault = new RegExp('.*');
+
+    let params = {
+        'name': {$regex: query},
+        'category': {$regex: categoryDefault},
+        'producer': {$regex: producerDefault},
+        'in_stock': {$in: [true, false]},
+        'price': {$gt: 0},
+    }
+
+    if(filter.advanced){
+        if(filter.category != 'Show all' && filter.category != ''){
+            params['category'] = filter.category;
+        }
+        if(filter.producer != 'Show all' && filter.producer != ''){
+            params['producer'] = filter.producer;
+        }
+        if(filter.inStock){
+            params['in_stock'] = filter.inStock;
+        }
+        if(filter.price > 0){
+            params['price'] = {$lt: filter.price}
+        }
+    }
+    
     connection((db) => {
         db.collection('products')
-            .find()  
-            .toArray()
-            .then((products) => {
-                response.data = products;
-                res.json(response);
-            })
-            .catch((err) => {
-                sendError(err, res);
-            });
-    });
+        .find(params)
+        .toArray()
+        .then((products) => {
+            response.data = products;
+            response.message = "Got products!";
+            res.json(response);
+        })
+        .catch((err) => {
+            sendError(err, res);
+        })
+    })
 });
+
 
 // Get all users 
 router.get('/users/getAll', (req, res) => {
@@ -85,6 +115,60 @@ router.get('/users/getAll', (req, res) => {
             });
     });
 });
+
+
+// Get products
+router.get('/products/get', (req, res) => {
+    let filter = JSON.parse(req.query.filter);
+    let sort = JSON.parse(req.query.sort);
+    let index = JSON.parse(req.query.index);
+
+    let pageLimit = 5;
+    let startindex = index * 5;
+    let query = new RegExp('.*' + filter.query + '.*');
+    let categoryDefault = new RegExp('.*');
+    let producerDefault = new RegExp('.*');
+
+    let params = {
+        'name': {$regex: query},
+        'category': {$regex: categoryDefault},
+        'producer': {$regex: producerDefault},
+        'in_stock': {$in: [true, false]},
+        'price': {$gt: 0},
+    }
+
+    if(filter.advanced){
+        if(filter.category != 'Show all' && filter.category != ''){
+            params['category'] = filter.category;
+        }
+        if(filter.producer != 'Show all' && filter.producer != ''){
+            params['producer'] = filter.producer;
+        }
+        if(filter.inStock){
+            params['in_stock'] = filter.inStock;
+        }
+        if(filter.price > 0){
+            params['price'] = {$lt: filter.price}
+        }
+    }
+    
+    connection((db) => {
+        db.collection('products')
+        .find(params)
+        .skip(startindex)
+        .limit(pageLimit)
+        .sort(sort.sortBy, sort.order)
+        .toArray()
+        .then((products) => {
+            response.data = products;
+            response.message = "Got products!";
+            res.json(response);
+        })
+        .catch((err) => {
+            sendError(err, res);
+        })
+    })
+})
 
 
 // Get user profile
@@ -128,12 +212,18 @@ router.get('/profile', (req, res) => {
             // Add user to database
             connection((db) => {
                 try{
-                    db.collection('users').insertOne(newUser);
-                    response.data = []
-                    response.message = "Added user: " + newUser.name
-                    res.send(response)
-                }catch (error){
-                    console.log("Error: " + error);
+                    db.collection('users').insertOne(newUser)
+                    .then(function() {
+                        response.data = [];
+                        response.message = "Added user: " + newUser.name;
+                        res.json(response);
+                    }).catch (function(){
+                        error.status = 409;
+                        error.message = "That username (email) is taken!";
+                        res.json(error);
+                    })
+                }catch (err){
+                    console.log("Error: " + err);
                     res.json(sendError);
                 }
                 db.close();
@@ -158,12 +248,19 @@ router.post('/products/add', (req, res) => {
                 'quantity': req.body.quantity,
                 'in_stock': req.body.in_stock,
                 'kilo_price': req.body.kilo_price
-            }) 
-            response.data = []  // Should not return data in the response
-            response.message = 'A new product was added!'
-            res.json(response);
-        } catch (error) {
-            console.log("Error: " + error);
+            })
+            .then(function(){
+                response.data = []  // Should not return data in the response
+                response.message = 'A new product was added!'
+                res.json(response);
+            })
+            .catch(function(){
+                error.status = 409;
+                error.message = "This product already excists in the database!";
+                res.json(error);
+            })
+        } catch (err) {
+            console.log("Error: " + err);
             res.json(sendError);
         }
         db.close();

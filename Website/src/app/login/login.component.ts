@@ -12,6 +12,7 @@ export class LoginComponent implements OnInit {
 
 username: String = "";
 password: String = "";
+errorMessage: String = "";
 
 constructor(private userService: UserService, private router: Router) {}
 
@@ -24,6 +25,7 @@ ngOnInit() {
       console.log('Component result: ' + result);
       if (result == 200) {
         console.log('Component: Valid statuscode 200...');
+        this.errorMessage = "";
         this.router.navigate(['']);
       }
       /* TODO: Handle other status codes like:
@@ -31,6 +33,9 @@ ngOnInit() {
       401 for invalid token
       *ADD MORE*
       */
+      else if ((result >= 400) && (result <= 410)) {
+        this.errorMessage = "Wrong username or password."
+      }
     });
 }
 

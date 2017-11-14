@@ -18,10 +18,17 @@ export class UserService {
         { name, username, password, role, createdAt}
       )
       .map((res:any) => {
-        if (res.success) {
-          //this.login(username, password)
+        console.log(res)
+        if (res.status == 200) {
+          res.credentials = {
+            username: username,
+            password: password
+          }
+          return res;
         }
-        return res.success;
+        else {
+          return res;
+        }
       });
   }
 
@@ -49,8 +56,8 @@ export class UserService {
           console.log('Service: Valid statuscode 200...');
           console.log('Response data: ' + res.data);
           console.log('Auth token stringify: ' + JSON.stringify(res.data[0]));
-          
-          
+
+
           localStorage.setItem('auth_token', res.data[0]);
           this.loggedIn = true;
         }
@@ -62,6 +69,9 @@ export class UserService {
   // Logout user
   logout() {
     localStorage.removeItem('auth_token');
+    localStorage.removeItem('createdAt');
+    localStorage.removeItem('username');
+    localStorage.removeItem('role');
     this.loggedIn = false;
   }
 
