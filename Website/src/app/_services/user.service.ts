@@ -18,15 +18,14 @@ export class UserService {
         { name, username, password, role, createdAt}
       )
       .map((res:any) => {
+        console.log(res)
         if (res.status == 200) {
-          //this.login(username, password)
+          //this.login(username, password);
+          return res;
         }
-        else if (res.status == 409){
-          console.log("Username is taken");
-          
-          //TODO: The username is taken
+        else {
+          return res;
         }
-        return res;
       });
   }
 
@@ -43,8 +42,8 @@ export class UserService {
           console.log('Service: Valid statuscode 200...');
           console.log('Response data: ' + res.data);
           console.log('Auth token stringify: ' + JSON.stringify(res.data[0]));
-          
-          
+
+
           localStorage.setItem('auth_token', res.data[0]);
           this.loggedIn = true;
         }
