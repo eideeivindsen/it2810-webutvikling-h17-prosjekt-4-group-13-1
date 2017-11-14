@@ -14,7 +14,6 @@ import { Product } from '../../product';
 })
 export class ResultsComponent implements OnInit {
   results: Object[] = [];
-  displayResults: Object[];
   subscription: Subscription;
   pageEvent: PageEvent = new PageEvent;
   searched: boolean = false;
@@ -22,7 +21,6 @@ export class ResultsComponent implements OnInit {
   constructor(public dialog: MatDialog, private searchService: SearchService) {
       this.subscription = this.searchService.getResults().subscribe(results => {
           this.results = results;
-          this.displayResults = results.slice(0,5)
           this.pageEvent = {pageIndex: 0, pageSize: 5, length: results.length}
           this.searched = true;
       });
@@ -35,13 +33,13 @@ export class ResultsComponent implements OnInit {
       let dialogRef = this.dialog.open(WordcloudComponent, {
         width: '75%',
         height: '75%',
-        data: { results: this.results }
+        data: { results: this.searchService.getAll().subscribe((result) => result)}
       });
     }
 
     onPaginateChange(event: PageEvent) {
-        var start = event.pageIndex * event.pageSize;
-        this.displayResults = this.results.slice(start, start + event.pageSize);
+        this.pageEvent = event;
+        this.searchService.update(event.pageIndex, 0).subscribe();
     }
 
     sort(sortBy: String) {
