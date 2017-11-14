@@ -100,27 +100,6 @@ export class RegisterComponent implements OnInit {
       });
   }
 
-  onSubmit() {
-    this.createdAt = new Date;
-    // if not customer, check secret
-    if (this.chosenRole != "Customer") {
-      if (this.typedSecret === this.secret) {
-        this.userService.register(this.fullName, this.username, this.password, this.chosenRole, this.createdAt).subscribe((result) => {
-          if (result) {
-            this.router.navigate(['/login']);
-          }
-        });
-      }
-    // otherwise create user
-    } else {
-      this.userService.register(this.fullName, this.username, this.password, this.chosenRole, this.createdAt).subscribe((result) => {
-        if (result) {
-          this.router.navigate(['/login']);
-        }
-      });
-    }
-  }
-
 
   // debugging \o/
   printAll() {
@@ -153,7 +132,6 @@ export class RegisterComponent implements OnInit {
     }
 
   }
-}
 
   validateRegisterFeedback(res) {
     console.log(res);
@@ -193,7 +171,7 @@ export class RegisterComponent implements OnInit {
         this.validateRegisterFeedback(res);
       });
     }
-
   }
+
 }
 
