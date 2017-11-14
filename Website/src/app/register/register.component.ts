@@ -27,12 +27,13 @@ export class RegisterComponent implements OnInit {
   // errors
   wrongPassword: Boolean = false;
   wrongSecret: Boolean = false;
+  errorMessage: String = "";
 
 
   constructor(private userService: UserService, private router: Router) {}
-  
+
   ngOnInit() {
-     
+
   }
 
   // debugging \o/
