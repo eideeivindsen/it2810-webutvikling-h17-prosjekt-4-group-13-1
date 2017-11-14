@@ -49,7 +49,7 @@ export class ProfileViewComponent {
   dataSource = new ExampleDataSource();
 
 
-  // Doughnut
+  // Doughnut TODO: faktisk data her
   public chartLabels:string[] = ['Tine melk 0,75L', 'Kesam Tine', 'Margarin Meieri', 'Coop Appelsinjuice', 'Tuborg 0,5L'];
   public chartData:number[] = [350, 450, 100, 35, 31];
   public chartType:string = 'pie';

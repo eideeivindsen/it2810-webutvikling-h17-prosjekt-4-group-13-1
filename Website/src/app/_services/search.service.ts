@@ -68,7 +68,6 @@ export class SearchService {
       })
   }
 
-
   getResults(): Observable<any> {
         return this.results.asObservable();
     }

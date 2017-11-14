@@ -18,10 +18,15 @@ export class UserService {
         { name, username, password, role, createdAt}
       )
       .map((res:any) => {
-        if (res.success) {
+        if (res.status == 200) {
           //this.login(username, password)
         }
-        return res.success;
+        else if (res.status == 409){
+          console.log("Username is taken");
+          
+          //TODO: The username is taken
+        }
+        return res;
       });
   }
 
@@ -51,6 +56,9 @@ export class UserService {
   // Logout user
   logout() {
     localStorage.removeItem('auth_token');
+    localStorage.removeItem('createdAt');
+    localStorage.removeItem('username');
+    localStorage.removeItem('role');
     this.loggedIn = false;
   }
 

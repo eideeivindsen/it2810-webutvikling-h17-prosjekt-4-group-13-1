@@ -27,12 +27,13 @@ export class RegisterComponent implements OnInit {
   // errors
   wrongPassword: Boolean = false;
   wrongSecret: Boolean = false;
+  errorMessage: String = "";
 
 
   constructor(private userService: UserService, private router: Router) {}
-  
+
   ngOnInit() {
-     
+
   }
 
   // debugging \o/
@@ -73,16 +74,23 @@ export class RegisterComponent implements OnInit {
     if (this.chosenRole != "Customer") {
       if (this.typedSecret === this.secret) {
         this.userService.register(this.fullName, this.username, this.password, this.chosenRole, this.createdAt).subscribe((result) => {
-          if (result) {
+          if (result.status == 200) {
             this.router.navigate(['/login']);
+          }
+          else if (result.status == 409){
+            console.log("Register component: " + result.message);
+            
           }
         });
       }
     // otherwise create user
     } else {
       this.userService.register(this.fullName, this.username, this.password, this.chosenRole, this.createdAt).subscribe((result) => {
-        if (result) {
+        if (result.status == 200) {
           this.router.navigate(['/login']);
+        }
+        else if (result.status == 409){
+          console.log("Register component: " + result.message);
         }
       });
     }

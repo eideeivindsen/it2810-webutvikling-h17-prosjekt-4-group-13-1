@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../_services/user.service';
 import { ProfileService } from '../_services/profile.service';
-import { Router } from '@angular/router';
+import { Router, Event, NavigationEnd } from '@angular/router';
+import { log } from 'util';
 
 
 @Component({
@@ -17,16 +18,26 @@ export class NavigationComponent implements OnInit {
     constructor(private userService: UserService, private router: Router, private profileService: ProfileService) { }
 
     ngOnInit() {
-      if (!localStorage.getItem("username")){
-        this.profileService.getProfile().subscribe((result) => {
-          this.name = result[0].name;
-          this.role = result[0].role;
-          localStorage.setItem("username", result[0].name);
-          localStorage.setItem("role", result[0].role);
-        });
-      } else {
-        this.name = localStorage.getItem("username");
-        this.role = localStorage.getItem("role");
+      this.router.events.subscribe((event: Event) => {
+        if (event instanceof NavigationEnd && this.router.url == '/'){
+          this.updateProfileCard()
+        }
+      })
+    }
+
+    updateProfileCard(){
+      if (this.userService.isLoggedIn()){
+        if (!localStorage.getItem("username")){
+          this.profileService.getProfile().subscribe((result) => {
+            this.name = result[0].name;
+            this.role = result[0].role;
+            localStorage.setItem("username", result[0].name);
+            localStorage.setItem("role", result[0].role);
+          });
+        } else {
+          this.name = localStorage.getItem("username");
+          this.role = localStorage.getItem("role");
+        }
       }
     }
 

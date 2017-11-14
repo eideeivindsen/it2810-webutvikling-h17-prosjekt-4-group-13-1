@@ -14,7 +14,7 @@
       <mat-form-field>
         <mat-select placeholder="Role" name="Role" [(value)]="chosenRole" required>
           <mat-option *ngFor="let role of roles" [value]="role">
-            {{role}}         
+            {{role}}
           </mat-option>
         </mat-select>
       </mat-form-field>
@@ -25,5 +25,6 @@
         <input matInput  type="password" placeholder="Password" name="Password" [(ngModel)]="password" required>
       </mat-form-field>
       <button mat-raised-button>Register</button>
+      <p class="error">{{errorMessage}}</p>
     </form>
   </mat-card>
