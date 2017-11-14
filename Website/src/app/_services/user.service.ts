@@ -20,7 +20,10 @@ export class UserService {
       .map((res:any) => {
         console.log(res)
         if (res.status == 200) {
-          //this.login(username, password);
+          res.credentials = {
+            username: username,
+            password: password
+          }
           return res;
         }
         else {

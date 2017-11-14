@@ -34,7 +34,7 @@ ngOnInit() {
       *ADD MORE*
       */
       else if ((result >= 400) && (result <= 410)) {
-        this.errorMessage = "Wrong credentials."
+        this.errorMessage = "Wrong username or password."
       }
     });
 }
