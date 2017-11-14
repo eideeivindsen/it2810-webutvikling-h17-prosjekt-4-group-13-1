@@ -49,11 +49,11 @@ let error = {
 
 /* GET Requests */
 
-// Get all products 
+// Get all products
 router.get('/products/getAll', (req, res) => {
     connection((db) => {
         db.collection('products')
-            .find()  
+            .find()
             .toArray()
             .then((products) => {
                 response.data = products;
@@ -76,7 +76,7 @@ router.get('/products/get', (req, res) => {
     connection((db) => {
         db.collection('products')
         .find(
-            {"name": {'$regex': query}, 
+            {"name": {'$regex': query},
              "category": {'$cond': [req.filter.advanced && req.filter.category != 'Show all', req.filter.category, {'$regex': '.*'}]},
              "producers": {'$cond': [req.filter.advanced && req.filter.producer != 'Show all', req.filter.producer, {'$regex': '.*'}]},
              "inStock":{'$cond': [req.filter.advanced && req.filter.inStock, true, true || false]},

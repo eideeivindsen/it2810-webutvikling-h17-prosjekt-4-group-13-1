@@ -1,9 +1,9 @@
 <div class="results-container">
     <mat-card>
         <mat-toolbar>
-            <button mat-button type="button" (click)="sort('name')">Name</button>
-            <button mat-button type="button" (click)="sort('producer')">Producer</button>
-            <button mat-button type="button" (click)="sort('stockstatus')">Stock Status</button>
+            <button mat-button type="button" (click)="sort('name')">Name <mat-icon *ngIf="sortBy=='name'">{{sortAsc ? 'arrow_downward' : 'arrow_upward'}}</mat-icon></button>
+            <button mat-button type="button" (click)="sort('producer')">Producer <mat-icon *ngIf="sortBy=='producer'">{{sortAsc ? 'arrow_downward' : 'arrow_upward'}}</mat-icon></button>
+            <button mat-button type="button" (click)="sort('stockstatus')">Stock Status <mat-icon *ngIf="sortBy=='stockstatus'">{{sortAsc ? 'arrow_downward' : 'arrow_upward'}}</mat-icon></button>
         </mat-toolbar>
         <div *ngFor="let result of displayResults">
             <app-result [data]="result"></app-result>
@@ -12,7 +12,7 @@
             <h2 class="mat-h2" *ngIf="searched"><mat-icon>search</mat-icon> NO PRODUCTS FOUND</h2>
             <h2 class="mat-h2" *ngIf="!searched"><mat-icon>search</mat-icon> SEARCH TO FIND PRODUCTS</h2>
         </div>
-        <mat-paginator [length]="results.length" [pageSize]="5" (page)="onPaginateChange($event)"> </mat-paginator>
+        <mat-paginator [length]="10" [pageSize]="5" (page)="onPaginateChange($event)"> </mat-paginator>
     </mat-card>
     <button *ngIf="results.length > 0" mat-button class="modalButton" (click)="openDialog()" type="button">DISPLAY WORD CLOUD OF RESULTS</button>
 </div>
