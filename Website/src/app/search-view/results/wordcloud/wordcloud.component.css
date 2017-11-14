@@ -11,6 +11,10 @@ mat-icon:hover {
     transform: scale(1.05);
 }
 
+mat-spinner {
+    margin: auto;
+}
+
 h1 {
     text-align: center;
     padding-top: 50px;

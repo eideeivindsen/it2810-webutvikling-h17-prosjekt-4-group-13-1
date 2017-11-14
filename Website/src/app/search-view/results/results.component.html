@@ -5,6 +5,10 @@
             <button mat-button type="button" (click)="sort('producer')">Producer <mat-icon *ngIf="sortBy=='producer'">{{sortAsc ? 'arrow_downward' : 'arrow_upward'}}</mat-icon></button>
             <button mat-button type="button" (click)="sort('in_stock')">Stock Status <mat-icon *ngIf="sortBy=='in_stock'">{{sortAsc ? 'arrow_downward' : 'arrow_upward'}}</mat-icon></button>
         </mat-toolbar>
+        <div class="loading-shade"
+           *ngIf="isLoading">
+           <mat-spinner></mat-spinner>
+        </div>
         <div *ngFor="let result of results">
             <app-result [data]="result"></app-result>
         </div>
