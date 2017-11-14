@@ -19,12 +19,14 @@ export class ResultsComponent implements OnInit {
   searched: boolean = false;
   sortBy: String = '';
   sortAsc: Boolean = true;
+  isLoading = false;
 
   constructor(public dialog: MatDialog, private searchService: SearchService) {
+      this.pageEvent = {pageIndex: 0, pageSize: 5, length: 10}
       this.subscription = this.searchService.getResults().subscribe(results => {
           this.results = results;
-          this.pageEvent = {pageIndex: 0, pageSize: 5, length: results.length}
           this.searched = true;
+          this.isLoading = false;
       });
   }
 
@@ -40,6 +42,7 @@ export class ResultsComponent implements OnInit {
     }
 
     onPaginateChange(event: PageEvent) {
+        this.isLoading = true;
         this.pageEvent = event;
         const sort = {
             "sortBy": this.sortBy,
@@ -49,6 +52,7 @@ export class ResultsComponent implements OnInit {
     }
 
     sort(sortParam) {
+        this.isLoading = true;
         this.sortBy === sortParam ? this.sortAsc = !this.sortAsc : this.sortAsc = true;
         this.sortBy = sortParam;
         const sort = {

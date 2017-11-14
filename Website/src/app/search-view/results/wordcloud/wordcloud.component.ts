@@ -1,6 +1,9 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {AgWordCloudData} from 'angular4-word-cloud';
+import { SearchService } from '../../../_services/search.service';
+
+import { Product } from '../../../product'
 
 @Component({
   selector: 'app-wordcloud',
@@ -11,11 +14,15 @@ export class WordcloudComponent implements OnInit {
     wordData: Array<AgWordCloudData> = [];
 
     constructor(
+      private searchService: SearchService,
       public dialogRef: MatDialogRef<WordcloudComponent>,
       @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit() {
-      this.data.results.map(object => this.wordData.push({text: object.name, size: object.quantity}))
+      this.searchService.getAll().subscribe(result => {
+          result.map(object => this.wordData.push({text: object.name, size: object.quantity}))
+      })
+
   }
 
   onNoClick(): void {
