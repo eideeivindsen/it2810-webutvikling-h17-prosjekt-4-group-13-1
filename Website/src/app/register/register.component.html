@@ -1,29 +1,50 @@
 <mat-card class="container">
   <h1 class="mat-display-1">Register:</h1>
-    <form #heroForm="ngForm" (ngSubmit)="onSubmit()" >
-      <div *ngIf="wrongSecret">
-        <p>You have entered the wrong secret password.</p>
-        <p>If you do not know the password - choose Customer or contact administration.</p>
-      </div>
+    <form #heroForm="ngForm" name="register" (ngSubmit)="onSubmit()" >
       <mat-form-field>
-        <input matInput placeholder="Name" name="Full name" [(ngModel)]="fullName" required>
+        <input matInput placeholder="Name" name="fullName" [(ngModel)]="fullName" [formControl]="nameFormControl" required>
+        <mat-error *ngIf="emailFormControl.hasError('required')">
+            Name is required
+          </mat-error>
       </mat-form-field>
       <mat-form-field>
-        <input matInput placeholder="E-mail" name="Username" [(ngModel)]="username" required>
+        <input matInput 
+          type="email"
+          placeholder="E-mail" 
+          name="username" 
+          [(ngModel)]="username" 
+          [formControl]="emailFormControl" 
+          [errorStateMatcher]="matcher">
+        <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+          Please enter a valid email address
+        </mat-error>
+        <mat-error *ngIf="emailFormControl.hasError('required')">
+          Email is required
+        </mat-error>
       </mat-form-field>
       <mat-form-field>
-        <mat-select placeholder="Role" name="Role" [(value)]="chosenRole" required>
+        <mat-select placeholder="Role" name="role" [(value)]="chosenRole" required>
           <mat-option *ngFor="let role of roles" [value]="role">
             {{role}}         
           </mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field *ngIf="chosenRole!='Customer'">
-        <input matInput  type="password" placeholder="Secret" name="Secret" [(ngModel)]="typedSecret" required>
+        <input matInput 
+          type="password"
+          placeholder="Secret" 
+          name="secret" 
+          [(ngModel)]="typedSecret" 
+          [formControl]="secretFormControl" 
+          required>
+        <mat-error *ngIf="secretFormControl.errors">
+          The secret password is wrong
+        </mat-error>
       </mat-form-field>
       <mat-form-field>
-        <input matInput  type="password" placeholder="Password" name="Password" [(ngModel)]="password" required>
+        <input matInput  type="password" placeholder="Password" name="password" [(ngModel)]="password" required>
       </mat-form-field>
       <button mat-raised-button>Register</button>
     </form>
   </mat-card>
+

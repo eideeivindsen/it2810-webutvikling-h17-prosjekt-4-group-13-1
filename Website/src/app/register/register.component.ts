@@ -1,7 +1,36 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import {
+  FormControl,
+  FormGroupDirective,
+  Validators,
+  NgModel,
+  NgForm,
+  AbstractControl,
+  ValidatorFn
+} from '@angular/forms';
+import {ErrorStateMatcher} from '@angular/material/core';
 
 import { UserService } from '../_services/user.service';
+
+
+/* Error when invalid control is dirty, touched, or submitted. */
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
+}
+
+export function secretValidator(control: AbstractControl) {
+  const secret = "turtleneck";
+  let typedSecret = control.value;
+  if (secret == typedSecret) {
+    return null;
+  } else {
+    return control.value;
+  }
+}
 
 
 @Component({
@@ -24,10 +53,24 @@ export class RegisterComponent implements OnInit {
   createdAt: Date;
   secret: String = "turtleneck";
   typedSecret: String = "";
-  // errors
-  wrongPassword: Boolean = false;
   wrongSecret: Boolean = false;
 
+  // Form validators
+  emailFormControl = new FormControl('', [
+    Validators.required,
+    Validators.email,
+  ]);
+
+  nameFormControl = new FormControl('', [
+    Validators.required,
+  ]);
+
+  secretFormControl = new FormControl(this.typedSecret,[
+    Validators.required,
+    secretValidator
+  ])
+
+  matcher = new MyErrorStateMatcher();
 
   constructor(private userService: UserService, private router: Router) {}
   
@@ -35,6 +78,34 @@ export class RegisterComponent implements OnInit {
      
   }
 
+  onSubmit() {
+    this.createdAt = new Date;
+    // if not customer, check secret
+    if (this.chosenRole != "Customer") {
+      if (this.typedSecret === this.secret) {
+        this.userService.register(this.fullName, this.username, this.password, this.chosenRole, this.createdAt).subscribe((result) => {
+          if (result) {
+            this.router.navigate(['/login']);
+          }
+        });
+      }
+    // otherwise create user
+    } else {
+      this.userService.register(this.fullName, this.username, this.password, this.chosenRole, this.createdAt).subscribe((result) => {
+        if (result) {
+          this.router.navigate(['/login']);
+        }
+      });
+    }
+  }
+
+
+
+
+
+
+
+  
   // debugging \o/
   printAll() {
     this.createdAt = new Date;
@@ -67,25 +138,5 @@ export class RegisterComponent implements OnInit {
 
   }
 
-  onSubmit() {
-    this.createdAt = new Date;
-    // if not customer, check secret
-    if (this.chosenRole != "Customer") {
-      if (this.typedSecret === this.secret) {
-        this.userService.register(this.fullName, this.username, this.password, this.chosenRole, this.createdAt).subscribe((result) => {
-          if (result) {
-            this.router.navigate(['/login']);
-          }
-        });
-      }
-    // otherwise create user
-    } else {
-      this.userService.register(this.fullName, this.username, this.password, this.chosenRole, this.createdAt).subscribe((result) => {
-        if (result) {
-          this.router.navigate(['/login']);
-        }
-      });
-    }
-
-  }
+  
 }
