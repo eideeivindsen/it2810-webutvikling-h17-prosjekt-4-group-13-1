@@ -67,30 +67,53 @@ router.get('/products/getAll', (req, res) => {
 
 // Get products
 router.get('/products/get', (req, res) => {
+    let filter = JSON.parse(req.query.filter);
+    let sort = JSON.parse(req.query.sort);
+    let index = JSON.parse(req.query.index);
+
     let pageLimit = 5;
-    let startindex = req.index * 5;
-    let query = ".*" + req.filter.query + ".*";
+    let startindex = index * 5;
+    let query = new RegExp('.*' + filter.query + '.*');
+    let categoryDefault = new RegExp('.*');
+    let producerDefault = new RegExp('.*');
     let sortingKeypair = {};
-    sortingKeypair[req.sort.sortyBy] = req.sort.order;
+    sortingKeypair[sort.sortyBy] = sort.order;
+
+    let params = {
+        'name': {$regex: query},
+        'category': {$regex: categoryDefault},
+        'producer': {$regex: producerDefault},
+        'in_stock':  true || false,
+        'price': {$gt: 0},
+    }
+
+    //TODO: Make this prettier, please!
+    if(filter.advanced){
+        if(filter.category != 'Show all' && filter.category != ''){
+            params['category'] = filter.category;
+        }
+        if(filter.producer != 'Show all' && filter.producer != ''){
+            params['producer'] = filter.producer;
+        }
+        if(filter.inStock){
+            params['in_stock'] = filter.inStock;
+        }
+        if(filter.price > 0){
+            params['price'] = {$lt: filter.price}
+        }
+    }
+    
+    console.log(params)
 
     connection((db) => {
         db.collection('products')
-        .find(
-            {"name": {'$regex': query}, 
-             "category": {'$cond': [req.filter.advanced && req.filter.category != 'Show all', req.filter.category, {'$regex': '.*'}]},
-             "producers": {'$cond': [req.filter.advanced && req.filter.producer != 'Show all', req.filter.producer, {'$regex': '.*'}]},
-             "inStock":{'$cond': [req.filter.advanced && req.filter.inStock, true, true || false]},
-             "price":{'$cond': [req.filter.advanced && req.filter.price > 0, {$lt: req.filter.price}, {$gt: 0}]},
-            })
-        .aggregate(
-            {'$cond': [req.sort.order != 0, {'$sort': sort(sortingKeypair)}]}
-        )
+        .find(params)
         .skip(startindex)
         .limit(pageLimit)
         .toArray()
         .then((products) => {
-            response.data = products.slice(startindex, startindex + 6);  // +6 for inclusive fifth element. This will return 5 elements.
-            res.json(response)
+            console.log(products);
+            response.data = products;
         })
         .catch((err) => {
             sendError(err, res);
