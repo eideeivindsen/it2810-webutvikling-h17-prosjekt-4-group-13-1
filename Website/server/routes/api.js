@@ -51,43 +51,19 @@ let error = {
 
 // Get all products
 router.get('/products/getAll', (req, res) => {
-    connection((db) => {
-        db.collection('products')
-            .find()
-            .toArray()
-            .then((products) => {
-                response.data = products;
-                res.json(response);
-            })
-            .catch((err) => {
-                sendError(err, res);
-            });
-    });
-});
-
-// Get products
-router.get('/products/get', (req, res) => {
     let filter = JSON.parse(req.query.filter);
-    let sort = JSON.parse(req.query.sort);
-    let index = JSON.parse(req.query.index);
-
-    let pageLimit = 5;
-    let startindex = index * 5;
     let query = new RegExp('.*' + filter.query + '.*');
     let categoryDefault = new RegExp('.*');
     let producerDefault = new RegExp('.*');
-    let sortingKeypair = {};
-    sortingKeypair[sort.sortyBy] = sort.order;
 
     let params = {
         'name': {$regex: query},
         'category': {$regex: categoryDefault},
         'producer': {$regex: producerDefault},
-        'in_stock':  true || false,
+        'in_stock': {$in: [true, false]},
         'price': {$gt: 0},
     }
 
-    //TODO: Make this prettier, please!
     if(filter.advanced){
         if(filter.category != 'Show all' && filter.category != ''){
             params['category'] = filter.category;
@@ -103,17 +79,67 @@ router.get('/products/get', (req, res) => {
         }
     }
     
-    console.log(params)
+    connection((db) => {
+        db.collection('products')
+        .find(params)
+        .toArray()
+        .then((products) => {
+            response.data = products;
+            response.message = "Got products!";
+            res.json(response);
+        })
+        .catch((err) => {
+            sendError(err, res);
+        })
+    })
+});
 
+// Get products
+router.get('/products/get', (req, res) => {
+    let filter = JSON.parse(req.query.filter);
+    let sort = JSON.parse(req.query.sort);
+    let index = JSON.parse(req.query.index);
+
+    let pageLimit = 5;
+    let startindex = index * 5;
+    let query = new RegExp('.*' + filter.query + '.*');
+    let categoryDefault = new RegExp('.*');
+    let producerDefault = new RegExp('.*');
+
+    let params = {
+        'name': {$regex: query},
+        'category': {$regex: categoryDefault},
+        'producer': {$regex: producerDefault},
+        'in_stock': {$in: [true, false]},
+        'price': {$gt: 0},
+    }
+
+    if(filter.advanced){
+        if(filter.category != 'Show all' && filter.category != ''){
+            params['category'] = filter.category;
+        }
+        if(filter.producer != 'Show all' && filter.producer != ''){
+            params['producer'] = filter.producer;
+        }
+        if(filter.inStock){
+            params['in_stock'] = filter.inStock;
+        }
+        if(filter.price > 0){
+            params['price'] = {$lt: filter.price}
+        }
+    }
+    
     connection((db) => {
         db.collection('products')
         .find(params)
         .skip(startindex)
         .limit(pageLimit)
+        .sort(sort.sortBy, sort.order)
         .toArray()
         .then((products) => {
-            console.log(products);
             response.data = products;
+            response.message = "Got products!";
+            res.json(response);
         })
         .catch((err) => {
             sendError(err, res);
