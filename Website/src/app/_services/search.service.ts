@@ -23,12 +23,11 @@ export class SearchService {
   }
 
   get(filter, index, sort) {
-      let params = new HttpParams().set("filter", JSON.stringify(filter)).set("index", JSON.stringify(index)).set("sort", JSON.stringify(sort));
       const auth_token = localStorage.getItem('auth_token');
       return this.http
       .get('/api/products/get', {
             headers: new HttpHeaders().set('Authorization', `Bearer ${auth_token}`),
-            params: params,
+            params: new HttpParams().set("filter", JSON.stringify(filter)).set("index", JSON.stringify(index)).set("sort", JSON.stringify(sort)),
       })
       .map((res: any) => {
         if (res.status) {

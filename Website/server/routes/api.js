@@ -49,11 +49,11 @@ let error = {
 
 /* GET Requests */
 
-// Get all products 
+// Get all products
 router.get('/products/getAll', (req, res) => {
     connection((db) => {
         db.collection('products')
-            .find()  
+            .find()
             .toArray()
             .then((products) => {
                 response.data = products;
