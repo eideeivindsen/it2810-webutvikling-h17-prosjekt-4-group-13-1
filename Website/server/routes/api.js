@@ -83,7 +83,7 @@ router.get('/profile', (req, res) => {
             sendError(err,res);
         })
         db.close();
-        });
+    });
 
 });
 
@@ -103,16 +103,19 @@ router.get('/profile', (req, res) => {
     bcrypt.genSalt(10, function(err, salt) {
         bcrypt.hash(newUser.password, salt, function(err, hash) {
             newUser.password = hash;
-            // add user to database
-            MongoClient.connect(dbLocation, function(err, db) {
-                if (err) throw err;
-                db.collection('users').insertOne(newUser, function(err, res) {
-                    if (err) throw err;
-                    console.log(newUser.name + " inserted");
+            // Add user to database
+            connection((db) => {
+                try{
+                    db.collection('users').insertOne(newUser);
+                    response.data = []
+                    response.message = "Added user: " + newUser.name
+                    res.send(response)
+                }catch (error){
+                    console.log("Error: " + error);
+                    res.json(sendError);
+                }
                 db.close();
-                });
-            });
-        res.send("Added user " + newUser.name);
+            })
         });
     });
  });
@@ -141,7 +144,7 @@ router.post('/products/add', (req, res) => {
             console.log("Error: " + error);
             res.json(sendError);
         }
-         
+        db.close();
     });
 });
 
@@ -180,9 +183,8 @@ router.post('/authenticate', (req, res) => {
                             'username': req.body.email
                         }
                         auth_token = jwt.sign(payload, token_secret);
-                        response.data.push(auth_token);
+                        response.data = [auth_token];
                         response.message = 'Authentication successful! Userdata and token provided'
-                        console.log('Response object: ' + response);
                         res.json(response);
                     }
                 });
@@ -198,8 +200,3 @@ router.post('/authenticate', (req, res) => {
 
 
 module.exports = router;
-
-
-//sende inn brukernavn
-//få tilbake 1 bruker
-// hente name, role og bruker since
