@@ -83,7 +83,7 @@ router.get('/products/get', (req, res) => {
         'name': {$regex: query},
         'category': {$regex: categoryDefault},
         'producer': {$regex: producerDefault},
-        'in_stock':  true || false,
+        'in_stock': {$in: [true, false]},
         'price': {$gt: 0},
     }
 
@@ -112,8 +112,9 @@ router.get('/products/get', (req, res) => {
         .limit(pageLimit)
         .toArray()
         .then((products) => {
-            console.log(products);
             response.data = products;
+            response.message = "Got products!";
+            res.json(response);
         })
         .catch((err) => {
             sendError(err, res);
