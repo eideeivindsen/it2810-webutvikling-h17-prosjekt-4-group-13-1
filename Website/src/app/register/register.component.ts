@@ -32,6 +32,17 @@ export function secretValidator(control: AbstractControl) {
   }
 }
 
+export function nameTakenValidator(takenNames: any[]): ValidatorFn {
+  return (control: AbstractControl) => {
+    let typedName = control.value;
+    if (takenNames.indexOf(typedName) >= 0) {
+      return typedName;
+    } else {
+      return null;
+    }
+  }
+}
+
 
 @Component({
   selector: 'app-register',
@@ -54,12 +65,15 @@ export class RegisterComponent implements OnInit {
   secret: String = "turtleneck";
   typedSecret: String = "";
   wrongSecret: Boolean = false;
+  allUsers = [];
 
   // Form validators
   emailFormControl = new FormControl('', [
     Validators.required,
     Validators.email,
+    nameTakenValidator(this.allUsers)
   ]);
+
 
   nameFormControl = new FormControl('', [
     Validators.required,
@@ -75,7 +89,12 @@ export class RegisterComponent implements OnInit {
   constructor(private userService: UserService, private router: Router) {}
   
   ngOnInit() {
-     
+      this.userService.getUserNames().subscribe((result) => {
+        for (var i = 0; i < result.length; i++) {
+          this.allUsers.push(result[i].username)
+        }
+      });
+    
   }
 
   onSubmit() {
@@ -138,5 +157,5 @@ export class RegisterComponent implements OnInit {
 
   }
 
-  
+
 }

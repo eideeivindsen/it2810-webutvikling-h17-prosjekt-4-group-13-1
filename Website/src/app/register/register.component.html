@@ -4,22 +4,25 @@
       <mat-form-field>
         <input matInput placeholder="Name" name="fullName" [(ngModel)]="fullName" [formControl]="nameFormControl" required>
         <mat-error *ngIf="emailFormControl.hasError('required')">
-            Name is required
-          </mat-error>
+          Name is required
+        </mat-error>
       </mat-form-field>
       <mat-form-field>
         <input matInput 
-          type="email"
-          placeholder="E-mail" 
-          name="username" 
-          [(ngModel)]="username" 
-          [formControl]="emailFormControl" 
-          [errorStateMatcher]="matcher">
+        type="email"
+        placeholder="E-mail" 
+        name="username" 
+        [(ngModel)]="username" 
+        [formControl]="emailFormControl" 
+        [errorStateMatcher]="matcher">
         <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
           Please enter a valid email address
         </mat-error>
         <mat-error *ngIf="emailFormControl.hasError('required')">
           Email is required
+        </mat-error>
+        <mat-error *ngIf="!emailFormControl.hasError('required') && !emailFormControl.hasError('email') && emailFormControl.errors">
+          This username is taken
         </mat-error>
       </mat-form-field>
       <mat-form-field>

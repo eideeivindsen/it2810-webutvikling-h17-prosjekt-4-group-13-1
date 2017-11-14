@@ -15,7 +15,12 @@ const cryptKey = 'turtleneck';
 const dbLocation = 'mongodb://webdev-4:turtleneck2017@ds241055.mlab.com:41055/webdev-4';
 
 // Our middleware to validate JWT
-router.use(expressJWT({ secret: 'turtleneck' }).unless({ path: ['/login', '/api/authenticate', '/api/register']}));
+router.use(expressJWT({ secret: 'turtleneck' }).unless({ path: [
+    '/login',
+    '/api/authenticate',
+    '/api/register',
+    '/api/users/getAll'
+]}));
 
 /* Connection method and response/error handling */
 
@@ -64,6 +69,23 @@ router.get('/products/getAll', (req, res) => {
             });
     });
 });
+
+// Get all users 
+router.get('/users/getAll', (req, res) => {
+    connection((db) => {
+        db.collection('users')
+            .find({}, { username: true })  
+            .toArray()
+            .then((users) => {
+                response.data = users;
+                res.json(response);
+            })
+            .catch((err) => {
+                sendError(err, res);
+            });
+    });
+});
+
 
 // Get user profile
 router.get('/profile', (req, res) => {
