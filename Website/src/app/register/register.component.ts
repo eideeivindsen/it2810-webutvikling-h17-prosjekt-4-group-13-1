@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs/Subscription';
 
 import { UserService } from '../_services/user.service';
+import { log } from 'util';
+import { NavigationComponent } from '../navigation/navigation.component';
+import { ProfileService } from '../_services/profile.service';
 
 
 @Component({
@@ -21,6 +25,7 @@ export class RegisterComponent implements OnInit {
     "Employee",
     "Customer"
   ];
+  subscription: Subscription;
   createdAt: Date;
   secret: String = "turtleneck";
   typedSecret: String = "";
@@ -30,7 +35,14 @@ export class RegisterComponent implements OnInit {
   errorMessage: String = "";
 
 
-  constructor(private userService: UserService, private router: Router) {}
+  constructor(private userService: UserService, private router: Router, private profileService: ProfileService) {
+    this.subscription = this.profileService.getResults().subscribe(results => {
+        this.fullName = results[0].name;
+        this.chosenRole = results[0].role;
+        localStorage.setItem("username", this.fullName.toString());
+        localStorage.setItem("role", this.chosenRole.toString());
+      });
+  }
 
   ngOnInit() {
 
@@ -81,6 +93,9 @@ export class RegisterComponent implements OnInit {
           this.errorMessage = "Ops! Somthing went wrong. Please try again laster."
         }
       });
+      console.log('Subscription: ' + JSON.stringify(this.subscription))
+      // Kall updateprofile eller noe shit her, tror det er siste jeg mangler. Usikker på hvordan jeg skal få sendt brukernavn herfra til profileservice
+      
       this.router.navigate(['/']);
     }
     else if (res.status == 409){
