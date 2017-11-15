@@ -15,18 +15,20 @@ import { Product } from '../../product';
 export class ResultsComponent implements OnInit {
   results: Object[] = [];
   subscription: Subscription;
+  isLoading: Subscription;
   pageEvent: PageEvent = new PageEvent;
   searched: boolean = false;
   sortBy: String = '';
   sortAsc: Boolean = true;
-  isLoading = false;
 
   constructor(public dialog: MatDialog, private searchService: SearchService) {
       this.pageEvent = {pageIndex: 0, pageSize: 5, length: 10}
       this.subscription = this.searchService.getResults().subscribe(results => {
           this.results = results;
           this.searched = true;
-          this.isLoading = false;
+      });
+      this.subscription = this.searchService.getIsLoading().subscribe(results => {
+          this.isLoading = results;
       });
   }
 
@@ -42,7 +44,6 @@ export class ResultsComponent implements OnInit {
     }
 
     onPaginateChange(event: PageEvent) {
-        this.isLoading = true;
         this.pageEvent = event;
         const sort = {
             "sortBy": this.sortBy,
@@ -52,14 +53,15 @@ export class ResultsComponent implements OnInit {
     }
 
     sort(sortParam) {
-        this.isLoading = true;
-        this.sortBy === sortParam ? this.sortAsc = !this.sortAsc : this.sortAsc = true;
-        this.sortBy = sortParam;
-        const sort = {
-            "sortBy": sortParam,
-            "order": this.sortAsc ? 1 : -1,
+        if(this.results.length != 0) {
+            this.sortBy === sortParam ? this.sortAsc = !this.sortAsc : this.sortAsc = true;
+            this.sortBy = sortParam;
+            const sort = {
+                "sortBy": sortParam,
+                "order": this.sortAsc ? 1 : -1,
+            }
+            this.searchService.update(this.pageEvent.pageIndex, sort).subscribe();
         }
-        this.searchService.update(this.pageEvent.pageIndex, sort).subscribe();
     }
 
 }

@@ -27,6 +27,7 @@ import { UserService } from './_services/user.service';
 import { LoggedInGuard } from './_services/logged-in.guard';
 import { ProfileService } from './_services/profile.service';
 import { SearchService } from './_services/search.service';
+import { ResultsService } from './_services/results.service';
 
 import { routes } from './app.routes';
 
@@ -130,7 +131,7 @@ export class PlunkerMaterialModule {}
 
   entryComponents: [WordcloudComponent],
 
-  providers: [UserService, LoggedInGuard, ProfileService, SearchService],
+  providers: [UserService, LoggedInGuard, ProfileService, SearchService, ResultsService],
 
   bootstrap: [AppComponent]
 })

@@ -53,11 +53,13 @@
                   <ng-template matStepLabel>Weight/Price</ng-template>
                   <div class="form-container">
                       <mat-form-field>
-                        <input matInput placeholder="Product Price" formControlName="price">
+                        <input matInput type="number" class="right-align" placeholder="Product Price" formControlName="price">
+                        <span matSuffix>.00</span>
                         <mat-hint align="end">Price in NOK</mat-hint>
                       </mat-form-field>
                       <mat-form-field>
-                        <input matInput placeholder="Product Weight" formControlName="weight">
+                        <input matInput type="number" class="right-align" placeholder="Product Weight" formControlName="weight">
+                        <span matSuffix>&nbsp;G</span>
                         <mat-hint align="end">Weight in Gram</mat-hint>
                       </mat-form-field>
                   </div>

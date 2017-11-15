@@ -1,4 +1,4 @@
-<mat-expansion-panel>
+<mat-expansion-panel [expanded]="step === index" (opened)="setStep(index); addToViewed()">
     <mat-expansion-panel-header>
         <mat-panel-title>
          <span>{{data.name}}</span>
@@ -9,11 +9,17 @@
           <span *ngIf="!data.in_stock" class="outOfStock">OUT OF STOCK</span>
         </mat-panel-description>
       </mat-expansion-panel-header>
-
       <div class="content-container">
           <img [src]="pictureUrl" [alt]="pictureUrl" />
           <div class="">
-              TINE MELK
+              <ul>
+                  <li><mat-icon>list</mat-icon><span>{{data.category}}</span></li>
+                  <li><mat-icon>domain</mat-icon><span>{{data.producer}}</span></li>
+                  <li><mat-icon>public</mat-icon><span>{{data.origin}}</span></li>
+                  <li><mat-icon>attach_money</mat-icon><span>{{data.price}},- NOK</span></li>
+                  <li><mat-icon>fitness_center</mat-icon><span>{{data.weight}}G</span></li>
+                  <li><mat-icon>edit</mat-icon><span>{{data.description}}</span></li>
+              </ul>
           </div>
       </div>
 

@@ -2,14 +2,14 @@
     margin: 2vh 8vw 8vh;
 }
 
-h2 {
+h1, h2 {
     text-transform: uppercase;
     color: rgba(0,0,0,0.4);
     padding: 20px;
     margin: 0px;
 }
 
-h2 mat-icon {
+h1 mat-icon {
     position: relative;
     top: 5px;
 }

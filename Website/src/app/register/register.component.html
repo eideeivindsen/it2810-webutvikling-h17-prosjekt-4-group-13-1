@@ -8,12 +8,12 @@
         </mat-error>
       </mat-form-field>
       <mat-form-field>
-        <input matInput 
+        <input matInput
         type="email"
-        placeholder="E-mail" 
-        name="username" 
-        [(ngModel)]="username" 
-        [formControl]="emailFormControl" 
+        placeholder="E-mail"
+        name="username"
+        [(ngModel)]="username"
+        [formControl]="emailFormControl"
         [errorStateMatcher]="matcher">
         <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
           Please enter a valid email address
@@ -33,12 +33,12 @@
         </mat-select>
       </mat-form-field>
       <mat-form-field *ngIf="chosenRole!='Customer'">
-        <input matInput 
+        <input matInput
           type="password"
-          placeholder="Secret" 
-          name="secret" 
-          [(ngModel)]="typedSecret" 
-          [formControl]="secretFormControl" 
+          placeholder="Secret"
+          name="secret"
+          [(ngModel)]="typedSecret"
+          [formControl]="secretFormControl"
           required>
         <mat-error *ngIf="secretFormControl.errors">
           The secret password is wrong
@@ -50,5 +50,7 @@
       <button mat-raised-button>Register</button>
       <p class="error">{{errorMessage}}</p>
     </form>
+    <div>
+      <button mat-button routerLink="/login">Login</button>
+    </div>
   </mat-card>
-
