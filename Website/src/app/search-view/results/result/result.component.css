@@ -38,3 +38,9 @@ mat-icon {
     display: flex;
     justify-content: space-around;
 }
+
+li {
+    list-style: none;
+    text-align: left;
+    padding: 5px;
+}

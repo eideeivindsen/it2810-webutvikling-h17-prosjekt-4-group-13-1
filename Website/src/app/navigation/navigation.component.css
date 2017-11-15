@@ -39,6 +39,10 @@ nav > a.navlink-search .mat-icon {
   margin-top: -3px;
 }
 
+label:hover {
+  cursor: pointer;
+}
+
 nav > a.navlink-profile {
   display: flex;
   height: 60px;
@@ -48,7 +52,8 @@ nav > a.navlink-profile {
   font-size: .8em;
   line-height: 1em;
   text-align: left;
-  background-color: #38a6a6;
+  background-color: rgba(0, 0, 0, 0.10);
+  min-width: 17%;
 }
 
 nav > a.navlink-profile.not-logged-in a {
@@ -57,7 +62,7 @@ nav > a.navlink-profile.not-logged-in a {
 }
 
 nav > a.navlink-profile:hover {
-  background-color: #2B9999;
+  background-color: rgba(0, 0, 0, 0.20);
 }
 
 nav > a.navlink-profile.logged-in div {

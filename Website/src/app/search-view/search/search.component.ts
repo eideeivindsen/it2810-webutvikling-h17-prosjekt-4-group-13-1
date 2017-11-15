@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { SearchService } from '../../_services/search.service';
 import { countries, producers, categories } from '../../../assets/variables';
+declare var jquery:any;
+declare var $ :any;
 
 @Component({
   selector: 'app-search',
@@ -31,6 +33,7 @@ export class SearchComponent implements OnInit {
   }
 
   search() {
+    $( "#input-field" ).blur();
     const filter: any = {
         "query": this.query,
         "advanced": this.showExpantion,
@@ -42,6 +45,7 @@ export class SearchComponent implements OnInit {
         filter.inStock = this.inStock;
     }
     this.searchService.get(filter, 0, 0).subscribe();
+    // this.searchService.get(filter, 0, 0).subscribe( () => window.scrollTo(0,document.body.scrollHeight));
   }
 
 }

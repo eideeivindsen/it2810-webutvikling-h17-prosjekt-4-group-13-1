@@ -9,14 +9,16 @@
            *ngIf="isLoading">
            <mat-spinner></mat-spinner>
         </div>
-        <div *ngFor="let result of results">
-            <app-result [data]="result"></app-result>
-        </div>
+        <mat-accordion class="example-headers-align">
+            <div *ngFor="let result of results; index as index;">
+                <app-result [data]="result" [index]="index"></app-result>
+            </div>
+        </mat-accordion>
         <div *ngIf="results.length == 0">
-            <h2 class="mat-h2" *ngIf="searched"><mat-icon>search</mat-icon> NO PRODUCTS FOUND</h2>
-            <h2 class="mat-h2" *ngIf="!searched"><mat-icon>search</mat-icon> SEARCH TO FIND PRODUCTS</h2>
+            <h1 class="mat-h1" *ngIf="searched"><mat-icon>search</mat-icon> NO PRODUCTS FOUND</h1>
+            <h1 class="mat-h2" *ngIf="!searched">NO PRODUCTS</h1>
         </div>
         <mat-paginator [length]="10" [pageSize]="5" (page)="onPaginateChange($event)"> </mat-paginator>
     </mat-card>
-    <button *ngIf="results.length > 0" mat-button class="modalButton" (click)="openDialog()" type="button">DISPLAY WORD CLOUD OF RESULTS</button>
+    <button *ngIf="results.length > 1" mat-button class="modalButton" (click)="openDialog()" type="button">DISPLAY WORD CLOUD OF RESULTS</button>
 </div>
