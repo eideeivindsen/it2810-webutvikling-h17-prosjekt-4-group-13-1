@@ -17,7 +17,8 @@ const dbLocation = 'mongodb://webdev-4:turtleneck2017@ds241055.mlab.com:41055/we
 // Our middleware to validate JWT
 router.use(expressJWT({ secret: 'turtleneck' }).unless({ path: [
     '/login', 
-    '/api/authenticate', 
+    '/api/authenticate',
+    '/api/debug/users', 
     '/api/register', 
     '/api/register',
     '/api/products/get',
@@ -101,6 +102,28 @@ router.get('/products/getAll', (req, res) => {
         })
     })
 });
+
+
+// Remove before prod
+///////////////////
+// debugging users
+///////////////////
+router.get('/debug/users', (req, res) => {
+    connection((db) => {
+        db.collection('users')
+        .find()
+        .toArray()
+        .then((products) => {
+            response.data = products;
+            response.message = "Got products!";
+            res.json(response);
+        })
+        .catch((err) => {
+            sendError(err, res);
+        })
+    })
+});
+
 
 // Get products
 router.get('/products/get', (req, res) => {
