@@ -21,20 +21,14 @@ export class ProfileViewComponent {
   createdAt:string;
 
   ngOnInit(){
+    // On pageload, checks if createdAt is in LocalStorage (usually not on a fresh login) and fetches it from the database if not. 
+    // Fetches name, role and createdAt from LocalStorage if not.
     if (!localStorage.getItem("createdAt")){
       this.profileService.getProfile().subscribe((result) => {
-        this.name = result[0].name;
-        this.role = result[0].role;
-        let createdAtDay = new Date(result[0].createdAt).getDay().toString();
-        if (createdAtDay.length <= 1){
-          createdAtDay = '0' + createdAtDay;
-        }
-        let createdAtMonth = new Date(result[0].createdAt).getMonth();
-        let createdAtYear = new Date(result[0].createdAt).getFullYear();
-        this.createdAt = createdAtYear + '-' +  createdAtMonth + '-' + createdAtDay ; // Jank med strings og nummer. uaaaah
-
-        localStorage.setItem("name", result[0].name);
-        localStorage.setItem("role", result[0].role);
+        console.log(result[0].createdAt)
+        this.createdAt = this.formatDate(new Date(result[0].createdAt));
+        this.name = localStorage.getItem("name");
+        this.role = localStorage.getItem("role");
         localStorage.setItem("createdAt", this.createdAt);
       });
     } else {
