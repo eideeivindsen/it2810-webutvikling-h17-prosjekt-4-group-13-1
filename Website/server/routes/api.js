@@ -16,11 +16,12 @@ const dbLocation = 'mongodb://webdev-4:turtleneck2017@ds241055.mlab.com:41055/we
 
 // Our middleware to validate JWT
 router.use(expressJWT({ secret: 'turtleneck' }).unless({ path: [
-    '/login',
-    '/api/authenticate',
+    '/login', 
+    '/api/authenticate', 
+    '/api/register', 
     '/api/register',
-    '/api/users/getAll'
-]}));
+    '/products/get',
+    '/products/getAll']}));
 
 /* Connection method and response/error handling */
 
@@ -57,7 +58,7 @@ let error = {
 // Get all products
 router.get('/products/getAll', (req, res) => {
     let filter = JSON.parse(req.query.filter);
-    let query = new RegExp('.*' + filter.query + '.*');
+    let query = new RegExp('.*' + filter.query.toLowerCase() + '.*');
     let categoryDefault = new RegExp('.*');
     let producerDefault = new RegExp('.*');
 
@@ -99,24 +100,6 @@ router.get('/products/getAll', (req, res) => {
     })
 });
 
-
-// Get all users 
-router.get('/users/getAll', (req, res) => {
-    connection((db) => {
-        db.collection('users')
-            .find({}, { username: true })  
-            .toArray()
-            .then((users) => {
-                response.data = users;
-                res.json(response);
-            })
-            .catch((err) => {
-                sendError(err, res);
-            });
-    });
-});
-
-
 // Get products
 router.get('/products/get', (req, res) => {
     let filter = JSON.parse(req.query.filter);
@@ -125,7 +108,7 @@ router.get('/products/get', (req, res) => {
 
     let pageLimit = 5;
     let startindex = index * 5;
-    let query = new RegExp('.*' + filter.query + '.*');
+    let query = new RegExp('.*' + filter.query.toLowerCase() + '.*');
     let categoryDefault = new RegExp('.*');
     let producerDefault = new RegExp('.*');
 
