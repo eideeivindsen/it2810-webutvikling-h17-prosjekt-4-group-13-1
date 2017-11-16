@@ -3,15 +3,20 @@
         <mat-panel-title>
          <span>{{data.name}}</span>
         </mat-panel-title>
-        <mat-panel-description>
-          <span>{{data.producer}}</span>
-          <span *ngIf="data.in_stock" class="inStock">IN STOCK</span>
-          <span *ngIf="!data.in_stock" class="outOfStock">OUT OF STOCK</span>
-        </mat-panel-description>
+        <mat-panel-title>
+         <span>{{data.producer}}</span>
+        </mat-panel-title>
+        <mat-panel-title>
+            <span *ngIf="data.in_stock" class="inStock">IN STOCK</span>
+            <span *ngIf="!data.in_stock" class="outOfStock">OUT OF STOCK</span>
+        </mat-panel-title>
       </mat-expansion-panel-header>
       <div class="content-container">
-          <img [src]="pictureUrl" [alt]="pictureUrl" />
           <div class="">
+              <h1 class="mat-display-1">{{data.name}}</h1>
+              <img [src]="pictureUrl" [alt]="pictureUrl" />
+          </div>
+          <div class="list-info">
               <ul>
                   <li><mat-icon>list</mat-icon><span>{{data.category}}</span></li>
                   <li><mat-icon>domain</mat-icon><span>{{data.producer}}</span></li>
@@ -20,6 +25,12 @@
                   <li><mat-icon>fitness_center</mat-icon><span>{{data.weight}}G</span></li>
                   <li><mat-icon>edit</mat-icon><span>{{data.description}}</span></li>
               </ul>
+          </div>
+          <div class="stock-info">
+              <h1 class="mat-display-1">STOCK STATUS:</h1>
+              <h2 class="mat-display-2" *ngIf="data.in_stock" class="inStock">IN STOCK</h2>
+              <h3 class="mat-display-3" *ngIf="!data.in_stock" class="outOfStock">OUT OF STOCK</h3>
+              <span><strong>{{data.quantity}}</strong> UNITS AVAILABLE</span>
           </div>
       </div>
 
