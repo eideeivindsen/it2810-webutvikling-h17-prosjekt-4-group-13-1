@@ -42,6 +42,7 @@ export class ProfileViewComponent {
       this.role = localStorage.getItem("role");
       this.createdAt = localStorage.getItem("createdAt"); 
     }
+    this.getProfileHistory();
   }
 
   // displayedColumns = ['position', 'name', 'weight', 'symbol'];
@@ -79,11 +80,9 @@ export class ProfileViewComponent {
     return [year, month, day].join('-');
   }
 
-  getRecentSearches() {
-    this.profileService.getRecentSearches().subscribe((result) => {
-      if (result) {
-        console.log(result);
-      }
+  getProfileHistory() {
+    this.profileService.getProfileHistory().subscribe((result) => {
+        //TODO: Result is now an array of products (objects). Do what you must, sir!
     });
   }
 

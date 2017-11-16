@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { User } from '../user';
 
 
 @Injectable()
@@ -11,18 +12,18 @@ export class UserService {
   }
 
   // Register new user
-  register(name, username, password, role, createdAt) {
+  register(user) {
     return this.http
       .post(
         '/api/register',
-        { name, username, password, role, createdAt}
+         user 
       )
       .map((res:any) => {
         console.log(res)
         if (res.status == 200) {
           res.credentials = {
-            username: username,
-            password: password
+            username: user.username,
+            password: user.password
           }
           return res;
         }
@@ -33,12 +34,12 @@ export class UserService {
   }
 
   // Login user
-  login(email, password) {
+  login(username, password) {
 
     return this.http
       .post(
         '/api/authenticate',
-        { email, password }
+        { username, password }
       )
       .map((res: any) => {
         if (res.status == 200) {

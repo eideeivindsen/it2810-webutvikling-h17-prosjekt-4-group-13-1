@@ -14,6 +14,7 @@ import { Product } from '../../product';
 })
 export class ResultsComponent implements OnInit {
   results: Object[] = [];
+  listLength: Number = 5;
   subscription: Subscription;
   isLoading: Subscription;
   pageEvent: PageEvent = new PageEvent;
@@ -21,10 +22,12 @@ export class ResultsComponent implements OnInit {
   sortBy: String = '';
   sortAsc: Boolean = true;
 
+
   constructor(public dialog: MatDialog, private searchService: SearchService) {
       this.pageEvent = {pageIndex: 0, pageSize: 5, length: 10}
       this.subscription = this.searchService.getResults().subscribe(results => {
-          this.results = results;
+          this.results = results[0];
+          this.listLength = results[1];
           this.searched = true;
       });
       this.subscription = this.searchService.getIsLoading().subscribe(results => {

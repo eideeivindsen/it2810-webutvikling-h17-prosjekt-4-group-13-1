@@ -2,6 +2,8 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { Product } from '../../../product';
 import { ResultsService } from '../../../_services/results.service';
+import { SearchService } from '../../../_services/search.service';
+import { UserService } from '../../../_services/user.service';
 
 @Component({
   selector: 'app-result',
@@ -15,7 +17,7 @@ export class ResultComponent implements OnInit {
   subscription: Subscription;
   step: Number;
 
-  constructor(private resultsService: ResultsService) {
+  constructor(private resultsService: ResultsService, private searchService: SearchService, private userService: UserService) {
       this.subscription = this.resultsService.getStep().subscribe(result => {
           this.step = result;
       });
@@ -30,8 +32,9 @@ export class ResultComponent implements OnInit {
   }
 
   addToViewed() {
-      // Write code here to send this.data to a service
-      // together with username to update user history.
+      if(this.userService.isLoggedIn()){
+          this.searchService.addToHistory(this.data)
+      }
   }
 
 }
