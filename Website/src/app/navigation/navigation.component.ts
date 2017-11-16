@@ -15,38 +15,36 @@ export class NavigationComponent implements OnInit {
 
     name: String = "";
     role: String = "";
-    subscription: Subscription;    
 
     constructor(private userService: UserService, private router: Router, private profileService: ProfileService) { 
-      this.subscription = this.profileService.getResults().subscribe(results => {
-        if (userService.isLoggedIn()){
-          this.name = results[0].name;
-          this.role = results[0].role;
-          localStorage.setItem("username", results[0].name);
-          localStorage.setItem("role", results[0].role);
-        }
-      });
+      // this.subscription = this.profileService.getResults().subscribe(results => {
+      //   if (userService.isLoggedIn()){
+      //     this.name = results[0].name;
+      //     this.role = results[0].role;
+      //     localStorage.setItem("username", results[0].name);
+      //     localStorage.setItem("role", results[0].role);
+      //   }
+      // });
       
     }
 
     ngOnInit() {
-      //this.updateProfileCard();
+      this.router.events.subscribe((event:Event) => {
+        if (event instanceof NavigationEnd && this.router.url == '/' && this.userService.isLoggedIn()){
+          this.updateProfileCard();
+        }
+      })
     }
     
     // Gjør basically det samme som er i konstruktøren, bare mer lignende searchService
-    // updateProfileCard(){
-    //   if (!localStorage.getItem("username")){
-    //     this.profileService.getProfile().subscribe((result) => {
-    //       this.name = result[0].name;
-    //       this.role = result[0].role;
-    //       localStorage.setItem("username", result[0].name);
-    //       localStorage.setItem("role", result[0].role);
-    //     });
-    //   } else {
-    //     this.name = localStorage.getItem("username");
-    //     this.role = localStorage.getItem("role");
-    //   }
-    // }
+    updateProfileCard(){
+      this.profileService.getProfile().subscribe((result) => {
+        this.name = result[0].name;
+        this.role = result[0].role;
+        localStorage.setItem("name", result[0].name);
+        localStorage.setItem("role", result[0].role);
+      });
+    }
 
     logout() {
       this.userService.logout();

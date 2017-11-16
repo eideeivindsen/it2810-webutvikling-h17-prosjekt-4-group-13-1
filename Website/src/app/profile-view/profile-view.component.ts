@@ -21,7 +21,7 @@ export class ProfileViewComponent {
   createdAt:string;
 
   ngOnInit(){
-    if (!localStorage.getItem("username")){
+    if (!localStorage.getItem("createdAt")){
       this.profileService.getProfile().subscribe((result) => {
         this.name = result[0].name;
         this.role = result[0].role;
@@ -33,12 +33,12 @@ export class ProfileViewComponent {
         let createdAtYear = new Date(result[0].createdAt).getFullYear();
         this.createdAt = createdAtYear + '-' +  createdAtMonth + '-' + createdAtDay ; // Jank med strings og nummer. uaaaah
 
-        localStorage.setItem("username", result[0].name);
+        localStorage.setItem("name", result[0].name);
         localStorage.setItem("role", result[0].role);
         localStorage.setItem("createdAt", this.createdAt);
       });
     } else {
-      this.name = localStorage.getItem("username");
+      this.name = localStorage.getItem("name");
       this.role = localStorage.getItem("role");
       this.createdAt = localStorage.getItem("createdAt"); 
     }

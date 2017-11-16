@@ -59,7 +59,7 @@ export class UserService {
   logout() {
     localStorage.removeItem('auth_token');
     localStorage.removeItem('createdAt');
-    localStorage.removeItem('username');
+    localStorage.removeItem('name');
     localStorage.removeItem('role');
     this.loggedIn = false;
   }

@@ -6,7 +6,6 @@ import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class ProfileService {
-  private results = new Subject<any>();
   
   constructor(private http: HttpClient) {}
 
@@ -19,7 +18,6 @@ export class ProfileService {
     .map((res: any) => {
       if (res.status == 200) {
         console.log('res.data: ' + res.data);
-        this.results.next(res.data);
         return res.data;
       }
     });
@@ -38,7 +36,5 @@ export class ProfileService {
 
   }
 
-  getResults(): Observable<any> {
-    return this.results.asObservable();
-  }
+  
 }
