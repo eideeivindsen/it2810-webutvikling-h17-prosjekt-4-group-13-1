@@ -1,8 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Subject } from 'rxjs/Subject';
+import { Observable } from 'rxjs/Observable';
+
 
 @Injectable()
 export class ProfileService {
+  
   constructor(private http: HttpClient) {}
 
   getProfile() {
@@ -31,4 +35,6 @@ export class ProfileService {
       });
 
   }
+
+  
 }

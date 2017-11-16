@@ -12,6 +12,9 @@ import {
 import {ErrorStateMatcher} from '@angular/material/core';
 
 import { UserService } from '../_services/user.service';
+import { log } from 'util';
+import { NavigationComponent } from '../navigation/navigation.component';
+import { ProfileService } from '../_services/profile.service';
 
 
 /* Error when invalid control is dirty, touched, or submitted. */
