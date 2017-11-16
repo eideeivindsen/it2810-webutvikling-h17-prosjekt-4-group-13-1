@@ -41,11 +41,18 @@ $ node server.js
 OR
 
 ```bash
-$ npm start
+$ npm run server
 ```
 
-The page is built and can now be found on [http://localhost:8083](http://localhost:8083)
+The page will now be built AND served and can now be found on [http://localhost:8083](http://localhost:8083) and on [http://localhost:4200](http://localhost:4200) 
 
+### 5. Testing
+
+The backend testing is done with Mocha and can be run with
+
+```bash
+$ npm test
+```
 
 
 [Node.js]: https://nodejs.org
