@@ -25,7 +25,6 @@ export class ProfileViewComponent {
     // Fetches name, role and createdAt from LocalStorage if not.
     if (!localStorage.getItem("createdAt")){
       this.profileService.getProfile().subscribe((result) => {
-        console.log(result[0].createdAt)
         this.createdAt = this.formatDate(new Date(result[0].createdAt));
         this.name = localStorage.getItem("name");
         this.role = localStorage.getItem("role");
@@ -77,6 +76,7 @@ export class ProfileViewComponent {
   getProfileHistory() {
     this.profileService.getProfileHistory().subscribe((result) => {
         //TODO: Result is now an array of products (objects). Do what you must, sir!
+        // There will be duplicates, so will have to count occurences!
     });
   }
 

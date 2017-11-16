@@ -188,7 +188,6 @@ router.get('/profile', (req, res) => {
         .find({"username" : username})
         .toArray()
         .then((user) => {
-            console.log(user);
             response.data = user;
             response.message = "Successfully got profile information";
             res.json(response);

@@ -13,9 +13,9 @@
           </div>
         </a>
           <a *ngIf="!userService.isLoggedIn()" class="navlink-profile not-logged-in" routerLink="/login">
-            <div class="navlink-profile-avatar">
-              <img src="../assets/img/avatar-small-male.png" alt="avatar" />
-            </div>
+              <div class="navlink-profile-avatar">
+                <mat-icon>account_circle</mat-icon>
+              </div>
             <a><label>Sign in</label></a>
           </a>
           <a *ngIf="userService.isLoggedIn()" class="navlink-logout" (click)="logout()"> <!-- WRONG PATH!!! -->

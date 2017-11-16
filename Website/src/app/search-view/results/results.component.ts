@@ -14,7 +14,7 @@ import { Product } from '../../product';
 })
 export class ResultsComponent implements OnInit {
   results: Object[] = [];
-  listLength: Number = 5;
+  listLength: Number = 0;
   subscription: Subscription;
   isLoading: Subscription;
   pageEvent: PageEvent = new PageEvent;
