@@ -56,7 +56,7 @@ export class UserService {
 
   }
 
-  // Logout user
+  // Logout user and clears LocalStorage
   logout() {
     localStorage.removeItem('auth_token');
     localStorage.removeItem('createdAt');
