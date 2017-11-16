@@ -142,12 +142,10 @@ router.get('/products/get', (req, res) => {
     connection((db) => {
         db.collection('products')
         .find(params)
-        .skip(startindex)
-        .limit(pageLimit)
         .sort(sort.sortBy, sort.order)
         .toArray()
         .then((products) => {
-            response.data = products;
+            response.data = [products.slice(startindex, startindex+pageLimit), products.length];
             response.message = "Got products!";
             res.json(response);
         })
@@ -176,32 +174,43 @@ router.get('/profile', (req, res) => {
         })
         db.close();
     });
+});
 
+// Get user profile
+router.get('/profile/history', (req, res) => {
+    let auth_token = req.headers['authorization'].slice(7);  // Remove 'Bearer ' from the header to get token
+    let decoded = jwt.decode(auth_token);
+    let username = (decoded.username);
+    connection((db) => {
+        db.collection('users')
+        .find({"username" : username}, {search_history: true})
+        .toArray()
+        .then((history) => {
+            response.data = history[0].search_history;  // Returns the array 'search_history"
+            response.message = "Successfully got recent history";
+            res.json(response);
+        }).catch((err)=> {
+            sendError(err,res);
+        })
+        db.close();
+    });
 });
 
 /* POST Requests */
 
  // Register user
  router.post('/register', (req, res, next) => {
-    let newUser = {
-        // name, username, password, role, createdAt
-        name: req.body.name,
-        username: req.body.username,
-        password: req.body.password,
-        role: req.body.role,
-        createdAt: req.body.createdAt
-    };
 
     bcrypt.genSalt(10, function(err, salt) {
-        bcrypt.hash(newUser.password, salt, function(err, hash) {
-            newUser.password = hash;
+        bcrypt.hash(req.body.password, salt, function(err, hash) {
+            req.body.password = hash;
             // Add user to database
             connection((db) => {
                 try{
-                    db.collection('users').insertOne(newUser)
+                    db.collection('users').insertOne(req.body)
                     .then(function() {
                         response.data = [];
-                        response.message = "Added user: " + newUser.name;
+                        response.message = "Added user: " + req.body.name;
                         res.json(response);
                     }).catch (function(){
                         error.status = 409;
@@ -223,18 +232,7 @@ router.post('/products/add', (req, res) => {
     connection((db) => {
         try {
             db.collection('products')
-            .insertOne({
-                'name': req.body.name,
-                'category': req.body.category,
-                'producer': req.body.producer,
-                'origin': req.body.origin,
-                'price': req.body.price,
-                'weight': req.body.weight,
-                'description': req.body.description,
-                'quantity': req.body.quantity,
-                'in_stock': req.body.in_stock,
-                'kilo_price': req.body.kilo_price
-            })
+            .insertOne(req.body)
             .then(function(){
                 response.data = []  // Should not return data in the response
                 response.message = 'A new product was added!'
@@ -256,7 +254,7 @@ router.post('/products/add', (req, res) => {
 // Method to authenticate login and assign token
 router.post('/authenticate', (req, res) => {
     console.log('Running authentication...')
-    let query = {username: req.body.email};
+    let query = {username: req.body.username};
     connection((db) => {
         // Find user with username, they are unique
         db.collection('users').find(query).toArray().then((user) => {
@@ -285,7 +283,7 @@ router.post('/authenticate', (req, res) => {
                         let payload = {
                             'iss': 'warewolf.io',
                             'exp': timestamp_now + 3600,  // Session will expire after 1 hour from login
-                            'username': req.body.email
+                            'username': req.body.username
                         }
                         auth_token = jwt.sign(payload, token_secret);
                         response.data = [auth_token];
@@ -311,9 +309,8 @@ router.post('/user/update/history', (req, res) => {
         db.collection('users')
         .update(
             {'username' : username},
-            {$push: {'search_history': req.body.product}}
+            {$push: {'search_history': req.body}}
     )
-        .toArray()
         .then(() => {
             response.data = [];  // No data should be retured
             response.message = "Successfully updated user search history";
@@ -324,7 +321,5 @@ router.post('/user/update/history', (req, res) => {
         db.close();
     });
 });
-
-
 
 module.exports = router;

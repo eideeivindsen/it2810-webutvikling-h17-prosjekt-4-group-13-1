@@ -18,7 +18,7 @@
             <h1 class="mat-h1" *ngIf="searched"><mat-icon>search</mat-icon> NO PRODUCTS FOUND</h1>
             <h1 class="mat-h2" *ngIf="!searched">NO PRODUCTS</h1>
         </div>
-        <mat-paginator [length]="10" [pageSize]="5" (page)="onPaginateChange($event)"> </mat-paginator>
+        <mat-paginator [length]="listLength" [pageSize]="5" (page)="onPaginateChange($event)"> </mat-paginator>
     </mat-card>
     <button *ngIf="results.length > 1" mat-button class="modalButton" (click)="openDialog()" type="button">DISPLAY WORD CLOUD OF RESULTS</button>
 </div>

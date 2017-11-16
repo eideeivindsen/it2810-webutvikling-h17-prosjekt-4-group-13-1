@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/share';
+import { Product } from '../product';
 
 @Injectable()
 export class SearchService {
@@ -13,7 +14,7 @@ export class SearchService {
 
   constructor(private http: HttpClient) {  }
 
-  addProduct(product) {
+  addProduct(product: Product) {
       const auth_token = localStorage.getItem('auth_token');
       const body = product;
       this.http
@@ -21,6 +22,17 @@ export class SearchService {
             headers: new HttpHeaders().set('Authorization', `Bearer ${auth_token}`),
         })
       .subscribe();
+  }
+
+  addToHistory(product: Product){
+    console.log('Service product: ' + product);
+    const auth_token = localStorage.getItem('auth_token');
+    const body = product;
+    this.http
+    .post('/api/user/update/history', body, {
+          headers: new HttpHeaders().set('Authorization', `Bearer ${auth_token}`),
+      })
+    .subscribe();
   }
 
   get(filter, index, sort) {
@@ -76,8 +88,8 @@ export class SearchService {
         return this.results.asObservable();
     }
 
-    getIsLoading(): Observable<any> {
-          return this.isLoading.asObservable();
-      }
+  getIsLoading(): Observable<any> {
+        return this.isLoading.asObservable();
+    }
 
 }

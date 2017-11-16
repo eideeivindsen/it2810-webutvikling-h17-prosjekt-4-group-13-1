@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
+import { log } from 'util';
 
 
 @Injectable()
@@ -23,14 +24,17 @@ export class ProfileService {
     });
   }
 
-  getRecentSearches() {
+  getProfileHistory() {
+    const auth_token = localStorage.getItem('auth_token');
     return this.http
       .get(
-        '/recent-searches'
-      )
+        '/api/profile/history',{
+          headers: new HttpHeaders().set('Authorization', `Bearer ${auth_token}`)
+    })
       .map((res: any) => {
-        if (res.success) {
-          return res.success;
+        if (res.status == 200) {
+          console.log(res.data);
+          return res.data;  // Returning array of all searches done by user
         }
       });
 
