@@ -1,5 +1,5 @@
 <div class="search-view-comtainer">
     <app-search></app-search>
-    <app-addnew></app-addnew>
+    <app-addnew *ngIf="isEmployee()"></app-addnew>
     <app-results></app-results>
 </div>
