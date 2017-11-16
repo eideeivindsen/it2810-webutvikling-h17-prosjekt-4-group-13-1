@@ -35,6 +35,7 @@ export class ResultComponent implements OnInit {
       if(this.userService.isLoggedIn()){
           this.searchService.addToHistory(this.data)
       }
+      console.log(this.data)
   }
 
 }
