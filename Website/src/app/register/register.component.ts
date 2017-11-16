@@ -15,6 +15,7 @@ import { UserService } from '../_services/user.service';
 import { log } from 'util';
 import { NavigationComponent } from '../navigation/navigation.component';
 import { ProfileService } from '../_services/profile.service';
+import { User } from '../user';
 
 
 /* Error when invalid control is dirty, touched, or submitted. */
@@ -104,17 +105,24 @@ export class RegisterComponent implements OnInit {
 
   onSubmit() {
     this.createdAt = new Date;
+    let user: User = {
+      name: this.fullName,
+      username: this.username,
+      password: this.password,
+      createdAt: this.createdAt,
+      role: this.chosenRole
+    }
     // If not customer, check secret
     if (this.matcher) {
       if (this.chosenRole != "Customer") {
         if (this.typedSecret === this.secret) {
-          this.userService.register(this.fullName, this.username, this.password, this.chosenRole, this.createdAt).subscribe((res) => {
+          this.userService.register(user).subscribe((res) => {
             this.validateRegisterFeedback(res);
           });
         }
         // Otherwise create user of type 'Customer'
       } else {
-        this.userService.register(this.fullName, this.username, this.password, this.chosenRole, this.createdAt).subscribe((res) => {
+        this.userService.register(user).subscribe((res) => {
           this.validateRegisterFeedback(res);
         });
       }

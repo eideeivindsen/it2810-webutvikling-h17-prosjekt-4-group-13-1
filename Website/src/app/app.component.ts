@@ -7,7 +7,7 @@ import 'hammerjs';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Project 4 Application';
+  title = 'Warewolf';
 
   constructor(){
   }
