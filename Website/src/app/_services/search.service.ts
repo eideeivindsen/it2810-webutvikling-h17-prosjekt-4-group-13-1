@@ -25,7 +25,6 @@ export class SearchService {
   }
 
   addToHistory(product: Product){
-    console.log('Service product: ' + product);
     const auth_token = localStorage.getItem('auth_token');
     const body = product;
     this.http

@@ -22,7 +22,6 @@ ngOnInit() {
 
   onSubmit() {
     this.userService.login(this.username, this.password).subscribe((result) => {
-      console.log('Component result: ' + result);
       if (result == 200) {
         console.log('Component: Valid statuscode 200...');
         this.errorMessage = "";
