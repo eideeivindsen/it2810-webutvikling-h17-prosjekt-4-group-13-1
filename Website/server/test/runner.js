@@ -26,24 +26,25 @@ describe("User API", function() {
         'password': 'test'
     };
     before(function(done) {
-        // connect to DB
+        // connect to DB, add a moch user
         connection((db) => {
             try{
                 db.collection('users').insertOne(dummyUser)
                 .then(function() {
                     console.log("Added dummy user " + dummyUser.username)
+                    done();
                 })
             }catch (err){
                 console.log("Error: " + err);
+                done();
             }
             db.close();
-            done();
         });
     })
 
 
 
-    describe("Add new item", function() {
+    describe("Add new user", function() {
         var addedUser;
         it("should check if added user is in DB", function(done) {
             connection((db) => {
@@ -52,37 +53,41 @@ describe("User API", function() {
                 .toArray()
                 .then((user) => {
                     addedUser = user;
-                    console.log(user);
+                    //console.log(user);
                     user[0].should.have.property('username');
-                    user[0].username.should.equal('dummy@user.com');
+                    user[0].username.should.equal(dummyUser.username);
+                    user[0].should.have.property('password');
+                    user[0].password.should.equal(dummyUser.password);
+                    done();
                 })
                 .catch((err) => {
                     console.log("Error: " + err);
+                    done();
                 })
                 db.close();
             })
 
-            done();
         });
     })
 
 
 
     // Teardown
-5
     after(function(done) {
+        // remove the mock user from DB
         connection((db) => {
             try{
                 db.collection('users')
                 .findOneAndDelete({"username": dummyUser.username})
                 .then(function() {
                     console.log("Removed dummy user " + dummyUser.username)
+                    done();
                 })
             }catch (err){
                 console.log("Error: " + err);
+                done();
             }
             db.close();
-            done();
         });
     })
 
