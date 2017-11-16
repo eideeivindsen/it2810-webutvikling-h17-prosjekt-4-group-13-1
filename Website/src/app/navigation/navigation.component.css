@@ -49,11 +49,20 @@ nav > a.navlink-profile {
   width: auto;
   margin: 0px 0 0px auto;
   padding: 0 30px;
-  font-size: .8em;
+  font-size: .85em;
   line-height: 1em;
   text-align: left;
   background-color: rgba(0, 0, 0, 0.10);
   min-width: 17%;
+}
+
+.navlink-profile-info p:first-child {
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+.navlink-profile-info p:last-child {
+    margin: 0;
+    transform: scale(0.8);
 }
 
 nav > a.navlink-profile.not-logged-in a {
@@ -62,7 +71,7 @@ nav > a.navlink-profile.not-logged-in a {
 }
 
 nav > a.navlink-profile:hover {
-  background-color: rgba(0, 0, 0, 0.20);
+  background-color: rgba(0, 0, 0, 0.15);
 }
 
 nav > a.navlink-profile.logged-in div {
@@ -78,14 +87,15 @@ nav > a.navlink-logout {
   width: auto;
   margin: 0;
   padding: 1em;
-  background-color: #e74c3c;
+  background-color: rgba(0, 0, 0, 0.10);
   cursor: pointer;
   user-select: none;
+  border-left: 2px solid #463F65;
   /*display: none;*/
 }
 
 nav > a.navlink-logout:hover {
-  background-color: #DA3F2F;
+  background-color: rgba(0, 0, 0, 0.15);
 }
 
 nav > a:not(.navlink-logo):hover {
@@ -98,12 +108,8 @@ nav > a.navlink-logout:hover {
   color: #FCFCFF;
 }
 
-.navlink-profile-avatar img {
-  margin: 1.1em 1.1em 1.1em -10px;
-  -webkit-border-radius: 50%;
-  -moz-border-radius: 50%;
-  border-radius: 50%;
-  -webkit-box-shadow: 0 0 0 2px #fff, 0 0 0 3px #999, 0 2px 5px 4px rgba(0,0,0,.2);
-  -moz-box-shadow: 0 0 0 2px #fff, 0 0 0 3px #999, 0 2px 5px 4px rgba(0,0,0,.2);
-  box-shadow: 0 0 0 2px #fff, 0 0 0 3px #999, 0 2px 5px 4px rgba(0,0,0,.2);
+.navlink-profile-avatar mat-icon {
+  margin-top: 15px;
+  margin-right: 20px;
+  transform: scale(1.8);
 }
