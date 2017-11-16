@@ -32,18 +32,6 @@ export function secretValidator(control: AbstractControl) {
   }
 }
 
-export function nameTakenValidator(takenNames: any[]): ValidatorFn {
-  return (control: AbstractControl) => {
-    let typedName = control.value;
-    if (takenNames.indexOf(typedName) >= 0) {
-      return typedName;
-    } else {
-      return null;
-    }
-  }
-}
-
-
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -66,75 +54,30 @@ export class RegisterComponent implements OnInit {
   typedSecret: String = "";
   wrongSecret: Boolean = false;
 
-  allUsers = [];
-
   // Form validators
   emailFormControl = new FormControl('', [
     Validators.required,
-    Validators.email,
-    nameTakenValidator(this.allUsers)
+    Validators.email
   ]);
-
 
   nameFormControl = new FormControl('', [
     Validators.required,
   ]);
-
-  errorMessage: String = "";
-
 
   secretFormControl = new FormControl(this.typedSecret,[
     Validators.required,
     secretValidator
   ])
 
+  errorMessage: String = "";
+
   matcher = new MyErrorStateMatcher();
 
   constructor(private userService: UserService, private router: Router) {}
 
-  ngOnInit() {
-      this.userService.getUserNames().subscribe((result) => {
-        for (var i = 0; i < result.length; i++) {
-          this.allUsers.push(result[i].username)
-        }
-      });
-  }
-
-
-  // debugging \o/
-  printAll() {
-    this.createdAt = new Date;
-    // if not customer, check secret
-    if (this.chosenRole != "Customer") {
-      console.log("Admin chosen");
-      if (this.typedSecret === this.secret) {
-        console.log("Secret is correct");
-        console.log(this.fullName);
-        console.log(this.username);
-        console.log(this.password);
-        console.log(this.chosenRole);
-        console.log(this.createdAt);
-        console.log(this.secret + " " + this.typedSecret);
-        this.router.navigate(['/login']);
-      } else {
-        this.wrongSecret = true;
-        console.log("Secret is wrong");
-      }
-    // otherwise create user
-    } else {
-      console.log("Customer chosen")
-      console.log(this.fullName);
-      console.log(this.username);
-      console.log(this.password);
-      console.log(this.chosenRole);
-      console.log(this.createdAt);
-      this.router.navigate(['/login']);
-    }
-
-  }
+  ngOnInit() {}
 
   validateRegisterFeedback(res) {
-    console.log(res);
     if (res.status == 200) {
       this.userService.login(res.credentials.username, res.credentials.password).subscribe((result) => {
         if (result == 200) {
@@ -144,12 +87,12 @@ export class RegisterComponent implements OnInit {
         else {
           console.log("Not logged in!");
           this.errorMessage = "Ops! Somthing went wrong. Please try again laster."
+          this.router.navigate(['/login']);
         }
       });
-      this.router.navigate(['/']);
     }
     else if (res.status == 409){
-      this.errorMessage = "Username is already in use."
+      this.errorMessage = res.message;
     }
     else if (res.status == 501) {
       this.errorMessage = "Problems with the servers. Try again later."
@@ -158,8 +101,7 @@ export class RegisterComponent implements OnInit {
 
   onSubmit() {
     this.createdAt = new Date;
-    // if not customer, check secret
-    console.log(this.matcher);
+    // If not customer, check secret
     if (this.matcher) {
       if (this.chosenRole != "Customer") {
         if (this.typedSecret === this.secret) {
@@ -167,7 +109,7 @@ export class RegisterComponent implements OnInit {
             this.validateRegisterFeedback(res);
           });
         }
-        // otherwise create user
+        // Otherwise create user of type 'Customer'
       } else {
         this.userService.register(this.fullName, this.username, this.password, this.chosenRole, this.createdAt).subscribe((res) => {
           this.validateRegisterFeedback(res);

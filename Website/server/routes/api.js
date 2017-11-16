@@ -157,7 +157,6 @@ router.get('/products/get', (req, res) => {
     })
 })
 
-
 // Get user profile
 router.get('/profile', (req, res) => {
     let auth_token = req.headers['authorization'].slice(7);  // Remove 'Bearer ' from the header to get token
@@ -301,6 +300,29 @@ router.post('/authenticate', (req, res) => {
         console.log('Closing connection...');
         db.close();
     })
+});
+
+router.post('/user/update/history', (req, res) => {
+    //TODO: Update user history in database with newest search
+    let auth_token = req.headers['authorization'].slice(7);  // Remove 'Bearer ' from the header to get token
+    let decoded = jwt.decode(auth_token);
+    let username = (decoded.username);
+    connection((db) => {
+        db.collection('users')
+        .update(
+            {'username' : username},
+            {$push: {'search_history': req.body.product}}
+    )
+        .toArray()
+        .then(() => {
+            response.data = [];  // No data should be retured
+            response.message = "Successfully updated user search history";
+            res.json(response);
+        }).catch((err)=> {
+            sendError(err,res);
+        })
+        db.close();
+    });
 });
 
 

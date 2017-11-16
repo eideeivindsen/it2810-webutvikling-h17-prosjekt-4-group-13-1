@@ -10,7 +10,7 @@ export class UserService {
     this.loggedIn = !!localStorage.getItem('auth_token');
   }
 
-  // register new user
+  // Register new user
   register(name, username, password, role, createdAt) {
     return this.http
       .post(
@@ -30,17 +30,6 @@ export class UserService {
           return res;
         }
       });
-  }
-
-  // get user names
-  getUserNames() {
-    return this.http
-    .get(
-      '/api/users/getAll'
-    )
-    .map((res: any) => {
-      return res.data;
-    });
   }
 
   // Login user
