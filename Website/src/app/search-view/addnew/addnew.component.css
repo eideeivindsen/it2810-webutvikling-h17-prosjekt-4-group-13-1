@@ -40,6 +40,14 @@
     width: 250px
 }
 
+.right-align {
+  text-align: right;
+}
+input.right-align::-webkit-outer-spin-button,
+input.right-align::-webkit-inner-spin-button {
+  display: none;
+}
+
 
 mat-icon {
     vertical-align: middle;
@@ -50,6 +58,7 @@ mat-form-field {
     flex: 1;
     padding: 25px;
     width: 80%;
+    min-width: 200px;
 }
 mat-form-field button{
     float: right;

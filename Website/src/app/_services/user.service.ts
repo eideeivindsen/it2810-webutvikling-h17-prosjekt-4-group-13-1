@@ -10,7 +10,7 @@ export class UserService {
     this.loggedIn = !!localStorage.getItem('auth_token');
   }
 
-  // register new user
+  // Register new user
   register(name, username, password, role, createdAt) {
     return this.http
       .post(

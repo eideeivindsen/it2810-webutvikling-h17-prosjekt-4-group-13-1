@@ -15,7 +15,13 @@ const cryptKey = 'turtleneck';
 const dbLocation = 'mongodb://webdev-4:turtleneck2017@ds241055.mlab.com:41055/webdev-4';
 
 // Our middleware to validate JWT
-router.use(expressJWT({ secret: 'turtleneck' }).unless({ path: ['/login', '/api/authenticate', '/api/register']}));
+router.use(expressJWT({ secret: 'turtleneck' }).unless({ path: [
+    '/login', 
+    '/api/authenticate', 
+    '/api/register', 
+    '/api/register',
+    '/api/products/get',
+    '/api/products/getAll']}));
 
 /* Connection method and response/error handling */
 
@@ -49,48 +55,101 @@ let error = {
 
 /* GET Requests */
 
-// Get all products 
+// Get all products
 router.get('/products/getAll', (req, res) => {
+    let filter = JSON.parse(req.query.filter);
+    let query = new RegExp('.*' + filter.query.toLowerCase() + '.*', 'i');
+    let categoryDefault = new RegExp('.*', 'i');
+    let producerDefault = new RegExp('.*', 'i');
+
+    // Setting default params 
+    let params = {
+        'name': {$regex: query},
+        'category': {$regex: categoryDefault},
+        'producer': {$regex: producerDefault},
+        'in_stock': {$in: [true, false]},
+        'price': {$gt: 0},
+    }
+
+    // Setting appropriate params
+    if(filter.advanced){
+        if(filter.category != 'Show all' && filter.category != ''){
+            params['category'] = filter.category;
+        }
+        if(filter.producer != 'Show all' && filter.producer != ''){
+            params['producer'] = filter.producer;
+        }
+        if(filter.inStock){
+            params['in_stock'] = filter.inStock;
+        }
+        if(filter.price > 0){
+            params['price'] = {$lt: filter.price}
+        }
+    }
+    
     connection((db) => {
         db.collection('products')
-            .find()  
-            .toArray()
-            .then((products) => {
-                response.data = products;
-                res.json(response);
-            })
-            .catch((err) => {
-                sendError(err, res);
-            });
-    });
+        .find(params)
+        .toArray()
+        .then((products) => {
+            response.data = products;
+            response.message = "Got products!";
+            res.json(response);
+        })
+        .catch((err) => {
+            sendError(err, res);
+        })
+    })
 });
 
 // Get products
 router.get('/products/get', (req, res) => {
-    let pageLimit = 5;
-    let startindex = req.index * 5;
-    let query = ".*" + req.filter.query + ".*";
-    let sortingKeypair = {};
-    sortingKeypair[req.sort.sortyBy] = req.sort.order;
+    let filter = JSON.parse(req.query.filter);
+    let sort = JSON.parse(req.query.sort);
+    let index = JSON.parse(req.query.index);
 
+    let pageLimit = 5;
+    let startindex = index * 5;
+    let query = new RegExp('.*' + filter.query.toLowerCase() + '.*', 'i');
+    let categoryDefault = new RegExp('.*', 'i');
+    let producerDefault = new RegExp('.*', 'i');
+
+    // Setting default params 
+    let params = {
+        'name': {$regex: query},
+        'category': {$regex: categoryDefault},
+        'producer': {$regex: producerDefault},
+        'in_stock': {$in: [true, false]},
+        'price': {$gt: 0},
+    }
+
+    // Setting appropriate params
+    if(filter.advanced){
+        if(filter.category != 'Show all' && filter.category != ''){
+            params['category'] = filter.category;
+        }
+        if(filter.producer != 'Show all' && filter.producer != ''){
+            params['producer'] = filter.producer;
+        }
+        if(filter.inStock){
+            params['in_stock'] = filter.inStock;
+        }
+        if(filter.price > 0){
+            params['price'] = {$lt: filter.price}
+        }
+    }
+    
     connection((db) => {
         db.collection('products')
-        .find(
-            {"name": {'$regex': query}, 
-             "category": {'$cond': [req.filter.advanced && req.filter.category != 'Show all', req.filter.category, {'$regex': '.*'}]},
-             "producers": {'$cond': [req.filter.advanced && req.filter.producer != 'Show all', req.filter.producer, {'$regex': '.*'}]},
-             "inStock":{'$cond': [req.filter.advanced && req.filter.inStock, true, true || false]},
-             "price":{'$cond': [req.filter.advanced && req.filter.price > 0, {$lt: req.filter.price}, {$gt: 0}]},
-            })
-        .aggregate(
-            {'$cond': [req.sort.order != 0, {'$sort': sort(sortingKeypair)}]}
-        )
+        .find(params)
         .skip(startindex)
         .limit(pageLimit)
+        .sort(sort.sortBy, sort.order)
         .toArray()
         .then((products) => {
-            response.data = products.slice(startindex, startindex + 6);  // +6 for inclusive fifth element. This will return 5 elements.
-            res.json(response)
+            response.data = products;
+            response.message = "Got products!";
+            res.json(response);
         })
         .catch((err) => {
             sendError(err, res);
@@ -241,6 +300,29 @@ router.post('/authenticate', (req, res) => {
         console.log('Closing connection...');
         db.close();
     })
+});
+
+router.post('/user/update/history', (req, res) => {
+    //TODO: Update user history in database with newest search
+    let auth_token = req.headers['authorization'].slice(7);  // Remove 'Bearer ' from the header to get token
+    let decoded = jwt.decode(auth_token);
+    let username = (decoded.username);
+    connection((db) => {
+        db.collection('users')
+        .update(
+            {'username' : username},
+            {$push: {'search_history': req.body.product}}
+    )
+        .toArray()
+        .then(() => {
+            response.data = [];  // No data should be retured
+            response.message = "Successfully updated user search history";
+            res.json(response);
+        }).catch((err)=> {
+            sendError(err,res);
+        })
+        db.close();
+    });
 });
 
 
