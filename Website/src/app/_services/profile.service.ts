@@ -18,7 +18,6 @@ export class ProfileService {
     })
     .map((res: any) => {
       if (res.status == 200) {
-        console.log('res.data: ' + res.data);
         return res.data;
       }
     });
@@ -33,7 +32,6 @@ export class ProfileService {
     })
       .map((res: any) => {
         if (res.status == 200) {
-          console.log(res.data);
           return res.data;  // Returning array of all searches done by user
         }
       });
