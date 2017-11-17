@@ -25,15 +25,32 @@ describe("User API", function() {
         'role': 'Admin',
         'password': 'test'
     };
+    var dummyProduct = {
+        'name': 'Trine shmelk',
+        'category': 'Shmelkevarer',
+        'producer': 'Trine Inc',
+        'origin': 'Botswana',
+        'price': 1000,
+        'weight': 100,
+        'description': 'Trine shmelk er den beste shmelken som finnes',
+        'quantity': 20,
+        'in_stock': true,
+        'kilo_price': 2000
+    };
+
     before(function(done) {
         // connect to DB, add a mock user
         connection((db) => {
             try{
                 db.collection('users').insertOne(dummyUser)
                 .then(function() {
-                    console.log("Added dummy user " + dummyUser.username)
-                    done();
+                    console.log("Added dummy user " + dummyUser.username)  
                 })
+                db.collection('products').insertOne(dummyProduct)
+                .then(function() {
+                    console.log("Added dummy product " + dummyProduct.name)
+                })
+                done();
             }catch (err){
                 console.log("Error: " + err);
                 done();
@@ -48,9 +65,7 @@ describe("User API", function() {
         it("should be added to the DB", function(done) {
             connection((db) => {
                 db.collection('users')
-                .find({"username": dummyUser.username})
-                .toArray()
-                .then((user) => {
+                .find({"username": dummyUser.username}).toArray().then((user) => {
                     addedUser = user;
                     //console.log(user);
                     user[0].should.have.property('username');
@@ -65,7 +80,7 @@ describe("User API", function() {
                     done();
                 })
                 db.close();
-            })
+            });
         });
         it("should not not be logged in if the password is wrong", function(done) {
             connection((db) => {
@@ -106,10 +121,6 @@ describe("User API", function() {
                         })
                         db.close();
                     });
-
-
-
-
                 }).catch((err)=> {
                     sendError(err,res);
                 })
@@ -118,6 +129,47 @@ describe("User API", function() {
         });
     });
 
+    
+    describe("New product", function() {
+        it("should be added to DB", function(done) {
+            connection((db) => {
+                db.collection('products').find({"name": dummyProduct.name}).toArray().then((product) => {
+                    //console.log(product);
+                    product.length.should.not.equal(0);
+                    done();
+                })
+                .catch((err) => {
+                    console.log("Error: " + err);
+                    done();
+                })
+                db.close();
+            });
+        });
+        it("should have the correct information stored in the DB", function(done) {
+            connection((db) => {
+                db.collection('products').find({"name": dummyProduct.name}).toArray().then((product) => {
+                    //console.log(product[0].name);
+                    product[0].should.have.property('name');
+                    product[0].name.should.equal(dummyProduct.name);
+                    product[0].name.should.be.String();
+                    product[0].should.have.property('category');
+                    product[0].category.should.equal(dummyProduct.category);
+                    product[0].should.have.property('price');
+                    product[0].price.should.equal(dummyProduct.price);
+                    product[0].price.should.be.Number();
+                    product[0].should.have.property('in_stock');
+                    product[0].in_stock.should.equal(dummyProduct.in_stock);
+                    product[0].in_stock.should.be.Boolean();
+                    done();
+                })
+                .catch((err) => {
+                    console.log("Error: " + err);
+                    done();
+                })
+                db.close();
+            });
+        });
+    });
 
 
     // Teardown
@@ -125,38 +177,19 @@ describe("User API", function() {
         // remove the mock user from DB
         connection((db) => {
             try{
-                db.collection('users')
-                .findOneAndDelete({"username": dummyUser.username})
-                .then(function() {
+                db.collection('users').findOneAndDelete({"username": dummyUser.username}).then(function() {
                     console.log("Removed dummy user " + dummyUser.username)
-                    done();
-                })
+                });
+                db.collection('products').findOneAndDelete({"name": dummyProduct.name}).then(function() {
+                    console.log("Removed dummy product " + dummyProduct.name)
+                });
+                done();
             }catch (err){
                 console.log("Error: " + err);
                 done();
             }
             db.close();
         });
-    })
-
-    // describe("Add new item", function() {
-    //     it("should add new item as admin", function(done) {
-    //         var req = {
-    //             body: {
-    //                 'product': 'Tine melk',
-    //                 'price': '15'
-    //             }
-    //         };
-    //         // test
-    //         var res = testUtils.responseValidator(200, function(item) {
-    //             item.should.have.property('product');
-    //             item.product.should.equal('Tine melk');
-    //             item.should.have.property('price');
-    //             item.product.should.equal('15');
-    //         });
-
-    //         // TODO: add to database
-    //     })
-    // })
+    });
 
 });
