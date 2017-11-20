@@ -41,8 +41,16 @@
   margin: 0 auto;
 }
 
-@media (max-width: 933px) {
+@media only screen and (max-width: 768px) {
   .search-history mat-card:first-child {
     margin-right: 0em;
+  }
+
+  .userinfo-img {
+    text-align: center;
+  }
+
+  .userinfo-img img {
+    max-width: 150px;
   }
 }

@@ -46,8 +46,9 @@ export class ProfileViewComponent {
   // Doughnut TODO: faktisk data her
   public chartLabels:string[] = [];
   public chartData:number[] = [];
-  public chartType:string = 'pie';
+  public chartType:string = 'horizontalBar';
   public chartOptions:any = {
+    'label' : "Searches"
     'responsive' : true,
     'animation.animateScale' : true
   }
