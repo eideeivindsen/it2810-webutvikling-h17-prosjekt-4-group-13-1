@@ -7,7 +7,7 @@ import { log } from 'util';
 
 @Injectable()
 export class ProfileService {
-  
+
   constructor(private http: HttpClient) {}
 
   getProfile() {
@@ -38,5 +38,5 @@ export class ProfileService {
 
   }
 
-  
+
 }

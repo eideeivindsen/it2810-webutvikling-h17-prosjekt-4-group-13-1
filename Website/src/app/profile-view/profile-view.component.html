@@ -71,7 +71,7 @@
         <h3>Searches visualized</h3>
       </mat-card-header>
 
-      <canvas class="search-piechart"
+      <canvas *ngIf="(chartLabels.length > 0)" class="search-piechart"
               baseChart
               [data]="chartData"
               [labels]="chartLabels"
