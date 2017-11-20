@@ -7,6 +7,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ChartsModule } from 'ng2-charts';
 import { AgWordCloudModule } from 'angular4-word-cloud';
+import { RouterTestingModule } from '@angular/router/testing';
+
 
 // Components
 import {
@@ -57,6 +59,7 @@ import { PlunkerMaterialModule } from './barrel';
     RouterModule.forRoot(routes),
     AgWordCloudModule.forRoot(),
     PlunkerMaterialModule,
+    RouterTestingModule,
   ],
 
   entryComponents: [WordcloudComponent],

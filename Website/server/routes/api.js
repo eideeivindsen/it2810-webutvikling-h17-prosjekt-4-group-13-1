@@ -16,10 +16,10 @@ const dbLocation = 'mongodb://webdev-4:turtleneck2017@ds241055.mlab.com:41055/we
 
 // Our middleware to validate JWT
 router.use(expressJWT({ secret: 'turtleneck' }).unless({ path: [
-    '/login', 
+    '/login',
     '/api/authenticate',
-    '/api/debug/users', 
-    '/api/register', 
+    '/api/debug/users',
+    '/api/register',
     '/api/register',
     '/api/products/get',
     '/api/products/getAll']}));
@@ -63,7 +63,7 @@ router.get('/products/getAll', (req, res) => {
     let categoryDefault = new RegExp('.*', 'i');
     let producerDefault = new RegExp('.*', 'i');
 
-    // Setting default params 
+    // Setting default params
     let params = {
         'name': {$regex: query},
         'category': {$regex: categoryDefault},
@@ -87,7 +87,7 @@ router.get('/products/getAll', (req, res) => {
             params['price'] = {$lt: filter.price}
         }
     }
-    
+
     connection((db) => {
         db.collection('products')
         .find(params)
@@ -137,7 +137,7 @@ router.get('/products/get', (req, res) => {
     let categoryDefault = new RegExp('.*', 'i');
     let producerDefault = new RegExp('.*', 'i');
 
-    // Setting default params 
+    // Setting default params
     let params = {
         'name': {$regex: query},
         'category': {$regex: categoryDefault},
@@ -161,7 +161,7 @@ router.get('/products/get', (req, res) => {
             params['price'] = {$lt: filter.price}
         }
     }
-    
+
     connection((db) => {
         db.collection('products')
         .find(params)

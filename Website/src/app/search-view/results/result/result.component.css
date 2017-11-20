@@ -15,7 +15,8 @@ h1 {
     letter-spacing: 2px;
 }
 
-h1.stock-info {
+.stock-info h1{
+    margin-top: 20px;
     margin-bottom: 0px;
 }
 
