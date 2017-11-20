@@ -39,6 +39,12 @@
   width: 100%;
   max-width: 400px;
   margin: 0 auto;
+  display: block;
+}
+
+.search-barchart {
+  display: none !important;
+  max-width: 250px;
 }
 
 @media only screen and (max-width: 768px) {
@@ -52,5 +58,13 @@
 
   .userinfo-img img {
     max-width: 150px;
+  }
+
+  .search-piechart {
+    display: none !important;
+  }
+
+  .search-barchart {
+    display: block !important;
   }
 }

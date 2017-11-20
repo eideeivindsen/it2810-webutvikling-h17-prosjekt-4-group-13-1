@@ -75,7 +75,17 @@
               baseChart
               [data]="chartData"
               [labels]="chartLabels"
-              [chartType]="chartType"
+              [chartType]="pieChartType"
+              [options]="chartOptions"
+              (chartHover)="chartHovered($event)"
+              (chartClick)="chartClicked($event)"></canvas>
+
+      <canvas *ngIf="(chartLabels.length > 0)" class="search-barchart"
+              baseChart
+              [legend]="false"
+              [data]="chartData"
+              [labels]="chartLabels"
+              [chartType]="barChartType"
               [options]="chartOptions"
               (chartHover)="chartHovered($event)"
               (chartClick)="chartClicked($event)"></canvas>
