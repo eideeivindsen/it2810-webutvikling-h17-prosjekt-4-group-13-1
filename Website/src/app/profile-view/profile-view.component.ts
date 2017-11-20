@@ -21,7 +21,7 @@ export class ProfileViewComponent {
   createdAt:string;
 
   ngOnInit(){
-    // On pageload, checks if createdAt is in LocalStorage (usually not on a fresh login) and fetches it from the database if not. 
+    // On pageload, checks if createdAt is in LocalStorage (usually not on a fresh login) and fetches it from the database if not.
     // Fetches name, role and createdAt from LocalStorage if not.
     if (!localStorage.getItem("createdAt")){
       this.profileService.getProfile().subscribe((result) => {
@@ -33,26 +33,35 @@ export class ProfileViewComponent {
     } else {
       this.name = localStorage.getItem("name");
       this.role = localStorage.getItem("role");
-      this.createdAt = localStorage.getItem("createdAt"); 
+      this.createdAt = localStorage.getItem("createdAt");
     }
     this.getProfileHistory();
   }
 
   // displayedColumns = ['position', 'name', 'weight', 'symbol'];
   displayedColumns = ['search', 'date'];
-  dataSource = new ExampleDataSource();
+  dataSource:ExampleDataSource;
 
 
   // Doughnut TODO: faktisk data her
-  public chartLabels:string[] = ['Tine melk 0,75L', 'Kesam Tine', 'Margarin Meieri', 'Coop Appelsinjuice', 'Tuborg 0,5L'];
-  public chartData:number[] = [350, 450, 100, 35, 31];
-  public chartType:string = 'pie';
+  public chartLabels:string[] = [];
+  public chartData:number[] = [];
+  public pieChartType:string = 'pie';
+  public barChartType:string = 'horizontalBar';
   public chartOptions:any = {
     'responsive' : true,
     'animation.animateScale' : true
   }
 
-  constructor(private profileService: ProfileService, private router: Router) {}
+  constructor(private profileService: ProfileService, private router: Router) {
+    this.getProfileHistory().subscribe(
+      (userHistory) => {
+        console.log(userHistory);
+        this.createPieChartData(userHistory);
+        this.dataSource = new ExampleDataSource(this.refineProfileHistory(userHistory));
+      }
+    );
+  }
   // events
   public chartClicked(e:any):void {
     console.log(e);
@@ -73,59 +82,57 @@ export class ProfileViewComponent {
     return [year, month, day].join('-');
   }
 
+  refineProfileHistory(searchHistory) {
+    console.log(searchHistory);
+    var refined: Element[] = [];
+    var usedSearches: string[] = [];
+    for(var i = searchHistory.length - 1; i > 0; i--) {
+      console.log("Search: " + searchHistory[i].name);
+      if(usedSearches.length == 4) {
+        console.log("userSearchs is 4");
+        break;
+      }
+      else {
+        if (usedSearches.indexOf(searchHistory[i].name) < 0) {
+          console.log("search not used");
+          usedSearches.push(searchHistory[i].name);
+          refined.push({date: new Date(searchHistory[i].search_date), search: searchHistory[i].name});
+        }
+      }
+      console.log(usedSearches);
+      console.log("-----------");
+    }
+    console.log(refined);
+    return refined;
+  }
+
   getProfileHistory() {
-    this.profileService.getProfileHistory().subscribe((result) => {
-        //TODO: Result is now an array of products (objects). Do what you must, sir!
-        // There will be duplicates, so will have to count occurences!
-    });
+    return this.profileService.getProfileHistory();
+  }
+
+  createPieChartData(dic) {
+    var keyCount = {};
+    for(let searchword of dic) {
+      if(!(searchword.name in keyCount)) {
+        keyCount[searchword.name] = 1;
+      } else {
+        keyCount[searchword.name] += 1;
+      }
+    }
+
+    for(let search in keyCount) {
+      console.log(search + " : " + keyCount[search]);
+      this.chartLabels.push(search);
+      this.chartData.push(keyCount[search]);
+    }
   }
 
 }
-
-
-
-// export interface Element {
-//   name: string;
-//   position: number;
-//   weight: number;
-//   symbol: string;
-// }
 
 export interface Element {
   date: Date;
   search: string;
 }
-
-// const data: Element[] = [
-//   {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-//   {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-//   {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-//   {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-//   {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-//   {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-//   {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-//   {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-//   {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-//   {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
-//   {position: 11, name: 'Sodium', weight: 22.9897, symbol: 'Na'},
-//   {position: 12, name: 'Magnesium', weight: 24.305, symbol: 'Mg'},
-//   {position: 13, name: 'Aluminum', weight: 26.9815, symbol: 'Al'},
-//   {position: 14, name: 'Silicon', weight: 28.0855, symbol: 'Si'},
-//   {position: 15, name: 'Phosphorus', weight: 30.9738, symbol: 'P'},
-//   {position: 16, name: 'Sulfur', weight: 32.065, symbol: 'S'},
-//   {position: 17, name: 'Chlorine', weight: 35.453, symbol: 'Cl'},
-//   {position: 18, name: 'Argon', weight: 39.948, symbol: 'Ar'},
-//   {position: 19, name: 'Potassium', weight: 39.0983, symbol: 'K'},
-//   {position: 20, name: 'Calcium', weight: 40.078, symbol: 'Ca'},
-// ];
-
-const data: Element[] = [
-  {date: new Date("2017-11-1"), search: 'Tine melk 0,75L'},
-  {date: new Date("2017-10-25"), search: 'Kesam Tine'},
-  {date: new Date("2016-10-20"), search: 'Margarin Meieri'},
-  {date: new Date("2016-09-16"), search: 'Coop Appelsinjuice'},
-  {date: new Date("2015-09-15"), search: 'Tuborg 0,5L'}
-];
 
 /**
  * Data source to provide what data should be rendered in the table. The observable provided
@@ -134,9 +141,12 @@ const data: Element[] = [
  * we return a stream that contains only one set of data that doesn't change.
  */
 export class ExampleDataSource extends DataSource<any> {
-  /** Connect function called by the table to retrieve one stream containing the data to render. */
+  // Connect function called by the table to retrieve one stream containing the data to render.
+  constructor(private profileHistory: Element[]) {
+    super();
+  }
   connect(): Observable<Element[]> {
-    return Observable.of(data);
+    return Observable.of(this.profileHistory);
   }
 
   disconnect() {}

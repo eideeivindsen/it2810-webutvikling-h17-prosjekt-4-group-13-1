@@ -113,3 +113,15 @@ nav > a.navlink-logout:hover {
   margin-right: 20px;
   transform: scale(1.8);
 }
+
+@media only screen and (max-width: 768px) {
+    .navlink-logo,
+    .navlink-separator,
+    .navlink-profile-info {
+      display: none;
+    }
+
+    .navlink-profile-avatar mat-icon {
+      margin-right: 0px;
+    }
+}
