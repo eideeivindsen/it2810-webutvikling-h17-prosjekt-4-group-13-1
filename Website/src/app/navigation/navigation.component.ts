@@ -23,6 +23,11 @@ export class NavigationComponent implements OnInit {
           this.updateProfileCard();
         }
       })
+      // If you manage to refresh the profile page, the navbar updates as well.
+      if (localStorage.getItem("name")){
+        this.name = localStorage.getItem("name");
+        this.role = localStorage.getItem("role");
+      }
     }
     
     updateProfileCard(){
