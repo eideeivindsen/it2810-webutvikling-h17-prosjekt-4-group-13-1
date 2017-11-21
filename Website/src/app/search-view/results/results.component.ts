@@ -50,8 +50,8 @@ export class ResultsComponent implements OnInit {
         this.pageEvent = event;
         const sort = {
             "sortBy": this.sortBy,
-            "order": this.sortAsc ? 1 : -1,
-        }
+            "order": this.sortBy === 'in_stock' ? this.sortAsc ? -1 : 1 : this.sortAsc ? 1 : -1,
+        };
         this.searchService.update(event.pageIndex, this.sortBy.length > 0 ? sort : 0).subscribe();
     }
 
@@ -61,8 +61,8 @@ export class ResultsComponent implements OnInit {
             this.sortBy = sortParam;
             const sort = {
                 "sortBy": sortParam,
-                "order": this.sortAsc ? 1 : -1,
-            }
+                "order": sortParam === 'in_stock' ? this.sortAsc ? -1 : 1 : this.sortAsc ? 1 : -1,
+            };
             this.searchService.update(this.pageEvent.pageIndex, sort).subscribe();
         }
     }
