@@ -23,7 +23,7 @@
         <h3>Recently viewed products</h3>
       </mat-card-header>
 
-      <p *ngIf="(chartLabels.length < 1 || chartLabels.length == undefined)">No recently views products</p>
+      <p *ngIf="(chartLabels.length < 1 || chartLabels.length == undefined)">No recently viewed products</p>
 
       <mat-table *ngIf="(chartLabels.length > 0)" #table [dataSource]="dataSource">
 
@@ -50,7 +50,7 @@
         <h3>Viewed products visualized</h3>
       </mat-card-header>
 
-      <p *ngIf="(chartLabels.length < 1 || chartLabels.length == undefined)">No recently views products</p>
+      <p *ngIf="(chartLabels.length < 1 || chartLabels.length == undefined)">No recently viewed products</p>
 
       <canvas *ngIf="(chartLabels.length > 0)" class="search-piechart"
               baseChart
