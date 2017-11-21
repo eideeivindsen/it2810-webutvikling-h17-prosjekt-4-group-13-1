@@ -1,11 +1,23 @@
 import { browser, by, element } from 'protractor';
 
 export class AppPage {
-  navigateTo() {
-    return browser.get('/');
+  navigateTo(url) {
+    return browser.get(url);
   }
 
-  getParagraphText() {
-    return element(by.css('app-root h1')).getText();
+  getTitleText() {
+    return element(by.css('app-root .navlink-logo')).getText();
+  }
+
+  getSearchButton(){
+    return element(by.css('.searchButton'));
+  }
+
+  getListOfProducts(){
+    return element.all(by.css('.example-headers-align > div'));
+  }
+  
+  getQueryField(){
+    return element(by.css('#input-field'));
   }
 }
