@@ -1,19 +1,5 @@
-import { AppPage, LoginPage } from './app.po';
+import { LoginPage } from './app.po';
 import { browser, by, element, protractor} from 'protractor';
-
-
-describe('website App', () => {
-  let page: AppPage;
-
-  beforeEach(() => {
-    page = new AppPage();
-  });
-
-  it('should display welcome message', () => {
-    page.navigateTo();
-    expect(page.getParagraphText()).toEqual('Welcome to app!');
-  });
-});
 
 
 describe('Login page', () => {
