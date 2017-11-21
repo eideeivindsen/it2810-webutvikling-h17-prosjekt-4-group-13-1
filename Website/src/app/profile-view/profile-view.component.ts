@@ -38,12 +38,9 @@ export class ProfileViewComponent {
     this.getProfileHistory();
   }
 
-  // displayedColumns = ['position', 'name', 'weight', 'symbol'];
   displayedColumns = ['search', 'date'];
   dataSource:ExampleDataSource;
 
-
-  // Doughnut TODO: faktisk data her
   public chartLabels:string[] = [];
   public chartData:number[] = [];
   public pieChartType:string = 'pie';

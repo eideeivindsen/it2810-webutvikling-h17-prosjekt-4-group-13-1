@@ -19,7 +19,7 @@ describe('RegisterComponent', () => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule, HttpModule, MatTableModule, FormsModule], // Noe med matHeaderRowDef som hindrer testene å kjøre. StackOverflow nevner noe med ngFor-syntaks som fucker med det.
       schemas: [CUSTOM_ELEMENTS_SCHEMA],          // There is no directive with "exportAs" set to "ngForm"
-      providers: [UserService, ProfileService, HttpClient, HttpHandler],
+      providers: [UserService, ProfileService, HttpClient, HttpHandler], // Sjekk index.ts i barrel, kan være noe spennende å finne der.  
       declarations: [ RegisterComponent ]
     })
     .compileComponents();
