@@ -16,9 +16,10 @@ import { log } from 'util';
 import { NavigationComponent } from '../navigation/navigation.component';
 import { ProfileService } from '../_services/profile.service';
 import { User } from '../user';
+import { EmailValidator } from '@angular/forms/src/directives/validators';
 
 
-/* Error when invalid control is dirty, touched, or submitted. */
+// Error when invalid control is dirty, touched, or submitted
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;
@@ -26,10 +27,21 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   }
 }
 
+// Validator function for the secret admin password
 export function secretValidator(control: AbstractControl) {
   const secret = "turtleneck";
   let typedSecret = control.value;
   if (secret == typedSecret) {
+    return null;
+  } else {
+    return control.value;
+  }
+}
+
+export function validateEmail(control: AbstractControl) {
+  let email = control.value;
+  var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  if (re.test(email)) {
     return null;
   } else {
     return control.value;
@@ -58,10 +70,11 @@ export class RegisterComponent implements OnInit {
   typedSecret: String = "";
   wrongSecret: Boolean = false;
 
-  // Form validators
+  /////// Form validators ////////////
   emailFormControl = new FormControl('', [
     Validators.required,
-    Validators.email
+    //Validators.email,
+    validateEmail
   ]);
 
   nameFormControl = new FormControl('', [
@@ -76,11 +89,13 @@ export class RegisterComponent implements OnInit {
   errorMessage: String = "";
 
   matcher = new MyErrorStateMatcher();
+  ///////////////////////////////////
 
   constructor(private userService: UserService, private router: Router) {}
 
   ngOnInit() {}
 
+  // Server result checker
   validateRegisterFeedback(res) {
     if (res.status == 200) {
       this.userService.login(res.credentials.username, res.credentials.password).subscribe((result) => {
@@ -112,9 +127,12 @@ export class RegisterComponent implements OnInit {
       createdAt: this.createdAt,
       role: this.chosenRole
     }
-    console.log(this.matcher);
-    // If not customer, check secret
-    if (this.matcher) {
+    console.log(this.nameFormControl);
+    // no empty strings allowed
+    if (this.fullName === "" || this.username === "" || this.password === "") {
+      this.errorMessage = "All fields must be filled out"
+    } else {
+      // If user wants admin, check secret
       if (this.chosenRole != "Customer") {
         if (this.typedSecret === this.secret) {
           this.userService.register(user).subscribe((res) => {
@@ -127,10 +145,8 @@ export class RegisterComponent implements OnInit {
           this.validateRegisterFeedback(res);
         });
       }
-    } else {
-      console.log("Something went wrong!")
     }
   }
-    
+
 }
 
