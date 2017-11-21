@@ -4,4 +4,5 @@ export class User {
     password: String;
     createdAt: Date;
     role: String;
+    search_history: Array<String>;
 }
