@@ -45,7 +45,6 @@ export class SearchComponent implements OnInit {
         filter.inStock = this.inStock;
     }
     this.searchService.get(filter, 0, 0).subscribe();
-    // this.searchService.get(filter, 0, 0).subscribe( () => window.scrollTo(0,document.body.scrollHeight));
   }
 
 }

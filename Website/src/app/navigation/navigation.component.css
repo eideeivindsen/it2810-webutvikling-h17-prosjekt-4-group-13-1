@@ -1,12 +1,3 @@
-/*
-  VARIABLES
-
-  Background: #f9fafb
-  Navbar: #463F65
-  Green: #38a6a6
-
-
-*/
 nav {
     display: flex;
     justify-content: space-between;
@@ -91,7 +82,6 @@ nav > a.navlink-logout {
   cursor: pointer;
   user-select: none;
   border-left: 2px solid #463F65;
-  /*display: none;*/
 }
 
 nav > a.navlink-logout:hover {

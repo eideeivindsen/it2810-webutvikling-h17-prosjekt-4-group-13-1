@@ -33,7 +33,7 @@ export class ProfileService {
       .map((res: any) => {
         console.log(res);
         if (res.status == 200) {
-          return res.data;  // Returning array of all searches done by user
+          return res.data;  // Returns array of all searches done by user
         }
       });
 
