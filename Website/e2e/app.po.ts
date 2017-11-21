@@ -2,6 +2,7 @@ import { browser, by, element } from 'protractor';
 
 
 export class AppPage {
+  
   navigateTo(url) {
     return browser.get(url);
   }
@@ -21,6 +22,8 @@ export class AppPage {
   getQueryField(){
     return element(by.css('#input-field'));
 
+  }
+}
 export class LoginPage {
   
   navigateTo() {

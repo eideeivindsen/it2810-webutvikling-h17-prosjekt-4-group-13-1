@@ -4,11 +4,15 @@ import { browser, by, element, protractor} from 'protractor';
 
 describe('application start', () => {
   let page: AppPage;
-  
-  it('should display "WAREWOLF" in tag with "navlink-logo" class', () => {
+  beforeEach(() => {
+    page = new AppPage();
     page.navigateTo('/');
+  });
+
+  it('should display "WAREWOLF" in tag with "navlink-logo" class', () => {
     expect(page.getTitleText()).toEqual('WAREWOLF');
   });
+
 });
 
 describe('Login page', () => {
