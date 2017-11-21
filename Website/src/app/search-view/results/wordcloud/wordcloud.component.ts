@@ -22,7 +22,6 @@ export class WordcloudComponent implements OnInit {
       this.searchService.getAll().subscribe(result => {
           result.map(object => this.wordData.push({text: object.name, size: object.quantity}))
       })
-
   }
 
   onNoClick(): void {

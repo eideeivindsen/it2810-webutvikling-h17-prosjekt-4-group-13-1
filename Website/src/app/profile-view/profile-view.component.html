@@ -54,19 +54,19 @@
 
       <canvas *ngIf="(chartLabels.length > 0)" class="search-piechart"
               baseChart
-              [data]="chartData"
-              [labels]="chartLabels"
-              [chartType]="pieChartType"
-              [options]="chartOptions"
+              attr.data="{{chartData}}"
+              attr.labels="{{chartLabels}}"
+              attr.chartType="{{pieChartType}}"
+              attr.options="{{chartOptions}}"
               (chartHover)="chartHovered($event)"></canvas>
 
       <canvas *ngIf="(chartLabels.length > 0)" class="search-barchart"
               baseChart
-              [legend]="false"
-              [data]="chartData"
-              [labels]="chartLabels"
-              [chartType]="barChartType"
-              [options]="chartOptions"
+              attr.legend="{{false}}"
+              attr.data="{{chartData}}"
+              attr.labels="{{chartLabels}}"
+              attr.chartType="{{barChartType}}"
+              attr.options="{{chartOptions}}"
               (chartHover)="chartHovered($event)"></canvas>
 
     </mat-card>
