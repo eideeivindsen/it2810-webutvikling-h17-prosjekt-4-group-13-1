@@ -20,19 +20,16 @@
 
     <mat-card class="recent-searches">
       <mat-card-header>
-        <h3>Recent searches</h3>
+        <h3>Recently viewed products</h3>
       </mat-card-header>
 
+      <p *ngIf="(chartLabels.length < 1 || chartLabels.length == undefined)">No recently views products</p>
 
-
-      <mat-table #table [dataSource]="dataSource">
-
-    <!--- Note that these columns can be defined in any order.
-          The actual rendered columns are set as a property on the row definition" -->
+      <mat-table *ngIf="(chartLabels.length > 0)" #table [dataSource]="dataSource">
 
         <!-- Search Column -->
         <ng-container matColumnDef="search">
-          <mat-header-cell *matHeaderCellDef> Search </mat-header-cell>
+          <mat-header-cell *matHeaderCellDef> Products </mat-header-cell>
           <mat-cell *matCellDef="let element"> {{element.search}} </mat-cell>
         </ng-container>
 
@@ -42,24 +39,6 @@
           <mat-cell *matCellDef="let element"> {{formatDate(element.date)}} </mat-cell>
         </ng-container>
 
-        <!-- Name Column -->
-        <!-- <ng-container matColumnDef="name">
-          <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
-        </ng-container> -->
-
-        <!-- Weight Column -->
-        <!-- <ng-container matColumnDef="weight">
-          <mat-header-cell *matHeaderCellDef> Weight </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.weight}} </mat-cell>
-        </ng-container> -->
-
-        <!-- Color Column -->
-        <!-- <ng-container matColumnDef="symbol">
-          <mat-header-cell *matHeaderCellDef> Symbol </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.symbol}} </mat-cell>
-        </ng-container> -->
-
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
         <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
       </mat-table>
@@ -68,8 +47,10 @@
 
     <mat-card class="search-visualization">
       <mat-card-header>
-        <h3>Searches visualized</h3>
+        <h3>Viewed products visualized</h3>
       </mat-card-header>
+
+      <p *ngIf="(chartLabels.length < 1 || chartLabels.length == undefined)">No recently views products</p>
 
       <canvas *ngIf="(chartLabels.length > 0)" class="search-piechart"
               baseChart
@@ -77,8 +58,7 @@
               [labels]="chartLabels"
               [chartType]="pieChartType"
               [options]="chartOptions"
-              (chartHover)="chartHovered($event)"
-              (chartClick)="chartClicked($event)"></canvas>
+              (chartHover)="chartHovered($event)"></canvas>
 
       <canvas *ngIf="(chartLabels.length > 0)" class="search-barchart"
               baseChart
@@ -87,8 +67,7 @@
               [labels]="chartLabels"
               [chartType]="barChartType"
               [options]="chartOptions"
-              (chartHover)="chartHovered($event)"
-              (chartClick)="chartClicked($event)"></canvas>
+              (chartHover)="chartHovered($event)"></canvas>
 
     </mat-card>
 
