@@ -27,6 +27,10 @@ h1 {
     margin-bottom: 0px;
 }
 
+.descText {
+    text-align: center;    
+}
+
 svg {
     position: relative;
     top: 100%;
