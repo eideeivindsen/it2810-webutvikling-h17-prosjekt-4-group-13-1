@@ -13,7 +13,7 @@ export class AppPage {
 export class LoginPage {
   
   navigateTo() {
-    return browser.get('http://it2810-13.idi.ntnu.no:8083/login');
+    return browser.get('/login');
   };
   
 
