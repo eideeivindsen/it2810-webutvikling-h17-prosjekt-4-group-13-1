@@ -6,7 +6,8 @@
     "ng": "ng",
     "start": "ng serve -o",
     "server": "ng build & nodemon server.js & ng serve --watch server --proxy-config proxy.config.json",
-    "test": "mocha --recursive **/test/runner.js",
+    "test": "ng test",
+    "servtest": "mocha --recursive **/test/runner.js",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
