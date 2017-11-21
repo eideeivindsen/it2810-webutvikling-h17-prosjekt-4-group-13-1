@@ -90,7 +90,7 @@ export class RegisterComponent implements OnInit {
         }
         else {
           console.log("Not logged in!");
-          this.errorMessage = "Ops! Somthing went wrong. Please try again laster."
+          this.errorMessage = "Ops! Something went wrong. Please try again laster."
           this.router.navigate(['/login']);
         }
       });
@@ -112,6 +112,7 @@ export class RegisterComponent implements OnInit {
       createdAt: this.createdAt,
       role: this.chosenRole
     }
+    console.log(this.matcher);
     // If not customer, check secret
     if (this.matcher) {
       if (this.chosenRole != "Customer") {
