@@ -38,12 +38,9 @@ export class ProfileViewComponent {
     this.getProfileHistory();
   }
 
-  // displayedColumns = ['position', 'name', 'weight', 'symbol'];
   displayedColumns = ['search', 'date'];
   dataSource:ExampleDataSource;
 
-
-  // Doughnut TODO: faktisk data her
   public chartLabels:string[] = [];
   public chartData:number[] = [];
   public pieChartType:string = 'pie';
@@ -56,7 +53,6 @@ export class ProfileViewComponent {
   constructor(private profileService: ProfileService, private router: Router) {
     this.getProfileHistory().subscribe(
       (userHistory) => {
-        console.log(userHistory);
         this.createPieChartData(userHistory);
         this.dataSource = new ExampleDataSource(this.refineProfileHistory(userHistory));
       }
@@ -77,7 +73,7 @@ export class ProfileViewComponent {
   refineProfileHistory(searchHistory) {
     var refined: Element[] = [];
     var usedSearches: string[] = [];
-    for(var i = searchHistory.length - 1; i > 0; i--) {
+    for(var i = searchHistory.length - 1; i >= 0; i--) {
       if(usedSearches.length == 4) {
         break;
       }
@@ -106,8 +102,13 @@ export class ProfileViewComponent {
     }
 
     for(let search in keyCount) {
-      this.chartLabels.push(search);
-      this.chartData.push(keyCount[search]);
+      if(this.chartLabels.length > 9) {
+        break;
+      }
+      else {
+        this.chartLabels.push(search);
+        this.chartData.push(keyCount[search]);
+      }
     }
   }
 

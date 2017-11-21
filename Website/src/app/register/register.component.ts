@@ -110,7 +110,8 @@ export class RegisterComponent implements OnInit {
       username: this.username,
       password: this.password,
       createdAt: this.createdAt,
-      role: this.chosenRole
+      role: this.chosenRole,
+      search_history: []
     }
     // If not customer, check secret
     if (this.matcher) {

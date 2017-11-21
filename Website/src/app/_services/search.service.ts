@@ -27,7 +27,7 @@ export class SearchService {
   addToHistory(product: Product){
     const auth_token = localStorage.getItem('auth_token');
     const body = product;
-    body['search_date'] = new Date();  // Add the date the search was conducted
+    body['search_date'] = new Date();  // Adds the date the search was conducted
     this.http
     .post('/api/user/update/history', body, {
           headers: new HttpHeaders().set('Authorization', `Bearer ${auth_token}`),
