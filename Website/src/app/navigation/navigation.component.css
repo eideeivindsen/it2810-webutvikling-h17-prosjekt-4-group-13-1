@@ -3,7 +3,7 @@ nav {
     justify-content: space-between;
     padding: 0 8vw;
     height: 60px;
-    background-color: #463F65;
+    background-color: #463F65;    
 }
 
 nav > a {
@@ -15,6 +15,7 @@ nav > a {
     text-decoration: none;
     vertical-align: middle;
     transition: all .3s ease;
+    -webkit-tap-highlight-color: transparent;
 }
 
 nav > a.navlink-separator {

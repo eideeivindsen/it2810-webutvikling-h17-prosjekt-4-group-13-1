@@ -15,14 +15,13 @@
         [(ngModel)]="username"
         [formControl]="emailFormControl"
         [errorStateMatcher]="matcher">
-        <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+        <mat-error *ngIf="
+        !emailFormControl.hasError('required')&&
+        emailFormControl.errors">
           Please enter a valid email address
         </mat-error>
         <mat-error *ngIf="emailFormControl.hasError('required')">
           Email is required
-        </mat-error>
-        <mat-error *ngIf="!emailFormControl.hasError('required') && !emailFormControl.hasError('email') && emailFormControl.errors">
-          This username is taken
         </mat-error>
       </mat-form-field>
       <mat-form-field>

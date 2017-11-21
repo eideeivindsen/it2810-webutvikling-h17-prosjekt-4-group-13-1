@@ -9,3 +9,8 @@ body {
     font-family: Roboto,"Helvetica Neue",sans-serif;
     background-color: #D9D9D5;
 }
+
+* { 
+    -webkit-tap-highlight-color: transparent;
+    -moz-tap-highlight-color: rgba(0, 0, 0, 0);
+}
