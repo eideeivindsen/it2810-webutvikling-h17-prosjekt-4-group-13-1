@@ -29,9 +29,7 @@ export class AddnewComponent implements OnInit {
 
 
 
-  constructor(private _formBuilder: FormBuilder, private searchService: SearchService) {
-
-  }
+  constructor(private _formBuilder: FormBuilder, private searchService: SearchService) { }
 
   ngOnInit() {
       this.formArray = this._formBuilder.array([

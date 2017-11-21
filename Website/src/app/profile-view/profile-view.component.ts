@@ -38,12 +38,9 @@ export class ProfileViewComponent {
     this.getProfileHistory();
   }
 
-  // displayedColumns = ['position', 'name', 'weight', 'symbol'];
   displayedColumns = ['search', 'date'];
   dataSource:ExampleDataSource;
 
-
-  // Doughnut TODO: faktisk data her
   public chartLabels:string[] = [];
   public chartData:number[] = [];
   public pieChartType:string = 'pie';
@@ -56,19 +53,10 @@ export class ProfileViewComponent {
   constructor(private profileService: ProfileService, private router: Router) {
     this.getProfileHistory().subscribe(
       (userHistory) => {
-        console.log(userHistory);
         this.createPieChartData(userHistory);
         this.dataSource = new ExampleDataSource(this.refineProfileHistory(userHistory));
       }
     );
-  }
-  // events
-  public chartClicked(e:any):void {
-    console.log(e);
-  }
-
-  public chartHovered(e:any):void {
-    console.log(e);
   }
 
   formatDate(d) {
@@ -83,26 +71,19 @@ export class ProfileViewComponent {
   }
 
   refineProfileHistory(searchHistory) {
-    console.log(searchHistory);
     var refined: Element[] = [];
     var usedSearches: string[] = [];
-    for(var i = searchHistory.length - 1; i > 0; i--) {
-      console.log("Search: " + searchHistory[i].name);
+    for(var i = searchHistory.length - 1; i >= 0; i--) {
       if(usedSearches.length == 4) {
-        console.log("userSearchs is 4");
         break;
       }
       else {
         if (usedSearches.indexOf(searchHistory[i].name) < 0) {
-          console.log("search not used");
           usedSearches.push(searchHistory[i].name);
           refined.push({date: new Date(searchHistory[i].search_date), search: searchHistory[i].name});
         }
       }
-      console.log(usedSearches);
-      console.log("-----------");
     }
-    console.log(refined);
     return refined;
   }
 
@@ -121,9 +102,13 @@ export class ProfileViewComponent {
     }
 
     for(let search in keyCount) {
-      console.log(search + " : " + keyCount[search]);
-      this.chartLabels.push(search);
-      this.chartData.push(keyCount[search]);
+      if(this.chartLabels.length > 9) {
+        break;
+      }
+      else {
+        this.chartLabels.push(search);
+        this.chartData.push(keyCount[search]);
+      }
     }
   }
 

@@ -24,7 +24,7 @@ router.use(expressJWT({ secret: 'turtleneck' }).unless({ path: [
     '/api/products/get',
     '/api/products/getAll']}));
 
-/* Connection method and response/error handling */
+//Connection method and response/error handling
 
 // Connect
 const connection = (closure) => {
@@ -103,26 +103,6 @@ router.get('/products/getAll', (req, res) => {
     })
 });
 
-
-// Remove before prod
-///////////////////
-// debugging users
-///////////////////
-router.get('/debug/users', (req, res) => {
-    connection((db) => {
-        db.collection('users')
-        .find()
-        .toArray()
-        .then((products) => {
-            response.data = products;
-            response.message = "Got products!";
-            res.json(response);
-        })
-        .catch((err) => {
-            sendError(err, res);
-        })
-    })
-});
 
 
 // Get products
@@ -281,7 +261,6 @@ router.post('/authenticate', (req, res) => {
         // Find user with username, they are unique
         db.collection('users').find(query).toArray().then((user) => {
             if (user.length == 0){
-                //TODO: Invalid login
                 console.log('Invalid username')
                 error.message = 'Authentication failed! Invalid username (email)! The user does not exist';
                 error.status = 403;
@@ -323,8 +302,7 @@ router.post('/authenticate', (req, res) => {
 });
 
 router.post('/user/update/history', (req, res) => {
-    //TODO: Update user history in database with newest search
-    let auth_token = req.headers['authorization'].slice(7);  // Remove 'Bearer ' from the header to get token
+    let auth_token = req.headers['authorization'].slice(7);  // Removes 'Bearer ' from the header to get token
     let decoded = jwt.decode(auth_token);
     let username = (decoded.username);
     connection((db) => {
@@ -334,7 +312,7 @@ router.post('/user/update/history', (req, res) => {
             {$push: {'search_history': req.body}}
     )
         .then(() => {
-            response.data = [];  // No data should be retured
+            response.data = [];  
             response.message = "Successfully updated user search history";
             res.json(response);
         }).catch((err)=> {
