@@ -7,6 +7,7 @@ import { HttpModule } from '@angular/http';
 import { UserService, ProfileService, PlunkerMaterialModule } from '../barrel';
 import { HttpClient, HttpHandler } from '@angular/common/http';
 import { ChartsModule } from 'ng2-charts';
+
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { User } from '../user';
 
@@ -35,7 +36,7 @@ describe('ProfileViewComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule, HttpModule, PlunkerMaterialModule, ChartsModule], // Noe med matHeaderRowDef som hindrer testene å kjøre. StackOverflow nevner noe med ngFor-syntaks som fucker med det.
+      imports: [RouterTestingModule, HttpModule, PlunkerMaterialModule, ChartsModule],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
       providers: [UserService, { provide: ProfileService, useClass: MockProfileService }, HttpClient, HttpHandler],
       declarations: [ ProfileViewComponent ]
