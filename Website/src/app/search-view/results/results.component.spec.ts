@@ -13,10 +13,20 @@ import { Overlay, ScrollStrategyOptions, OverlayContainer, OVERLAY_PROVIDERS} fr
 import { ScrollDispatcher, ViewportRuler } from '@angular/cdk/scrolling';
 import { Platform } from '@angular/cdk/platform';
 import { SearchService } from '../../_services/search.service';
+import { Subject } from 'rxjs/Subject';
+
+class MockSearchService extends SearchService {
+
+  getAll() {
+    let results = new Subject<any>();
+    return results.asObservable();
+  }
+}
 
 describe('ResultsComponent', () => {
   let component: ResultsComponent;
   let fixture: ComponentFixture<ResultsComponent>;
+  let searchService: SearchService;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -44,9 +54,17 @@ describe('ResultsComponent', () => {
     fixture = TestBed.createComponent(ResultsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+
+    searchService = TestBed.get(SearchService);
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should call service dependency: searchService', () => {
+      let getSpy = spyOn(searchService, 'getAll').and.callThrough();
+      searchService.getAll();
+      expect(getSpy).toHaveBeenCalled();
   });
 });
