@@ -55,13 +55,13 @@ The page will now be built AND served and can now be found on [http://localhost:
 ### 5. Testing
 The front end (unit) tests can be run by typing:
 ```bash
-$ ng test
+$ npm test
 ```
 
 The backend testing is done with Mocha and can be run with
 
 ```bash
-$ npm test
+$ npm mocha
 ```
 
 The end-to-end tests are done with Protractor, run the following:
