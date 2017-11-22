@@ -7,9 +7,9 @@
     "start": "ng serve -o",
     "server": "ng build & nodemon server.js & ng serve --watch server --proxy-config proxy.config.json",
     "test": "ng test",
-    "servtest": "mocha --recursive **/test/runner.js",
+    "mocha": "mocha --recursive **/test/runner.js",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "node server.js & ng e2e --no-serve"
   },
   "private": true,
   "dependencies": {
@@ -43,6 +43,7 @@
     "morgan": "^1.9.0",
     "ng2-charts": "^1.6.0",
     "nodemon": "^1.12.1",
+    "protractor": "^5.1.2",
     "rxjs": "^5.4.2",
     "zone.js": "^0.8.14"
   },
