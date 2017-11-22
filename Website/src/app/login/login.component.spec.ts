@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { UserService, ProfileService } from '../barrel';
 import { HttpClient, HttpHandler } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { Observable } from 'rxjs/Observable';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -17,11 +18,10 @@ describe('LoginComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule, HttpModule, FormsModule, HttpClientTestingModule, HttpTestingController],
+      imports: [RouterTestingModule, HttpModule, FormsModule],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],      
+      providers: [UserService, HttpClient, HttpHandler, ProfileService],
       declarations: [ LoginComponent ],
-      providers: [UserService, HttpClient, HttpHandler, ProfileService]
-      
     })
     .compileComponents();
 
@@ -37,10 +37,5 @@ describe('LoginComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-  
-  it('should log in', () => {
-    mockUserService.login('Test@Testesen.com', '12345');
-    expect(mockUserService.isLoggedIn).toBeTruthy();
-  })
 });
 

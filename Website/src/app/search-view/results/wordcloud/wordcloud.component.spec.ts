@@ -55,7 +55,7 @@ describe('WordcloudComponent', () => {
         expect(getSpy).toHaveBeenCalled();
     });
 
-  it('should call getAll() and value should med defined', () => {
+  it('should call getAll() and value should be defined', () => {
         expect(searchService.getAll()).toBeDefined();
     });
 });
