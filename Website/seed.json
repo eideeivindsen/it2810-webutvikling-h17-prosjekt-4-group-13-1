@@ -1,0 +1,5 @@
+{
+	"undefined": "localhost/warewolf",
+	"dev": "localhost/warewolf",
+	"prod": "localhost/warewolf"
+}

@@ -3,7 +3,7 @@ process.env.NODE_ENV = 'test';
 const MongoClient = require('mongodb').MongoClient;
 
 //var dbLocation = 'mongodb://webdev-4:turtleneck2017@ds241055.mlab.com:41055/webdev-4';
-const dbLocation = 'mongodb://localhost:27017/warewolf'
+const dbLocation = 'mongodb://localhost:27017/warewolf';
 
 var should = require('should');
 

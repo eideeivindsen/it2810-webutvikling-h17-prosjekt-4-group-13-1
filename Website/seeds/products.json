@@ -1,0 +1,273 @@
+[
+    {
+        "_id": {
+            "$oid": "5a01c9e18bacba30e02af3ad"
+        },
+        "name": "Lettmelk",
+        "category": "Dairy",
+        "producer": "Tine",
+        "weight": 1060,
+        "price": 24,
+        "kilo_price": 22.6,
+        "in_stock": true,
+        "quantity": 500,
+        "description": "Milk from norwegian cows",
+        "origin": "Norway"
+    },
+    {
+        "_id": {
+            "$oid": "5a01c9e18bacba30e02af3ae"
+        },
+        "name": "Norvegia",
+        "category": "Dairy",
+        "producer": "Tine",
+        "weight": 1200,
+        "price": 91.08,
+        "kilo_price": 75.9,
+        "in_stock": true,
+        "quantity": 140,
+        "description": "Top quality norwegian cheese",
+        "origin": "Norway"
+    },
+    {
+        "_id": {
+            "$oid": "5a01c9e18bacba30e02af3af"
+        },
+        "name": "Coca Cola",
+        "category": "Beverages",
+        "producer": "Coca Cola",
+        "weight": 500,
+        "price": 20,
+        "kilo_price": 40,
+        "in_stock": true,
+        "quantity": 1243,
+        "description": "The world famous soda",
+        "origin": "USA"
+    },
+    {
+        "_id": {
+            "$oid": "5a01c9e18bacba30e02af3b0"
+        },
+        "name": "Casa Di Mama",
+        "category": "Frozen foods",
+        "producer": "Dr. Oetker",
+        "weight": 420,
+        "price": 39,
+        "kilo_price": 92.86,
+        "in_stock": false,
+        "quantity": 136,
+        "description": "A pizza for the meat lover!",
+        "origin": "Italia"
+    },
+    {
+        "_id": {
+            "$oid": "5a01c9e18bacba30e02af3b1"
+        },
+        "name": "Tomatsuppe",
+        "category": "Dry foods",
+        "producer": "Toro",
+        "weight": 100,
+        "price": 18,
+        "kilo_price": 180,
+        "in_stock": true,
+        "quantity": 4500,
+        "description": "Everyone's favorite tomato soup",
+        "origin": "Norway"
+    },
+    {
+        "_id": {
+            "$oid": "5a01c9e18bacba30e02af3b2"
+        },
+        "name": "Kjøttdeig",
+        "category": "Meat",
+        "producer": "Gilde",
+        "weight": 400,
+        "price": 36,
+        "kilo_price": 90,
+        "in_stock": true,
+        "quantity": 7000,
+        "description": "96% norwegian beef",
+        "origin": "Norway"
+    },
+    {
+        "_id": {
+            "$oid": "5a0303ffa7ff1f142cc02588"
+        },
+        "name": "Melkesjokolade",
+        "category": "Chocolate",
+        "producer": "Freia",
+        "origin": "Norway",
+        "price": 29,
+        "weight": 200,
+        "description": "The most popular chocolate on the Norwegian market.",
+        "quantity": 0,
+        "in_stock": false,
+        "kilo_price": 145
+    },
+    {
+        "_id": {
+            "$oid": "5a0304ef675cf84048209a8e"
+        },
+        "name": "Lettrømme",
+        "category": "Dairy",
+        "producer": "Q-meieriene",
+        "origin": "Norway",
+        "price": 18,
+        "weight": 300,
+        "description": "Best sour cream!",
+        "quantity": 0,
+        "in_stock": false,
+        "kilo_price": 60
+    },
+    {
+        "_id": {
+            "$oid": "5a03290d7e169d1978dc908b"
+        },
+        "name": "Fløteis Vanilje",
+        "category": "Ice cream",
+        "producer": "Diplom-is",
+        "origin": "Norway",
+        "price": 36,
+        "weight": 2000,
+        "description": "Ice Cream in a box. The most sold item from Diplom Is.",
+        "quantity": 0,
+        "in_stock": false,
+        "kilo_price": 18
+    },
+    {
+        "_id": {
+            "$oid": "5a04282925c3021d5cc3e9de"
+        },
+        "name": "Pilsner Boks 0.5l",
+        "category": "Alcoholic beverages",
+        "producer": "Ringnes",
+        "origin": "Norway",
+        "price": 29,
+        "weight": 500,
+        "description": "Not the very best beer in Norway. But not the worst either.",
+        "quantity": 0,
+        "in_stock": false,
+        "kilo_price": 58
+    },
+    {
+        "_id": {
+            "$oid": "5a042a1f27a9235948b9ffff"
+        },
+        "name": "Kneip",
+        "category": "Bread",
+        "producer": "First Price",
+        "origin": "Norway",
+        "price": 8,
+        "weight": 700,
+        "description": "Absolutely not one of the best breads in Norway.",
+        "quantity": 0,
+        "in_stock": false,
+        "kilo_price": 11.428571428571429
+    },
+    {
+        "_id": {
+            "$oid": "5a0d9c5dc1c62305c00b4492"
+        },
+        "name": "Hvitløksbaguetter",
+        "category": "Bread",
+        "producer": "First Price",
+        "origin": "Norway",
+        "price": 14,
+        "weight": 320,
+        "description": "The best baguettes!",
+        "quantity": 0,
+        "in_stock": false,
+        "kilo_price": 43.75
+    },
+    {
+        "_id": {
+            "$oid": "5a13f5ae299bd93f3483b9d0"
+        },
+        "name": "Ruccola Salat",
+        "category": "Fruit and vegetables",
+        "producer": "Bama",
+        "origin": "Colombia",
+        "price": 18,
+        "weight": 600,
+        "description": "This is the best Columbian salat.",
+        "quantity": 0,
+        "in_stock": false,
+        "kilo_price": 30
+    },
+    {
+        "_id": {
+            "$oid": "5a13f624299bd93f3483b9d1"
+        },
+        "name": "Helmelk",
+        "category": "Dairy",
+        "producer": "Tine",
+        "origin": "Norway",
+        "price": 18,
+        "weight": 1000,
+        "description": "This is so full of fat that it tastes amazing.",
+        "quantity": 789,
+        "in_stock": true,
+        "kilo_price": 18
+    },
+    {
+        "_id": {
+            "$oid": "5a13f70b4f121f0d503414ee"
+        },
+        "name": "Sjokomelk",
+        "category": "Dairy",
+        "producer": "Tine",
+        "origin": "Norway",
+        "price": 24,
+        "weight": 1080,
+        "description": "Like god varm som kald.",
+        "quantity": 0,
+        "in_stock": false,
+        "kilo_price": 22.22222222222222
+    },
+    {
+        "_id": {
+            "$oid": "5a140d7b757b3800e0bf03d2"
+        },
+        "name": "Banan",
+        "category": "Fruit and vegetables",
+        "producer": "Bama",
+        "origin": "Ecuador",
+        "price": 7,
+        "weight": 50,
+        "description": "Banan fra Ecuador. Den er god!",
+        "quantity": 0,
+        "in_stock": false,
+        "kilo_price": 140
+    },
+    {
+        "_id": {
+            "$oid": "5a140f0a90d55918889a8585"
+        },
+        "name": "Wienerpølse",
+        "category": "Meat",
+        "producer": "Gilde",
+        "origin": "Norway",
+        "price": 39,
+        "weight": 880,
+        "description": "Gode pølser til en hver anledning",
+        "quantity": 0,
+        "in_stock": false,
+        "kilo_price": 44.31818181818182
+    },
+    {
+        "_id": {
+            "$oid": "5a14111ed0b361369c751bbe"
+        },
+        "name": "Grillpølse",
+        "category": "Meat",
+        "producer": "Gilde",
+        "origin": "Norway",
+        "price": 34,
+        "weight": 600,
+        "description": "God både på grillen og på panna",
+        "quantity": 0,
+        "in_stock": false,
+        "kilo_price": 56.66666666666667
+    }
+
+]
