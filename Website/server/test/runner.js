@@ -2,10 +2,7 @@ process.env.NODE_ENV = 'test';
 
 var base = process.env.PWD;
 const MongoClient = require('mongodb').MongoClient;
-
 var dbLocation = 'mongodb://webdev-4:turtleneck2017@ds241055.mlab.com:41055/webdev-4';
-var api = require(base + '/server/routes/api');
-var testUtils = require(base + '/test/utils');
 var should = require('should');
 
 // Connection to database
