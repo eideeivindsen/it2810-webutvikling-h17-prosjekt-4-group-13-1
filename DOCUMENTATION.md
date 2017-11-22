@@ -19,10 +19,10 @@ In addition to the fields in these files, the objects gets an unique id.
 All the api calls are located in the api.js file: Website -> server -> routes -> api.js.
 
 <b> Task 3: </b>
-The application reads to the database when fetching products and when logging users in. It writes to the database when registering new users as well as when adding products to the warehouse. All the data are fictional because we could not find an open dataset of groceries, but that gave us more control of the what the site should display.
+The application reads to the database when fetching products and when the user logs in. It writes to the database when registering new users as well as when adding products to the warehouse. All the data are fictional because we could not find an open dataset of groceries, but that gave us more control of the what the site should display.
 
 <b> Task 4: </b>
-One you search, the results of your search will be displayed in a listview at the bottom of the page. Here the user will see a few details of the the products that matched the search. If the user clicks one of the products, it is “viewed” and added to the users “viewed products history”, and the user gets to see a more detailed description of the product.
+Once you search, the results of your search will be displayed in a listview at the bottom of the page. Here the user will see a few details of the the products that matched the search. If the user clicks one of the products, it is seen as “viewed” and added to the users “viewed products history”, and the user gets to see a more detailed description of the product.
 
 <b> Task 5: </b>
 After searching for products, you will have the possibility to sort by name, producer and whether the item is in stock or not. By default the products are shown in the order they appear in the database.
@@ -30,29 +30,25 @@ After searching for products, you will have the possibility to sort by name, pro
 <b> Task 6: </b>
 The filtering function can be found under “Show advanced settings”. The user can then filter by Category and Producer. The user can also choose the desired max price and filter by products in stock. All these filters can be combined.
 
-Den listebaserte visningen skal ha dynamisk lasting av data. Eksempel: etter et søk vises de 10 første treffene, men flere lastes når brukeren scroller eller ved blaing i sider. 
-
 <b> Task 7: </b>
 After searching, you will be presented with the up to 5 first items that match the search. You can further inspect the items in the list by going to the next page.
 
 <b> Task 8: </b>
-Webapplikasjonen skal ha "min side" funksjonalitet som i praksis betyr at en bruker skal kunne logge seg på og at det blir registrert noe fra brukerens søkeaktiviteten f.eks. hva brukeren har sett på tidligere eller søkene som brukeren har brukt. 
-After registering and logging in, the user gets access to his personal page. From there, the user can view the last four recently viewed products in addition to a visualization of the products through a pie chart. The chart holds information about all of the viewed products and the number of times each of the products has been viewed.
+After registering and logging in, the user gets access to their personal page. From there, the user can view the last four recently viewed products in addition to a visualization of the products through a pie chart. The chart holds information about all of the viewed products and the number of times each of the products has been viewed.
 
 <b> Task 9: </b>
-If a user is logged in, the website keeps track of the user’s profile information in local storage to be used on the user’s profile page. Warewolf also uses JWT (JSON Web Tokens) to make sure only authorized requests to the server are handled. The authentication token is also stored in local storage once a valid user is logged in.
+If a user is logged in, the website keeps track of the users profile information in local storage to be used on the users profile page. Warewolf also uses JWT (JSON Web Tokens) to make sure only authorized requests to the server are handled. The authentication token is also stored in local storage once a valid user is logged in.
 
 <b> Task 10:  </b>
 We solved this task with a word cloud. After searching for products you will have the option to open a dialog showing a word cloud. The size of the words represents the amount of that products in stock.
 
 <b> Task 11: </b>
-We have written several unit tests, database tests and end-to-end tests for Warewolf to ensure quality of the product. See the “Run Tests” section to run these tests. We have also used several hours on manual testing where we had focus on “breaking” the product, so we believe many user errors are handled.
+We have written several unit tests, database tests and end-to-end tests for Warewolf to ensure quality of the product. See the “Run Tests” section to run these tests. We have also used several hours on manual testing where we focused on “breaking” the product, so we believe many user errors are handled.
 
 <b> Task 12: </b>
-Prosjektet skal være godt dokumentert, slik at det er lett å sette seg inn i for andre.
 This document is a part of the three-part documentation for the project:
-1. The initial document from the planning phase can be found here [...]. It describes the vision and the planned implementation of the product.
-2. The guide for the set up and running of the project and its tests.  [...]
+1. The initial document from the planning phase can be found [here](Planning phase documentation.pdf) . It describes the vision and the planned implementation of the product.
+2. The guide for the set up and running of the project and its tests, found [here](README.md).
 3. This document with detailed documentation about the finished product, tools used and description of how the project tasks were completed. 
 
 ## The Tools we used
@@ -79,7 +75,7 @@ For testing, we used:
 - Mocha: https://mochajs.org/ 
 
 ## Run Warewolf
-A fully functional version of the application is hostet here: http://it2810-13.idi.ntnu.no:8084/.
+A fully functional version of the application is hosted here: http://it2810-13.idi.ntnu.no:8084/.
 (NB! You need to connect to the NTNU VPN if you are not at NTNU)
 
 However, if you would like to download the project files and run it locally you are free to do so!
