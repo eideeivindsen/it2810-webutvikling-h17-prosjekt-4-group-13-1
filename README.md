@@ -23,22 +23,6 @@ $ npm install
 To start the server, run this command in the folder:
 
 ```bash
-$ npm start
-```
-
-If the server is able to start with your configuration, you will see this in
-your terminal:
-
-```bash
-webpack: Compiled successfully.
-```
-
-The browser will now open a new window and the application will be running on [http://localhost:4200](http://localhost:4200).
-
-
-### 4. Running from server
-
-```bash
 $ ng build
 $ node server.js
 ```
@@ -50,7 +34,6 @@ $ npm run server
 ```
 
 The page will now be built AND served and can now be found on [http://localhost:8084](http://localhost:8084).
-
 
 
 ### Testing
