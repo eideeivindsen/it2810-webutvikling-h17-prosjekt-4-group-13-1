@@ -20,17 +20,17 @@ describe('ResultsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule, HttpModule, MatDialogModule], 
+      imports: [RouterTestingModule, HttpModule, MatDialogModule],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
       providers: [UserService, // Måtte importere mange ting her, siden det brukes mye forskjellig i den faktiske visningen av lista
         ProfileService,
         SearchService,
-        HttpClient, 
-        HttpHandler, 
-        MatDialog, 
-        Overlay, 
-        ScrollStrategyOptions, 
-        ScrollDispatcher, 
+        HttpClient,
+        HttpHandler,
+        MatDialog,
+        Overlay,
+        ScrollStrategyOptions,
+        ScrollDispatcher,
         Platform,
         ViewportRuler,
         OVERLAY_PROVIDERS,
