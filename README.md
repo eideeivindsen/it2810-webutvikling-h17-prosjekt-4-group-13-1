@@ -1,5 +1,7 @@
 #  Group 13 - Project 4
 
+For full documentation, see DOCUMENTATION.md
+
 
 ### 1. Getting Started
 
