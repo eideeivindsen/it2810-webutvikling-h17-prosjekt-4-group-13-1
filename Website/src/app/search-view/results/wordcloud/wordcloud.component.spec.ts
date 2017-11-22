@@ -23,6 +23,8 @@ class MockSearchService extends SearchService {
 describe('WordcloudComponent', () => {
   let component: WordcloudComponent;
   let fixture: ComponentFixture<WordcloudComponent>;
+  let searchService: SearchService;
+  let getSpy;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -32,15 +34,28 @@ describe('WordcloudComponent', () => {
       declarations: [ WordcloudComponent ]
     })
     .compileComponents();
+
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(WordcloudComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+
+    searchService = TestBed.get(SearchService);
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should call service dependency: searchService', () => {
+        getSpy = spyOn(searchService, 'getAll').and.callThrough();
+        searchService.getAll();
+        expect(getSpy).toHaveBeenCalled();
+    });
+
+  it('should call getAll() and value should be defined', () => {
+        expect(searchService.getAll()).toBeDefined();
+    });
 });

@@ -61,7 +61,7 @@ describe('Login page', () => {
     page.setPassword("qwert");
     page.getSubmitButton().click().then(() => {
       let currentURL = browser.getCurrentUrl();    
-      expect(currentURL).toEqual("http://localhost:8083/");        
+      expect(currentURL).toEqual("http://localhost:8084/");        
     });
   });
 
@@ -73,7 +73,7 @@ describe('Login page', () => {
     page.getSubmitButton().click().then(() => {
       page.getLogoutButton().click().then(() => {
         var currentURL = browser.getCurrentUrl();
-        expect(currentURL).toEqual("http://localhost:8083/login");        
+        expect(currentURL).toEqual("http://localhost:8084/login");        
       })
     });
   });

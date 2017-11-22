@@ -7,12 +7,15 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { HttpClient, HttpHandler } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ResultsService, SearchService, UserService } from '../../../barrel';
+import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
 
 import { Product } from '../../../product';
 
 describe('ResultComponent', () => {
   let component: ResultComponent;
   let fixture: ComponentFixture<ResultComponent>;
+
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -46,4 +49,12 @@ describe('ResultComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should check if initial values have been set', () => {
+    expect(component.data).toBeDefined();
+    expect(component.pictureUrl).toBeDefined();
+    expect(component.subscription).toBeDefined();
+  });
+
+
 });

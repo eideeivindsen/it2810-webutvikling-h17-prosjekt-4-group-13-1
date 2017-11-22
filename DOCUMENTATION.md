@@ -8,46 +8,47 @@ For project 4, our task was to develop an app that handles some kind of search i
 ## How we have solved the tasks
 (The tasks are referred to in the order they appear in the project description on BlackBoard)
 
-Task 1: 
+<b>Task 1: </b>
 Warewolf is running on our virtual machine (See website link in the "Run Warewolf" section), is using node.js as the server for handling api calls, and is using Angular 4 on the frontend for handling the user interface. See the section "The Tools we used" for more information.
 
-Task 2:
+<b> Task 2: </b>
 We used MongoDB as our database system because it’s a part of the MEAN stack; four technologies that works well together in an application. Mongodb is a NoSQL database which means relations between objects is not as important as in a SQL (or relational) database. Our solution did not need any relations between objects other than the users search history, which was easily solved by adding an array to the user object. If this application were to grow or be used a lot, then we would reconsider this way of solving it. 
 
 If you want to view the database structure, locate the user.ts and product.ts files in: Website -> src -> app -> user.ts/product.ts.
 In addition to the fields in these files, the objects gets an unique id.
 All the api calls are located in the api.js file: Website -> server -> routes -> api.js.
 
-Task 3:
+<b> Task 3: </b>
 The application reads to the database when fetching products and when logging users in. It writes to the database when registering new users as well as when adding products to the warehouse. All the data are fictional because we could not find an open dataset of groceries, but that gave us more control of the what the site should display.
 
-Task 4:
+<b> Task 4: </b>
 One you search, the results of your search will be displayed in a listview at the bottom of the page. Here the user will see a few details of the the products that matched the search. If the user clicks one of the products, it is “viewed” and added to the users “viewed products history”, and the user gets to see a more detailed description of the product.
 
-Task 5:
+<b> Task 5: </b>
 After searching for products, you will have the possibility to sort by name, producer and whether the item is in stock or not. By default the products are shown in the order they appear in the database.
 
-Task 6:
+<b> Task 6: </b>
 The filtering function can be found under “Show advanced settings”. The user can then filter by Category and Producer. The user can also choose the desired max price and filter by products in stock. All these filters can be combined.
 
 Den listebaserte visningen skal ha dynamisk lasting av data. Eksempel: etter et søk vises de 10 første treffene, men flere lastes når brukeren scroller eller ved blaing i sider. 
-Task 7:
+
+<b> Task 7: </b>
 After searching, you will be presented with the up to 5 first items that match the search. You can further inspect the items in the list by going to the next page.
 
-Task 8:
+<b> Task 8: </b>
 Webapplikasjonen skal ha "min side" funksjonalitet som i praksis betyr at en bruker skal kunne logge seg på og at det blir registrert noe fra brukerens søkeaktiviteten f.eks. hva brukeren har sett på tidligere eller søkene som brukeren har brukt. 
 After registering and logging in, the user gets access to his personal page. From there, the user can view the last four recently viewed products in addition to a visualization of the products through a pie chart. The chart holds information about all of the viewed products and the number of times each of the products has been viewed.
 
-Task 9:
+<b> Task 9: </b>
 If a user is logged in, the website keeps track of the user’s profile information in local storage to be used on the user’s profile page. Warewolf also uses JWT (JSON Web Tokens) to make sure only authorized requests to the server are handled. The authentication token is also stored in local storage once a valid user is logged in.
 
-Task 10: 
+<b> Task 10:  </b>
 We solved this task with a word cloud. After searching for products you will have the option to open a dialog showing a word cloud. The size of the words represents the amount of that products in stock.
 
-Task 11:
+<b> Task 11: </b>
 We have written several unit tests, database tests and end-to-end tests for Warewolf to ensure quality of the product. See the “Run Tests” section to run these tests. We have also used several hours on manual testing where we had focus on “breaking” the product, so we believe many user errors are handled.
 
-Task 12:
+<b> Task 12: </b>
 Prosjektet skal være godt dokumentert, slik at det er lett å sette seg inn i for andre.
 This document is a part of the three-part documentation for the project:
 1. The initial document from the planning phase can be found here [...]. It describes the vision and the planned implementation of the product.
@@ -78,7 +79,7 @@ For testing, we used:
 - Mocha: https://mochajs.org/ 
 
 ## Run Warewolf
-A fully functional version of the application is hostet here: http://it2810-13.idi.ntnu.no:8083/.
+A fully functional version of the application is hostet here: http://it2810-13.idi.ntnu.no:8084/.
 (NB! You need to connect to the NTNU VPN if you are not at NTNU)
 
 However, if you would like to download the project files and run it locally you are free to do so!
@@ -98,10 +99,10 @@ Once that is done, you may run our custom npm command "npm run server"
 $ npm run server
 ```
 
-The page is now available at localhost:8083. Visit this page in your web browser.
+The page is now available at localhost:8084. Visit this page in your web browser.
 
 ```bash
-Running on localhost:8083
+Running on localhost:8084
 ```
 
 ## Run Tests
@@ -126,7 +127,7 @@ Run the following commands. Be sure that one finished before you run the next on
 $ ng build
 $ node server
 ```
-This terminal will now say "Running on localhost:8083".
+This terminal will now say "Running on localhost:8084".
 Open a new terminal while the server is running and type the last command
 ```batch
 $ ng e2e --no-serve

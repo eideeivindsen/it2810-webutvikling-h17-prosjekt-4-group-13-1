@@ -49,20 +49,20 @@ OR
 $ npm run server
 ```
 
-The page will now be built AND served and can now be found on [http://localhost:8083](http://localhost:8083).
+The page will now be built AND served and can now be found on [http://localhost:8084](http://localhost:8084).
 
 
 
 ### Testing
 The front end (unit) tests can be run by typing:
 ```bash
-$ ng test
+$ npm test
 ```
 
 The backend testing is done with Mocha and can be run with
 
 ```bash
-$ npm test
+$ npm run mocha
 ```
 
 The end-to-end tests are done with Protractor, run the following:
