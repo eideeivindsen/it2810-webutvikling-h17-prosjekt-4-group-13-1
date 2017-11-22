@@ -39,18 +39,22 @@ export class LoginPage {
     return element(by.name("Password")).getAttribute('value');
   };
   
-  setUsername() {
+  setUsername(name) {
     var username  = element(by.name("Username"));
-    username.sendKeys("Test User");
+    username.sendKeys(name);
   };
   
-  setPassword() {
+  setPassword(pw) {
     var username  = element(by.name("Password"));
-    username.sendKeys("qwert");
+    username.sendKeys(pw);
   };
 
   getSubmitButton() {
     return element(by.buttonText("Login"));
+  }
+
+  getLogoutButton() {
+    return element(by.className("navlink-logout"));
   }
 
   getErrorMessage() {

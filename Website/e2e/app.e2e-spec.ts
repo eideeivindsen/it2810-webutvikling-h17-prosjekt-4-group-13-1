@@ -34,26 +34,52 @@ describe('Login page', () => {
   
   it('should set a chosen username', () => {
     page.navigateTo();
-    page.setUsername();
-    expect(page.getUsername()).toEqual("Test User");
+    page.setUsername("username");
+    expect(page.getUsername()).toEqual("username");
   });
   
   it('should set a chosen password', () => {
     page.navigateTo();
-    page.setPassword();
-    expect(page.getPassword()).toEqual("qwert");
+    page.setPassword("password");
+    expect(page.getPassword()).toEqual("password");
   });
   
     it('should print an error message if the user or password is wrong', () => {
     page.navigateTo();
-    page.setUsername();
-    page.setPassword();
+    page.setUsername("Test User");
+    page.setPassword("qwert");
     page.getSubmitButton().click().then(() => {    
       page.getErrorMessage().then(function(text) {
         expect(text).toEqual("Wrong username or password.");        
       });
     });
   });
+
+  // user able to log in
+  it('should be able to log in a user', () => {
+    page.navigateTo();
+    page.setUsername("bob@petter.com");
+    page.setPassword("qwert");
+    page.getSubmitButton().click().then(() => {
+      let currentURL = browser.getCurrentUrl();    
+      expect(currentURL).toEqual("http://localhost:8083/");        
+    });
+  });
+
+  // user able to log out
+  it('should be able to log out a user', () => {
+    page.navigateTo();
+    page.setUsername("bob@petter.com");
+    page.setPassword("qwert");
+    page.getSubmitButton().click().then(() => {
+      page.getLogoutButton().click().then(() => {
+        var currentURL = browser.getCurrentUrl();
+        expect(currentURL).toEqual("http://localhost:8083/login");        
+      })
+    });
+  });
+
+
 });
 
 describe('testing searches', () => {
