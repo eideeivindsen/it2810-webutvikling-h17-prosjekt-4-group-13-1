@@ -84,6 +84,12 @@ Clone the repo to a desired location on your computer.
 ```bash
 $ git clone https://github.com/IT2810/it2810-webutvikling-h17-prosjekt-4-group-13-1.git
 ```
+Make sure that MongoDB is installed on your computer and start the database:
+```bash
+ mongod --dbpath ../it2810-webutvikling-h17-prosjekt-4-group-13-1/db/
+```
+where ../it2810-webutvikling-h17-prosjekt-4-group-13-1/db/ is the path to the db folder.
+
 Enter the "Website" folder and run "npm install" to get all the dependencies.
 ```bash
 $ cd Website
