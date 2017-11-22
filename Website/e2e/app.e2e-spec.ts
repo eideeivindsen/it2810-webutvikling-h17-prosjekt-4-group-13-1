@@ -1,15 +1,14 @@
-import { AppPage } from './app.po';
-import { LoginPage } from './app.po';
+import { AppPage, LoginPage, SearchPage } from './app.po';
 import { browser, by, element, protractor} from 'protractor';
 
-describe('application start', () => {
+describe('Application page', () => {
   let page: AppPage;
   beforeEach(() => {
     page = new AppPage();
     page.navigateTo('/');
   });
 
-  it('should display "WAREWOLF" in tag with "navlink-logo" class', () => {
+  it('should display "WAREWOLF" in tag with "navlink-logo" class on app load', () => {
     expect(page.getTitleText()).toEqual('WAREWOLF');
   });
 
@@ -82,11 +81,11 @@ describe('Login page', () => {
 
 });
 
-describe('testing searches', () => {
-  let page: AppPage;
+describe('Search component', () => {
+  let page: SearchPage;
 
   beforeEach(() => {
-    page = new AppPage();
+    page = new SearchPage();
     page.navigateTo('/');
   })
 
@@ -108,5 +107,26 @@ describe('testing searches', () => {
 
     expect(page.getListOfProducts().count()).toBeGreaterThanOrEqual(2);
   });
+
+  it('should display only products from the producer "Bama", "Banan" should be one of them', () => {
+
+    page.getAdvancedSettingsButton().click();
+    page.getProducerDropdown().click();
+    page.selectProducer('Bama').click();
+    page.getSearchButton().click();
+
+    expect(page.getSelectedProduct('Banan').getText()).toBe('Banan');
+    
+  })
+  it('should display only products from the category "fruits and vedgetables", "Banan" should be one of them', () => {
+
+    page.getAdvancedSettingsButton().click();
+    page.getCategoryDropdown().click();
+    page.selectCategory('Fruit and vegetables').click();
+    page.getSearchButton().click();
+
+    expect(page.getSelectedProduct('Banan').getText()).toBe('Banan');
+    
+  })
 });
 
