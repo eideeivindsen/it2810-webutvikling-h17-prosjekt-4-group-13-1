@@ -1,10 +1,9 @@
-#  Group 13 - Project 4
+#  GROUP 13 - PROJECT 4
 
-For full user manual, see [the documentation](DOCUMENTATION.md)
 
-The website is hostet at: http://it2810-13.idi.ntnu.no:8084/ 
+### DOCUMENTATION
 
-If you want to run it locally, or you are not at NTNU follow these steps:
+For a detailed user manual, see the full [documentation](DOCUMENTATION.md).
 
 
 ### 1. Getting Started
@@ -50,9 +49,11 @@ OR
 $ npm run server
 ```
 
-The page will now be built AND served and can now be found on [http://localhost:8084](http://localhost:8084) and on [http://localhost:4200](http://localhost:4200) 
+The page will now be built AND served and can now be found on [http://localhost:8084](http://localhost:8084).
 
-### 5. Testing
+
+
+### Testing
 The front end (unit) tests can be run by typing:
 ```bash
 $ npm test
