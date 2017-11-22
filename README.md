@@ -2,7 +2,7 @@
 
 For full user manual, see [the documentation](DOCUMENTATION.md)
 
-The website is hostet at: http://it2810-13.idi.ntnu.no:8083/ 
+The website is hostet at: http://it2810-13.idi.ntnu.no:8084/ 
 
 If you want to run it locally, or you are not at NTNU follow these steps:
 
@@ -50,7 +50,7 @@ OR
 $ npm run server
 ```
 
-The page will now be built AND served and can now be found on [http://localhost:8083](http://localhost:8083) and on [http://localhost:4200](http://localhost:4200) 
+The page will now be built AND served and can now be found on [http://localhost:8084](http://localhost:8084) and on [http://localhost:4200](http://localhost:4200) 
 
 ### 5. Testing
 The front end (unit) tests can be run by typing:
