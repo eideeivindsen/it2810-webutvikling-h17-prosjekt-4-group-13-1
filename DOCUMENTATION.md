@@ -47,7 +47,7 @@ We have written several unit tests, database tests and end-to-end tests for Ware
 
 <b> Task 12: </b>
 This document is a part of the three-part documentation for the project:
-1. The initial document from the planning phase can be found [here](Planning phase documentation.pdf) . It describes the vision and the planned implementation of the product.
+1. The initial document from the planning phase can be found [here](Planning_phase_documentation.pdf) . It describes the vision and the planned implementation of the product.
 2. The guide for the set up and running of the project and its tests, found [here](README.md).
 3. This document with detailed documentation about the finished product, tools used and description of how the project tasks were completed. 
 
