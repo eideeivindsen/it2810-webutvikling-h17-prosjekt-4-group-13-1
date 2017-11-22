@@ -73,7 +73,6 @@ export class RegisterComponent implements OnInit {
   /////// Form validators ////////////
   emailFormControl = new FormControl('', [
     Validators.required,
-    //Validators.email,
     validateEmail
   ]);
 
@@ -100,11 +99,9 @@ export class RegisterComponent implements OnInit {
     if (res.status == 200) {
       this.userService.login(res.credentials.username, res.credentials.password).subscribe((result) => {
         if (result == 200) {
-          console.log("Logged in!");
           this.router.navigate(['']);
         }
         else {
-          console.log("Not logged in!");
           this.errorMessage = "Ops! Something went wrong. Please try again laster."
           this.router.navigate(['/login']);
         }
@@ -128,12 +125,11 @@ export class RegisterComponent implements OnInit {
       role: this.chosenRole,
       search_history: []
     }
-    console.log(this.nameFormControl);
-    // no empty strings allowed
+    // No empty strings allowed
     if (this.fullName === "" || this.username === "" || this.password === "") {
       this.errorMessage = "All fields must be filled out"
     } else {
-      // If user wants admin, check secret
+      // If user wants to register as admin, check secret
       if (this.chosenRole != "Customer") {
         if (this.typedSecret === this.secret) {
           this.userService.register(user).subscribe((res) => {

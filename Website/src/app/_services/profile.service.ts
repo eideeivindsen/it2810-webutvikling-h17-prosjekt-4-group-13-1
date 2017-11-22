@@ -31,7 +31,6 @@ export class ProfileService {
           headers: new HttpHeaders().set('Authorization', `Bearer ${auth_token}`)
     })
       .map((res: any) => {
-        console.log(res);
         if (res.status == 200) {
           return res.data;  // Returns array of all searches done by user
         }
