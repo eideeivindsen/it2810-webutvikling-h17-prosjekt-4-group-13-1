@@ -16,7 +16,7 @@ export class UserService {
     return this.http
       .post(
         '/api/register',
-         user 
+         user
       )
       .map((res:any) => {
         if (res.status == 200) {
@@ -34,7 +34,6 @@ export class UserService {
 
   // Login user
   login(username, password) {
-
     return this.http
       .post(
         '/api/authenticate',
