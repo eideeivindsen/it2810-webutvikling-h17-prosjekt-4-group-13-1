@@ -4,9 +4,6 @@ const ObjectID = require('mongodb').ObjectID;
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const expressJWT = require('express-jwt');
-const jwtPayloadDecoder = require('jwt-payload-decoder')
-const jwtSimple = require('jwt-simple')
-const atob = require('atob')
 
 const router = express.Router();
 
