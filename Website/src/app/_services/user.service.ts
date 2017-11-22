@@ -41,7 +41,6 @@ export class UserService {
       )
       .map((res: any) => {
         if (res.status == 200) {
-          console.log('Service: Valid statuscode 200...');
           localStorage.setItem('auth_token', res.data[0]);
           this.loggedIn = true;
         }
