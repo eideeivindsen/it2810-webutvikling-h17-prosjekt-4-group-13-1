@@ -79,7 +79,7 @@ For testing, we used:
 - Mocha: https://mochajs.org/ 
 
 ## Run Warewolf
-A fully functional version of the application is hostet here: http://it2810-13.idi.ntnu.no:8083/.
+A fully functional version of the application is hostet here: http://it2810-13.idi.ntnu.no:8084/.
 (NB! You need to connect to the NTNU VPN if you are not at NTNU)
 
 However, if you would like to download the project files and run it locally you are free to do so!
@@ -99,10 +99,10 @@ Once that is done, you may run our custom npm command "npm run server"
 $ npm run server
 ```
 
-The page is now available at localhost:8083. Visit this page in your web browser.
+The page is now available at localhost:8084. Visit this page in your web browser.
 
 ```bash
-Running on localhost:8083
+Running on localhost:8084
 ```
 
 ## Run Tests
@@ -127,7 +127,7 @@ Run the following commands. Be sure that one finished before you run the next on
 $ ng build
 $ node server
 ```
-This terminal will now say "Running on localhost:8083".
+This terminal will now say "Running on localhost:8084".
 Open a new terminal while the server is running and type the last command
 ```batch
 $ ng e2e --no-serve
