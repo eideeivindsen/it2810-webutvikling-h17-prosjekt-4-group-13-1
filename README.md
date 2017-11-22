@@ -61,7 +61,7 @@ $ npm test
 The backend testing is done with Mocha and can be run with
 
 ```bash
-$ npm mocha
+$ npm run mocha
 ```
 
 The end-to-end tests are done with Protractor, run the following:
