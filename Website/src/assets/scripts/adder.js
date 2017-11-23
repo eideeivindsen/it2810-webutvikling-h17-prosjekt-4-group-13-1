@@ -2,8 +2,9 @@
 /* Code credited W3Schools for adding documents to mongodb collections */
 
 var MongoClient = require('mongodb').MongoClient;
-const url = 'mongodb://localhost:27017/warewolf';
-//var url = 'mongodb://webdev-4:turtleneck2017@ds241055.mlab.com:41055/webdev-4';
+const dbConfig = require('./../../../server/db.config');
+const url = dbConfig.database;
+
 
 MongoClient.connect(url, function(err, db) {
   if (err) throw err;
