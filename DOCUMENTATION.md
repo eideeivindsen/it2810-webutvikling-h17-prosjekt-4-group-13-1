@@ -84,15 +84,19 @@ The database on the live page is hosted on the server, but for testing purposes,
 
 Clone the repo to a desired location on your computer.
 ```bash
-$ git clone https://github.com/IT2810/it2810-webutvikling-h17-prosjekt-4-group-13-1.git
+$ git clone https://github.com/IT2810/it2810-webutvikling-h17-prosjekt-4-group-13-1.git gruppe13
 ```
 From here on you can choose what to do with the database:
+
 1) If you have used MongoDB and have it installed on your computer:
-Make sure that MongoDB is installed on your computer and give mongoDB permissions to the /db folder and start the database:
+Make sure that MongoDB is installed on your computer, give MongoDB permissions to the /db folder and start the database:
 ```bash
- mongod --dbpath ./it2810-webutvikling-h17-prosjekt-4-group-13-1/db/
+ cd gruppe13
+ mongod --dbpath ./db/
 ```
-NOTE: The './it2810-webutvikling-h17-prosjekt-4-group-13-1/db/' is the path to the db folder for the project.
+Let the server run.
+
+NOTE: The './db/' is the path to the /db folder for the project.
 
 2) Navigate to /Server/ folder in Website and uncomment the commented line and comment the other one inside db.config.js:
 ```bash
