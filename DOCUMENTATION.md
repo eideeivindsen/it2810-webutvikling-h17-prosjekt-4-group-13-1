@@ -80,17 +80,19 @@ A fully functional version of the application is hosted here: http://it2810-13.i
 
 However, if you would like to download the project files and run it locally you are free to do so!
 
+The database on the live page is hosted on the server, but for testing purposes, we have a prepopulated online database to alleviate the need to install MongoDB locally (instructions below).
+
 Clone the repo to a desired location on your computer.
 ```bash
 $ git clone https://github.com/IT2810/it2810-webutvikling-h17-prosjekt-4-group-13-1.git
 ```
-From here on you can choose what to do with the  database:
+From here on you can choose what to do with the database:
 1) If you have used MongoDB and have it installed on your computer:
-Make sure that MongoDB is installed on your computer and give mongoDB permissions to the db folder and start the database:
+Make sure that MongoDB is installed on your computer and give mongoDB permissions to the /db folder and start the database:
 ```bash
- mongod --dbpath ../it2810-webutvikling-h17-prosjekt-4-group-13-1/db/
+ mongod --dbpath ./it2810-webutvikling-h17-prosjekt-4-group-13-1/db/
 ```
-NOTE: The '../it2810-webutvikling-h17-prosjekt-4-group-13-1/db/' is the path to the db folder for the project.
+NOTE: The './it2810-webutvikling-h17-prosjekt-4-group-13-1/db/' is the path to the db folder for the project.
 
 2) Navigate to /Server/ folder in Website and uncomment the commented line and comment the other one inside db.config.js:
 ```bash
