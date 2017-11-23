@@ -4,13 +4,14 @@ const ObjectID = require('mongodb').ObjectID;
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const expressJWT = require('express-jwt');
+const dbConfig = require('./../db.config.js');
+
 
 const router = express.Router();
 
 const token_secret = 'turtleneck';
 const cryptKey = 'turtleneck';
-//const dbLocation = 'mongodb://webdev-4:turtleneck2017@ds241055.mlab.com:41055/webdev-4';
-const dbLocation = 'mongodb://localhost:27017/warewolf'
+const dbLocation = dbConfig.database;
 
 // Our middleware to validate JWT
 router.use(expressJWT({ secret: 'turtleneck' }).unless({ path: [
