@@ -84,18 +84,21 @@ Clone the repo to a desired location on your computer.
 ```bash
 $ git clone https://github.com/IT2810/it2810-webutvikling-h17-prosjekt-4-group-13-1.git
 ```
+From here on you can choose what to do with the  database:
+1) If you have used MongoDB and have it installed on your computer:
 Make sure that MongoDB is installed on your computer and give mongoDB permissions to the db folder and start the database:
-permissions for Mac/OSX:
-```bash
-sudo chmod 0755 ../it2810-webutvikling-h17-prosjekt-4-group-13-1/db/ && sudo chown $USER ../it2810-webutvikling-h17-prosjekt-4-group-13-1/db/
-```
-then run
 ```bash
  mongod --dbpath ../it2810-webutvikling-h17-prosjekt-4-group-13-1/db/
 ```
-to start the database.
-
 NOTE: The '../it2810-webutvikling-h17-prosjekt-4-group-13-1/db/' is the path to the db folder for the project.
+
+2) Navigate to /Server/ folder in Website and uncomment the commented line and comment the other one inside db.config.js:
+```bash
+module.exports = {
+    //database: 'mongodb://localhost:27017/warewolf'
+    database: 'mongodb://webdev-4:turtleneck2017@ds241055.mlab.com:41055/webdev-4'
+};
+```
 
 Enter the "Website" folder and run "npm install" to get all the dependencies.
 ```bash
