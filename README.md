@@ -34,7 +34,10 @@ Let the server run.
 
 NOTE: The './db/' is the path to the /db folder for the project.
 
-2) Navigate to /Server/ folder in Website and uncomment the commented line and comment the other one inside db.config.js:
+Alternatively, if you experience issues with permissons etc, do this instead:
+
+Navigate to /Server/ folder in Website and uncomment the commented line and comment the other one inside db.config.js. It should look like this:
+
 ```bash
 module.exports = {
     //database: 'mongodb://localhost:27017/warewolf'
