@@ -15,6 +15,8 @@
   "dependencies": {
     "@angular/animations": "^4.4.6",
     "@angular/cdk": "^2.0.0-beta.12",
+    "@angular/cli": "1.4.9",
+    "@angular/compiler-cli": "^4.2.4",
     "@angular/common": "^4.2.4",
     "@angular/compiler": "^4.2.4",
     "@angular/core": "^4.2.4",
