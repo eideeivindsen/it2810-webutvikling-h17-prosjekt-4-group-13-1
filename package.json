@@ -6,7 +6,6 @@
     "ng": "ng",
     "hotstart": "ng serve -o",
     "start": "node server.js",
-    "postinstall": "ng build --target=production -e ${NODE_ENV:-production} --aot",
     "test": "ng test",
     "mocha": "mocha --recursive **/test/runner.js",
     "lint": "ng lint",
