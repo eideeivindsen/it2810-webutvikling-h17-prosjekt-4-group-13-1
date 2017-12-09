@@ -5,7 +5,7 @@
   "scripts": {
     "ng": "ng",
     "hotstart": "ng serve -o",
-    "start": "ng build & node server.js",
+    "start": "node server.js",
     "postinstall": "ng build --aot -prod",
     "test": "ng test",
     "mocha": "mocha --recursive **/test/runner.js",
