@@ -5,7 +5,8 @@
   "scripts": {
     "ng": "ng",
     "hotstart": "ng serve -o",
-    "start": "ng build & nodemon server.js & ng serve --watch server --proxy-config proxy.config.json",
+    "start": "ng build & node server.js",
+    "postinstall": "ng build --aot -prod",
     "test": "ng test",
     "mocha": "mocha --recursive **/test/runner.js",
     "lint": "ng lint",
